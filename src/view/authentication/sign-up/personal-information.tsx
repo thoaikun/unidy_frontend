@@ -21,21 +21,14 @@ const PersonalInformation = ({ setStep }: Props) => {
   const router = useRouter()
 
   return (
-    <Grid
-      container
-      spacing={4}
-      maxWidth={567}
-    >
-      <Grid item xs={12}>
-        <Typography
-          variant='h4'
-          fontWeight='bold'
-        >Thông tin cá nhân</Typography>
-        <Typography
-          variant='h6'
-          color={theme.palette.text.secondary}
-          my={1}
-        >Hãy cho chúng tôi hiểu hơn về bạn</Typography>
+    <Grid container spacing={2} maxWidth={567}>
+      <Grid item xs={12} mb={2}>
+        <Typography variant='h4' fontWeight='bold'>
+          Thông tin cá nhân
+        </Typography>
+        <Typography color={theme.palette.text.secondary} my={1}>
+          Hãy cho chúng tôi hiểu hơn về bạn
+        </Typography>
       </Grid>
       <Grid item xs={12}>
         <TextField
@@ -109,17 +102,17 @@ const PersonalInformation = ({ setStep }: Props) => {
         xs={12}
         justifyContent='flex-end'
       >
-        <Button
-          variant='outlined'
-          sx={{ mr: 2 }}
-          onClick={() => setStep(2)}
-        >QUAY LẠI</Button>
+        <Button variant='outlined' sx={{ mr: 2 }} onClick={() => setStep(2)}>
+          QUAY LẠI
+        </Button>
         <Button
           variant='contained'
           sx={{ px: 6, py: 1 }}
           disableElevation
           onClick={() => router.replace('/')}
-        >TIẾP TỤC</Button>
+        >
+          TIẾP TỤC
+        </Button>
       </Grid>
     </Grid>
   )

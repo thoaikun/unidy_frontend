@@ -14,12 +14,14 @@ const Introduction = () => {
             Tham gia cùng chúng tôi
           </Typography>
           {['Start where you are', 'Use what you have', 'Do what you can'].map((item) =>
-            <Typography color='white' fontWeight='lighter' key={item}>{item}</Typography>
+            <Typography color='white' fontWeight='lighter' key={item}>
+              {item}
+            </Typography>
           )}
         </Box>
       </Grid>
       <Grid container item justifyContent='flex-end' alignItems='center'>
-        <Image src='/images/ballon.svg' alt='ballon' height={300} width={265} />
+        <Image src='/images/ballon.svg' alt='ballon' height={300} width={265} priority/>
       </Grid>
     </Grid>
   )

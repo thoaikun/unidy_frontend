@@ -61,7 +61,7 @@ const AccountType = ({ setStep }: Props) => {
 
   return (
     <Box maxWidth={567}>
-      <Typography fontSize='2rem'>
+      <Typography variant='h4' fontWeight='bold'>
         Bạn là ...
       </Typography>
       <Typography color={theme.palette.text.secondary} my={1}>
@@ -73,7 +73,14 @@ const AccountType = ({ setStep }: Props) => {
           <Grid item width={1} key={item.key}>
             <Button
               fullWidth
-              startIcon={<Image src={item.key !== selectedType ? item.image : item.selectedImage} alt={item.alt} width={45} height={45} />}
+              startIcon={
+                <Image
+                  src={item.key !== selectedType ? item.image : item.selectedImage}
+                  alt={item.alt}
+                  width={45}
+                  height={45}
+                />
+              }
               sx={{
                 backgroundColor: item.key !== selectedType ? 'white' : theme.palette.primary[100],
                 p: 4,

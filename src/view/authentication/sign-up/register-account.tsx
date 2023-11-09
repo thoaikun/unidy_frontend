@@ -10,22 +10,14 @@ const RegisterAccount = ({ setStep }: Props) => {
   const theme = useTheme()
 
   return (
-    <Grid
-      container
-      spacing={4}
-      maxWidth={567}
-      flexDirection='column'
-    >
-      <Grid item>
-        <Typography fontSize='2rem'>
+    <Grid container spacing={2} maxWidth={567} flexDirection='column'>
+      <Grid item mb={2}>
+        <Typography variant='h4' fontWeight='bold'>
           Đăng ký tài khoản
         </Typography>
-        <Typography
-          variant='h6'
-          color={theme.palette.text.secondary}
-          my={1}
-        >Nhập email và mật khẩu cho tài khoản của
-          bạn </Typography>
+        <Typography color={theme.palette.text.secondary} my={1}>
+          Nhập email và mật khẩu cho tài khoản của bạn
+        </Typography>
       </Grid>
       <Grid item>
         <TextField
@@ -45,35 +37,21 @@ const RegisterAccount = ({ setStep }: Props) => {
           label='Mật khẩu'
         />
       </Grid>
-      <Grid
-        container
-        item
-        justifyContent='flex-end'
-      >
+      <Grid container item justifyContent='flex-end'>
         <Typography>
           Đã có tài khoản?&nbsp;
-          <Link
-            href='/log-in'
-            style={{ color: theme.palette.primary.main }}
-          >Đăng nhập ngay</Link>
+          <Link href='/log-in' style={{ color: theme.palette.primary.main }}>
+            Đăng nhập ngay
+          </Link>
         </Typography>
       </Grid>
-      <Grid
-        container
-        item
-        justifyContent='flex-end'
-      >
-        <Button
-          variant='outlined'
-          sx={{ mr: 2 }}
-          onClick={() => setStep(1)}
-        >QUAY LẠI</Button>
-        <Button
-          variant='contained'
-          sx={{ px: 6, py: 1 }}
-          disableElevation
-          onClick={() => setStep(3)}
-        >TIẾP TỤC</Button>
+      <Grid container item justifyContent='flex-end'>
+        <Button variant='outlined' sx={{ mr: 2 }} onClick={() => setStep(1)}>
+          QUAY LẠI
+        </Button>
+        <Button variant='contained' sx={{ px: 6, py: 1 }} disableElevation onClick={() => setStep(3)}>
+          TIẾP TỤC
+        </Button>
       </Grid>
     </Grid>
   )
