@@ -1,0 +1,16 @@
+<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="SVGRepo_iconCarrier">
+<g id="Clip path group">
+<mask id="mask0_82_1088" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="30" height="30">
+<g id="clip0_429_11233">
+<path id="Vector" d="M30 0H0V30H30V0Z" fill="white"/>
+</g>
+</mask>
+<g mask="url(#mask0_82_1088)">
+<g id="Group">
+<path id="Vector_2" d="M15 26.25C21.2133 26.25 26.25 21.2133 26.25 15C26.25 8.7868 21.2133 3.75 15 3.75C8.7868 3.75 3.75 8.7868 3.75 15C3.75 16.8595 4.20116 18.6137 5 20.159L3.75 26.25L9.841 25C11.3863 25.7989 13.1405 26.25 15 26.25Z" stroke="#51585E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</g>
+</svg>

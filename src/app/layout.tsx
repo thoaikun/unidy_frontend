@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Readex_Pro } from 'next/font/google'
 import './globals.css'
-import CustomThemeProvider from "@/component/theme"
+import CustomThemeProvider from '@/component/theme'
 
 const readexPro = Readex_Pro({ subsets: ['latin'] })
 
@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={readexPro.className} style={{ height: "100vh" }}>
+      <body className={readexPro.className}>
         <CustomThemeProvider options={{ key: 'mui' }}>
           {children}
         </CustomThemeProvider>
