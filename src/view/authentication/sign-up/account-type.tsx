@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Dispatch, SetStateAction, useCallback, useState } from 'react';
-import { Box, Button, Grid, Typography, useTheme } from '@mui/material';
+import Image from 'next/image'
+import Link from 'next/link'
+import { Dispatch, SetStateAction, useCallback, useState } from 'react'
+import { Box, Button, Grid, Typography, useTheme } from '@mui/material'
 
 interface Props {
   setStep: Dispatch<SetStateAction<number>>
@@ -61,15 +61,16 @@ const AccountType = ({ setStep }: Props) => {
 
   return (
     <Box maxWidth={567}>
-      <Typography variant='h4' fontWeight='bold'>
+      <Typography variant='h3' fontWeight='bold'>
         Bạn là ...
       </Typography>
-      <Typography color={theme.palette.text.secondary} my={1}>
+
+      <Typography variant='h4' color={theme.palette.text.secondary} mt={1}>
         Chọn loại tài khoản mà bạn muốn đăng ký
       </Typography>
 
       <Grid container spacing={2} mt={4}>
-        {ButtonDetails.map((item) =>
+        {ButtonDetails.map(item =>
           <Grid item width={1} key={item.key}>
             <Button
               fullWidth
@@ -82,7 +83,7 @@ const AccountType = ({ setStep }: Props) => {
                 />
               }
               sx={{
-                backgroundColor: item.key !== selectedType ? 'white' : theme.palette.primary[100],
+                backgroundColor: item.key !== selectedType ? '#ffffff' : theme.palette.primary[100],
                 p: 4,
                 py: 3,
                 borderRadius: 2,
@@ -91,9 +92,10 @@ const AccountType = ({ setStep }: Props) => {
               onClick={handleSelectType(item.key)}
             >
               <Grid container flexDirection='column' alignItems='flex-start' color='black' ml={2}>
-                <Typography textTransform='none'>
+                <Typography variant='h6' textTransform='none'>
                   {item.title}
                 </Typography>
+
                 <Typography variant='caption' color={theme.palette.text.secondary} textTransform='none'>
                   {item.subtitle}
                 </Typography>
@@ -102,16 +104,22 @@ const AccountType = ({ setStep }: Props) => {
           </Grid>
         )}
 
-        <Grid container item justifyContent='flex-end'>
-          <Typography>
+        <Grid item container justifyContent='flex-end'>
+          <Typography variant='h6' fontWeight={400}>
             Đã có tài khoản?&nbsp;
-            <Link href={'/log-in'} style={{ color: theme.palette.primary.main }}>Đăng nhập ngay</Link>
+            <Link href='/log-in' style={{ color: theme.palette.primary.main, fontWeight: 500 }}>
+              Đăng nhập ngay
+            </Link>
           </Typography>
         </Grid>
 
-        <Grid container item justifyContent='flex-end'>
-          <Button variant='contained' sx={{ px: 6, py: 1 }} disableElevation onClick={handleSubmit}>
-            <Typography variant='body2' fontWeight='bold'>ĐI THÔI</Typography>
+        <Grid item container justifyContent='flex-end' mt={2}>
+          <Button
+            variant='contained'
+            sx={{ width: 180, height: 50 }}
+            disableElevation
+            onClick={handleSubmit}>
+            <Typography fontWeight={700} color='#ffffff'>ĐI THÔI</Typography>
           </Button>
         </Grid>
       </Grid>

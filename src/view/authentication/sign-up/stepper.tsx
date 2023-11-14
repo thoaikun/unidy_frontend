@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import { Grid, Typography, useTheme } from '@mui/material';
+import Image from 'next/image'
+import { Grid, Typography, useTheme } from '@mui/material'
 
 interface Props {
   step: number
@@ -24,15 +24,16 @@ const CustomStepper = ({ step }: Props) => {
               height={30}
             >
               <Typography
-                variant='subtitle2'
+                variant='h5'
                 color={Math.floor(step) === index + 1 ? theme.palette.primary.main : 'default'}
-                fontWeight='bold'
+                fontWeight={500}
               >
                 {index + 1}
               </Typography>
             </Grid>}
+
           <Typography
-            fontWeight='bold'
+            variant='h5'
             color={Math.floor(step) > index + 1 ? 'secondary' : Math.floor(step) === index + 1 ? 'primary' : 'default'}
             ml={2}
           >
@@ -40,6 +41,7 @@ const CustomStepper = ({ step }: Props) => {
           </Typography>
         </Grid>
       ))}
+
       <Image
         src='/images/polygon-2.svg'
         alt='polygon'
@@ -47,6 +49,7 @@ const CustomStepper = ({ step }: Props) => {
         width={480}
         style={{ position: 'absolute', bottom: 0, left: 0 }}
       />
+
       <Image
         src='/images/polygon-1.svg'
         alt='polygon'

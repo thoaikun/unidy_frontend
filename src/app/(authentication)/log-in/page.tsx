@@ -1,30 +1,27 @@
+'use client'
+
 import Link from 'next/link'
-import { Dispatch, SetStateAction, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import { Button, Grid, TextField, Typography, useTheme } from '@mui/material'
 
-interface Props {
-  setStep: Dispatch<SetStateAction<number>>
-}
-
-const InformationForm = ({ setStep }: Props) => {
+const LogInPage = () => {
   const theme = useTheme()
+  const router = useRouter()
 
-  const handleSubmit = useCallback(() => {
-    setStep(1)
-  }, [setStep])
+  const handleSubmit = () => {
+    router.replace('/home')
+  }
 
   return (
     <Grid container spacing={3} maxWidth={567} flexDirection='column'>
       <Grid item mb={2}>
-        <Typography variant='h3' fontWeight='bold'>
-          Quên mật khẩu
+        <Typography variant='h3'>
+          Đăng nhập
         </Typography>
-
         <Typography variant='h4' color={theme.palette.text.secondary} mt={1}>
-          Nhập email đã đăng ký với tài khoản của bạn
+          Nhập email và mật khẩu cho tài khoản của bạn
         </Typography>
       </Grid>
-
       <Grid item>
         <TextField
           fullWidth
@@ -32,42 +29,46 @@ const InformationForm = ({ setStep }: Props) => {
           type='email'
           placeholder='Nhập email của bạn'
           label='Email'
-          InputProps={{ sx: { backgroundColor: '#ffffff' }, endAdornment: <Button sx={{ width: 100 }}>Lấy OTP</Button> }}
-          InputLabelProps={{ sx: { fontSize: '1rem' } }}
-          inputProps={{ style: { fontSize: '1rem' } }}
-        />
-      </Grid>
-
-      <Grid item>
-        <TextField
-          fullWidth
-          size='medium'
-          placeholder='Nhập OTP'
-          label='Mã OTP'
           InputProps={{ sx: { backgroundColor: '#ffffff' } }}
           InputLabelProps={{ sx: { fontSize: '1rem' } }}
           inputProps={{ style: { fontSize: '1rem' } }}
         />
       </Grid>
-
-      <Grid item container justifyContent='flex-end' alignItems='center' mt={2}>
-        <Link href='/log-in'>
-          <Button variant='outlined' sx={{ width: 120, height: 50, mr: 2 }}>
-            <Typography fontWeight={700} color='primary'>QUAY LẠI</Typography>
-          </Button>
+      <Grid item>
+        <TextField
+          fullWidth
+          size='medium'
+          type='password'
+          placeholder='Nhập mật khẩu của bạn'
+          label='Mật khẩu'
+          InputProps={{ sx: { backgroundColor: '#ffffff' } }}
+          InputLabelProps={{ sx: { fontSize: '1rem' } }}
+          inputProps={{ style: { fontSize: '1rem' } }}
+        />
+      </Grid>
+      <Grid item container justifyContent='space-between'>
+        <Link href='/forgot-password'>
+          <Typography variant='h6' color={theme.palette.primary.main}>Quên mật khẩu?</Typography>
         </Link>
-
+        <Typography variant='h6' fontWeight={400}>
+          Chưa có tài khoản?&nbsp;
+          <Link href='/sign-up' style={{ color: theme.palette.primary.main, fontWeight: 500 }}>
+            Đăng ký ngay
+          </Link>
+        </Typography>
+      </Grid>
+      <Grid item container justifyContent='flex-end' mt={2}>
         <Button
           variant='contained'
           sx={{ width: 180, height: 50 }}
           disableElevation
           onClick={handleSubmit}
         >
-          <Typography fontWeight={700} color='#ffffff'>XÁC NHẬN</Typography>
+          <Typography fontWeight={700} color='#ffffff'>Đăng nhập</Typography>
         </Button>
       </Grid>
     </Grid>
   )
 }
 
-export default InformationForm
+export default LogInPage

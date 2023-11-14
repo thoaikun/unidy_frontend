@@ -1,13 +1,13 @@
 'use client'
 
-import Image from 'next/image';
-import { useState } from 'react';
-import { useTheme, Grid } from '@mui/material';
-import Introduction from '@/view/authentication/introduction';
-import AccountType from '@/view/authentication/sign-up/account-type';
-import CustomStepper from '@/view/authentication/sign-up/stepper';
-import RegisterAccount from '@/view/authentication/sign-up/register-account';
-import PersonalInformation from '@/view/authentication/sign-up/personal-information';
+import Image from 'next/image'
+import { useState } from 'react'
+import { useTheme, Grid } from '@mui/material'
+import Introduction from '@/component/introduction'
+import AccountType from '@/view/authentication/sign-up/account-type'
+import CustomStepper from '@/view/authentication/sign-up/stepper'
+import RegisterAccount from '@/view/authentication/sign-up/register-account'
+import PersonalInformation from '@/view/authentication/sign-up/personal-information'
 
 const SignUpPage = () => {
   const theme = useTheme()
@@ -18,10 +18,11 @@ const SignUpPage = () => {
       <Grid item width={500}>
         {step === 1 ? <Introduction /> : <CustomStepper step={step} />}
       </Grid>
+
       <Grid
-        container
         item
         xs
+        container
         sx={{ backgroundColor: theme.palette.primary[50] }}
         justifyContent='center'
         alignItems='center'
