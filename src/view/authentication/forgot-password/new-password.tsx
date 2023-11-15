@@ -14,7 +14,7 @@ const NewPasswordForm = () => {
   return (
     <Grid container spacing={3} maxWidth={567} flexDirection='column'>
       <Grid item mb={2}>
-        <Typography variant='h3' fontWeight='bold'>
+        <Typography variant='h2' fontWeight='bold'>
           Mật khẩu mới
         </Typography>
 

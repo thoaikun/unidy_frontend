@@ -31,7 +31,7 @@ const PersonalInformation = ({ setStep }: Props) => {
   return (
     <Grid container spacing={3} maxWidth={567}>
       <Grid item xs={12} mb={2}>
-        <Typography variant='h3' fontWeight='bold'>
+        <Typography variant='h2' fontWeight='bold'>
           Thông tin cá nhân
         </Typography>
 

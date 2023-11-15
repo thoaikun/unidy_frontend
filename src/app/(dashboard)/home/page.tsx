@@ -3,7 +3,6 @@ import Post from '@/component/post'
 import FriendList from '@/component/friend-list'
 import { PostType } from '@/type/post'
 
-
 const data: PostType[] = [
   {
     content: 'Làm là phải làm hết mình, làm tới chết, oke chưa',

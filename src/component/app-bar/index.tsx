@@ -18,7 +18,11 @@ import {
   CardHeader,
   CardActions,
   CardContent,
+  Menu,
+  MenuItem,
+  useTheme,
 } from '@mui/material'
+import { useRouter } from 'next/navigation'
 
 const notificationData = [
   {
@@ -60,8 +64,14 @@ const notificationData = [
 ]
 
 const CustomAppBar = () => {
+  const router = useRouter()
+  const theme = useTheme()
+
   const [notificationAnchorEl, setNotificationAnchorEl] = useState<null | HTMLElement>(null)
   const openNotification = Boolean(notificationAnchorEl)
+
+  const [moreAnchorEl, setMoreAnchorEl] = useState<null | HTMLElement>(null)
+  const openMore = Boolean(moreAnchorEl)
 
   const handleClickNotification = useCallback((event: MouseEvent<HTMLButtonElement>) => {
     setNotificationAnchorEl(event.currentTarget)
@@ -70,6 +80,23 @@ const CustomAppBar = () => {
   const handleCloseNotification = useCallback(() => {
     setNotificationAnchorEl(null)
   }, [])
+
+  const handleClickMore = useCallback((event: MouseEvent<HTMLButtonElement>) => {
+    setMoreAnchorEl(event.currentTarget)
+  }, [])
+
+  const handleCloseMore = useCallback(() => {
+    setMoreAnchorEl(null)
+  }, [])
+
+  const handleOpenProfile = useCallback(() => {
+    router.push('/profile')
+  }, [router])
+
+  const handleLogOut = useCallback(() => {
+    localStorage.clear()
+    router.push('/log-in')
+  }, [router])
 
   return (
     <AppBar color='inherit' position='sticky'>
@@ -177,10 +204,32 @@ const CustomAppBar = () => {
           </Grid>
 
           <Grid container item xs='auto'>
-            <Avatar src='https://scontent.fsgn15-1.fna.fbcdn.net/v/t39.30808-6/286182314_3223268577951705_5110958408595831979_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=FRuC7JY9vXEAX-Es7yY&_nc_ht=scontent.fsgn15-1.fna&oh=00_AfBCFwnmNnmq9z-VDLsavSrRLRJ_mG0lLLxi_FmydX96DQ&oe=6557E4BA' />
-            <IconButton>
+            <IconButton onClick={handleOpenProfile}>
+              <Avatar src='https://scontent.fsgn15-1.fna.fbcdn.net/v/t39.30808-6/286182314_3223268577951705_5110958408595831979_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=FRuC7JY9vXEAX-Es7yY&_nc_ht=scontent.fsgn15-1.fna&oh=00_AfBCFwnmNnmq9z-VDLsavSrRLRJ_mG0lLLxi_FmydX96DQ&oe=6557E4BA' />
+            </IconButton>
+
+            <IconButton onClick={handleClickMore}>
               <Image src='/icons/more-vertical.svg' alt='setting' width={20} height={20} />
             </IconButton>
+            <Menu
+              anchorEl={moreAnchorEl}
+              open={openMore}
+              onClose={handleCloseMore}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              sx={{ mt: 4 }}
+              MenuListProps={{ sx: { width: 190 } }}
+            >
+              <MenuItem onClick={handleLogOut}>
+                <Typography color={theme.palette.error[300]}>Đăng xuất</Typography>
+              </MenuItem>
+            </Menu>
           </Grid>
         </Grid>
       </Toolbar>

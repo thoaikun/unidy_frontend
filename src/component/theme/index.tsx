@@ -106,9 +106,13 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: readexPro.style.fontFamily,
-    h3: {
+    h2: {
       fontSize: '2.375rem',
       fontWeight: 700,
+    },
+    h3: {
+      fontSize: '2rem',
+      fontWeight: 500,
     },
     h4: {
       fontSize: '1.25rem',
