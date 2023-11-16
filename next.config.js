@@ -8,6 +8,9 @@ const nextConfig = {
             {
                 hostname: 'cdn-jimnf.nitrocdn.com',
             },
+            {
+                hostname: 'www.news.cn',
+            },
         ],
     },
 }
