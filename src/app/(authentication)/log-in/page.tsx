@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ChangeEvent, useCallback, useState } from 'react'
-import { Button, Grid, TextField, Typography, useTheme } from '@mui/material'
+import { Box, Button, Grid, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
 
 const LogInPage = () => {
   const theme = useTheme()
@@ -65,10 +65,12 @@ const LogInPage = () => {
         />
       </Grid>
 
-      <Grid item container justifyContent='space-between'>
-        <Link href='/forgot-password'>
-          <Typography variant='h6' color={theme.palette.primary.main}>Quên mật khẩu?</Typography>
-        </Link>
+      <Grid item container justifyContent={{ xs: 'flex-end', lg: 'space-between' }}>
+        <Box display={{ xs: 'none', lg: 'block' }}>
+          <Link href='/forgot-password'>
+            <Typography variant='h6' color={theme.palette.primary.main}>Quên mật khẩu?</Typography>
+          </Link>
+        </Box>
 
         <Typography variant='h6' fontWeight={400}>
           Chưa có tài khoản?&nbsp;
@@ -81,12 +83,18 @@ const LogInPage = () => {
       <Grid item container justifyContent='flex-end' mt={2}>
         <Button
           variant='contained'
-          sx={{ width: 180, height: 50 }}
+          sx={{ width: { xs: 1, lg: 180 }, height: 50 }}
           disableElevation
           onClick={handleSubmit}
         >
           <Typography fontWeight={700} color='#ffffff'>Đăng nhập</Typography>
         </Button>
+      </Grid>
+
+      <Grid item container display={{ xs: 'flex', lg: 'none' }} justifyContent='center'>
+        <Link href='/forgot-password'>
+          <Typography variant='h6' color={theme.palette.primary.main}>Quên mật khẩu?</Typography>
+        </Link>
       </Grid>
     </Grid>
   )

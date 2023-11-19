@@ -25,6 +25,10 @@ declare module '@mui/material/styles' {
   }
 }
 
+const breakpoints = {
+  lg: 1200
+}
+
 const theme = createTheme({
   palette: {
     background: {
@@ -109,6 +113,9 @@ const theme = createTheme({
     h2: {
       fontSize: '2.375rem',
       fontWeight: 700,
+      [`@media (max-width:${breakpoints.lg}px)`]: {
+        fontSize: '1.5rem',
+      },
     },
     h3: {
       fontSize: '2rem',
@@ -116,6 +123,9 @@ const theme = createTheme({
     },
     h4: {
       fontSize: '1.25rem',
+      [`@media (max-width:${breakpoints.lg}px)`]: {
+        fontSize: '1rem',
+      },
     },
     h5: {
       fontSize: '1.125rem',
@@ -124,6 +134,9 @@ const theme = createTheme({
     h6: {
       fontSize: '1rem',
       fontWeight: 500,
+      [`@media (max-width:${breakpoints.lg}px)`]: {
+        fontSize: '0.875rem',
+      },
     },
     body1: {
       fontSize: '0.875rem',

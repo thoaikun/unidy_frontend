@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { Dispatch, SetStateAction, useCallback } from 'react'
 import {
   Button, FormControl,
@@ -18,20 +17,19 @@ interface Props {
 
 const PersonalInformation = ({ setStep }: Props) => {
   const theme = useTheme()
-  const router = useRouter()
 
   const handleGoBack = useCallback(() => {
     setStep(2)
   }, [setStep])
 
   const handleSubmit = useCallback(() => {
-    router.replace('/home')
-  }, [router])
+    setStep(4)
+  }, [setStep])
 
   return (
     <Grid container spacing={3} maxWidth={567}>
       <Grid item xs={12} mb={2}>
-        <Typography variant='h2' fontWeight='bold'>
+        <Typography variant='h2' fontWeight={600}>
           Thông tin cá nhân
         </Typography>
 

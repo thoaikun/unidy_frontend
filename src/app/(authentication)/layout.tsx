@@ -14,7 +14,7 @@ const AuthenticationLayout = ({ children }: Props) => {
 
   return (
     <Grid container height={1}>
-      <Grid item width={500}>
+      <Grid item width={500} display={{ xs: 'none', lg: 'block' }}>
         <Introduction />
       </Grid>
 
@@ -26,6 +26,7 @@ const AuthenticationLayout = ({ children }: Props) => {
         justifyContent='center'
         alignItems='center'
         flexDirection='column'
+        p={4}
       >
         <Image src='images/logo-big.svg' alt='logo' width={200} height={60} style={{ marginBottom: 80 }} />
         {children}
