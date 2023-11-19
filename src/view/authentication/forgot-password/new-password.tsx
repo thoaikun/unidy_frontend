@@ -14,7 +14,7 @@ const NewPasswordForm = () => {
   return (
     <Grid container spacing={3} maxWidth={567} flexDirection='column'>
       <Grid item mb={2}>
-        <Typography variant='h2' fontWeight='bold'>
+        <Typography variant='h2' fontWeight={600}>
           Mật khẩu mới
         </Typography>
 
@@ -30,6 +30,7 @@ const NewPasswordForm = () => {
           type='password'
           placeholder='Nhập mật khẩu mới'
           label='Mật khẩu mới'
+          InputProps={{ sx: { backgroundColor: '#ffffff' } }}
           InputLabelProps={{ sx: { fontSize: '1rem' } }}
           inputProps={{ style: { fontSize: '1rem' } }}
         />
@@ -42,6 +43,7 @@ const NewPasswordForm = () => {
           type='password'
           placeholder='Nhập lại mật khẩu mới'
           label='Xác nhận mật khẩu mới'
+          InputProps={{ sx: { backgroundColor: '#ffffff' } }}
           InputLabelProps={{ sx: { fontSize: '1rem' } }}
           inputProps={{ style: { fontSize: '1rem' } }}
         />

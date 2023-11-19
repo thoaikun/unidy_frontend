@@ -61,7 +61,7 @@ const AccountType = ({ setStep }: Props) => {
 
   return (
     <Box maxWidth={567}>
-      <Typography variant='h2' fontWeight='bold'>
+      <Typography variant='h2' fontWeight={600}>
         Bạn là ...
       </Typography>
 
