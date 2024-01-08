@@ -23,40 +23,41 @@ import {
   useTheme,
 } from '@mui/material'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 const notificationData = [
   {
-    media: 'https://getinthepicture.org/sites/default/files/images/partner/logos/unicef.png',
+    media: '/examples/unicef.png',
     content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
     status: 1,
     createdAt: new Date(),
   },
   {
-    media: 'https://getinthepicture.org/sites/default/files/images/partner/logos/unicef.png',
+    media: '/examples/unicef.png',
     content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
     status: 0,
     createdAt: new Date(),
   },
   {
-    media: 'https://getinthepicture.org/sites/default/files/images/partner/logos/unicef.png',
+    media: '/examples/unicef.png',
     content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
     status: 0,
     createdAt: new Date(),
   },
   {
-    media: 'https://getinthepicture.org/sites/default/files/images/partner/logos/unicef.png',
+    media: '/examples/unicef.png',
     content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
     status: 0,
     createdAt: new Date(),
   },
   {
-    media: 'https://getinthepicture.org/sites/default/files/images/partner/logos/unicef.png',
+    media: '/examples/unicef.png',
     content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
     status: 0,
     createdAt: new Date(),
   },
   {
-    media: 'https://getinthepicture.org/sites/default/files/images/partner/logos/unicef.png',
+    media: '/examples/unicef.png',
     content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
     status: 0,
     createdAt: new Date(),
@@ -99,11 +100,13 @@ const CustomAppBar = () => {
   }, [router])
 
   return (
-    <AppBar color='inherit' position='sticky'>
-      <Toolbar sx={{ height: 84 }}>
-        <Grid container spacing={2} px={4} height={1} alignItems='center'>
+    <AppBar color='inherit' position='sticky' sx={{ boxShadow: 'none' }}>
+      <Toolbar sx={{ height: 60 }}>
+        <Grid container spacing={1} px={4} height={1} alignItems='center'>
           <Grid item width={150}>
-            <Image src='/images/logo-big.svg' alt='logo' width={100} height={30} />
+            <Link href='/home'>
+              <Image src='/images/logo-big.svg' alt='logo' width={80} height={25} />
+            </Link>
           </Grid>
 
           <Grid item xs>
@@ -115,7 +118,7 @@ const CustomAppBar = () => {
 
           <Grid item xs='auto'>
             <Button variant='contained' sx={{ px: 2, py: 1 }}>
-              <Typography variant='h6'>Tạo kỉ niệm mới</Typography>
+              <Typography color={theme.palette.text.contrast} fontWeight={500}>Tạo kỉ niệm mới</Typography>
             </Button>
           </Grid>
 
@@ -144,7 +147,7 @@ const CustomAppBar = () => {
               }}
               slotProps={{ paper: { sx: { backgroundColor: 'transparent', boxShadow: 'none' } } }}
             >
-              <Grid container justifyContent='flex-end' my={3} pr={1}>
+              <Grid container justifyContent='flex-end' pr={1}>
                 <Image src='/icons/popover.svg' alt='popover' width={25} height={17} />
               </Grid>
 
@@ -166,9 +169,9 @@ const CustomAppBar = () => {
 
                 <CardContent>
                   <Grid container spacing={1} maxHeight={450} overflow='auto'>
-                    {notificationData.map(item => (
+                    {notificationData.map((item, index) => (
                       <>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} key={index}>
                           <Button startIcon={<Avatar src={item.media} />}>
                             <Grid container color='#000000'>
                               <Grid item>
@@ -180,7 +183,7 @@ const CustomAppBar = () => {
                             </Grid>
                           </Button>
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} key={-index}>
                           <Divider />
                         </Grid>
                       </>
@@ -205,7 +208,7 @@ const CustomAppBar = () => {
 
           <Grid container item xs='auto'>
             <IconButton onClick={handleOpenProfile}>
-              <Avatar src='https://scontent.fsgn15-1.fna.fbcdn.net/v/t39.30808-6/286182314_3223268577951705_5110958408595831979_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=FRuC7JY9vXEAX-Es7yY&_nc_ht=scontent.fsgn15-1.fna&oh=00_AfBCFwnmNnmq9z-VDLsavSrRLRJ_mG0lLLxi_FmydX96DQ&oe=6557E4BA' />
+              <Avatar src='/examples/avatar.jpg' sx={{ width: 40, height: 40 }} />
             </IconButton>
 
             <IconButton onClick={handleClickMore}>

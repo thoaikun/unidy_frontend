@@ -14,7 +14,7 @@ const joinedCardData: {
   color: 'success' | 'error' | 'info'
 }[] = [
     {
-      media: 'https://cdn-jimnf.nitrocdn.com/pjSWIGuBjqVANVUtnFQGdvayJJWOXTfR/assets/images/optimized/rev-ea5a786/vomo.org/wp-content/uploads/2023/07/voliunteer-planting.jpg',
+      media: '/examples/post-media-2.webp',
       status: 'ĐÃ HỦY',
       color: 'error',
     },
@@ -46,7 +46,7 @@ const data: PostType[] = [
     activity: 'Đang cảm thấy hứng thú',
     isEvent: false,
     created: {
-      avatar: 'https://scontent.fsgn15-1.fna.fbcdn.net/v/t39.30808-6/286182314_3223268577951705_5110958408595831979_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=FRuC7JY9vXEAX-Es7yY&_nc_ht=scontent.fsgn15-1.fna&oh=00_AfBCFwnmNnmq9z-VDLsavSrRLRJ_mG0lLLxi_FmydX96DQ&oe=6557E4BA',
+      avatar: '/examples/avatar.jpg',
       fullName: 'Thoại Lê Nè',
     },
     createdAt: new Date(),
@@ -61,7 +61,7 @@ const data: PostType[] = [
     activity: 'Đang cảm thấy hứng thú',
     isEvent: false,
     created: {
-      avatar: 'https://scontent.fsgn15-1.fna.fbcdn.net/v/t39.30808-6/286182314_3223268577951705_5110958408595831979_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=FRuC7JY9vXEAX-Es7yY&_nc_ht=scontent.fsgn15-1.fna&oh=00_AfBCFwnmNnmq9z-VDLsavSrRLRJ_mG0lLLxi_FmydX96DQ&oe=6557E4BA',
+      avatar: '/examples/avatar.jpg',
       fullName: 'Thoại Lê Nè',
     },
     createdAt: new Date(),
@@ -88,7 +88,7 @@ const ProfilePage = () => {
           <Avatar
             src={
               isOrganization ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzVmaJDQj1_VrsSh2ukmxIsiJq1_dR5703M6h5iJkGob9AjmKI' :
-                'https://scontent.fsgn15-1.fna.fbcdn.net/v/t39.30808-6/286182314_3223268577951705_5110958408595831979_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=FRuC7JY9vXEAX-Es7yY&_nc_ht=scontent.fsgn15-1.fna&oh=00_AfBCFwnmNnmq9z-VDLsavSrRLRJ_mG0lLLxi_FmydX96DQ&oe=6557E4BA'
+                '/examples/avatar.jpg'
             }
             sx={{ width: 156, height: 156, position: 'absolute', left: 78, bottom: 22, border: '1px solid #ffffff' }}
           />

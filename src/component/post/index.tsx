@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useCallback, useState } from 'react'
-import { Avatar, Box, Button, Card, CardActions, CardHeader, Grid, IconButton, Typography, useTheme } from '@mui/material'
+import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Grid, IconButton, Typography, useTheme } from '@mui/material'
 import { PostType } from '@/type/post'
 
 interface Props {
@@ -19,7 +19,7 @@ const Post = ({ data }: Props) => {
   }, [])
 
   return (
-    <Card sx={{ mt: 4, width: 700, borderRadius: 2, p: 2, boxShadow: 'none' }}>
+    <Card sx={{ mt: 4, width: 700, borderRadius: 2, py: 1, boxShadow: 'none' }}>
       <CardHeader
         avatar={<Avatar src={created?.avatar} />}
         title={
@@ -36,26 +36,28 @@ const Post = ({ data }: Props) => {
         subheader={<Typography color={theme.palette.text.secondary}>{activity}</Typography>}
       />
 
-      <Grid container spacing={1} px={2} pb={2}>
-        <Grid item xs={12}>
-          <Typography whiteSpace='pre-line'>{content}</Typography>
+      <CardContent sx={{ py: 0 }}>
+        <Grid container spacing={1} pb={2}>
+          <Grid item xs={12}>
+            <Typography whiteSpace='pre-line'>{content}</Typography>
+          </Grid>
+
+          <Grid item xs={12}>
+            {hashtag?.map((item, index) => (
+              <Typography fontWeight={500} color={theme.palette.text.disabled} key={index}>
+                #{item}
+              </Typography>
+            ))}
+          </Grid>
         </Grid>
 
-        <Grid item xs={12}>
-          {hashtag?.map((item, index) => (
-            <Typography fontWeight={500} color={theme.palette.text.disabled} key={index}>
-              #{item}
-            </Typography>
-          ))}
-        </Grid>
-      </Grid>
-
-      <Box position='relative' width='calc(100% - 32px)' mx={2} height={360} borderRadius={4}>
-        <Image src={media} alt='media' fill style={{ borderRadius: 8 }} />
-      </Box>
+        <Box position='relative' width={1} height={360} borderRadius={4}>
+          <Image src={media} alt='media' fill style={{ borderRadius: 8 }} />
+        </Box>
+      </CardContent>
 
       <CardActions>
-        <Grid container spacing={3}>
+        <Grid container spacing={2}>
           <Grid item xs='auto' container alignItems='center'>
             <IconButton onClick={handleaClickLove}>
               <Image src={`/icons/${loved ? '' : 'dis'}loved.svg`} alt='loved' width={23} height={20} />
@@ -70,10 +72,11 @@ const Post = ({ data }: Props) => {
             <Typography>{numberComments} bình luận</Typography>
           </Grid>
 
-          <Grid item xs='auto' container>
+          <Grid item xs='auto' container alignItems='center'>
             <IconButton>
               <Image src='/icons/share.svg' alt='loved' width={23} height={20} />
             </IconButton>
+            <Typography>Chia sẻ</Typography>
           </Grid>
         </Grid>
       </CardActions>
