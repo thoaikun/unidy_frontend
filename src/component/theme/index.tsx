@@ -133,7 +133,7 @@ const theme = createTheme({
       },
     },
     h5: {
-      fontSize: '1.125rem',
+      fontSize: '1.125rem', // 18px
       fontWeight: 600,
     },
     h6: {
