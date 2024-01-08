@@ -23,6 +23,10 @@ declare module '@mui/material/styles' {
     800: string;
     900: string;
   }
+
+  interface TypeText {
+    contrast: string;
+  }
 }
 
 const breakpoints = {
@@ -106,6 +110,7 @@ const theme = createTheme({
       primary: '#26292c',
       secondary: '#6c757d',
       disabled: '#d1d4d7',
+      contrast: '#ffffff',
     }
   },
   typography: {
