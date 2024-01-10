@@ -78,7 +78,7 @@ const ProfilePage = () => {
   return (
     <Grid container pt={5} spacing={4}>
       <Grid item xs={12}>
-        <Card sx={{ borderRadius: 3, position: 'relative', boxShadow: 'none' }}>
+        <Card sx={{ borderRadius: 3, position: 'relative' }}>
           <CardMedia
             component='img'
             sx={{ height: 320 }}

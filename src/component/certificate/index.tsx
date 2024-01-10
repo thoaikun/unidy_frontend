@@ -35,7 +35,7 @@ const Certificate = () => {
   const data = getData(theme)
 
   return (
-    <Card sx={{ width: 480, boxShadow: 'none', mb: 3, px: 2 }}>
+    <Card sx={{ width: 480, mb: 3, px: 2 }}>
       <CardContent>
         <Grid container spacing={3}>
           <Grid item>
