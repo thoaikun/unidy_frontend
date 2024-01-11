@@ -18,7 +18,7 @@ const JoinedCard = ({ data, size = 'medium' }: Props) => {
   const theme = useTheme()
 
   return (
-    <Card sx={{ width: size === 'medium' ? 400 : 360, boxShadow: 'none', borderRadius: 1, display: 'flex' }}>
+    <Card sx={{ width: size === 'medium' ? 400 : 360, borderRadius: 1, display: 'flex' }}>
       <CardMedia component='img' image={data.media} sx={{ width: 150 }} />
 
       <CardContent>
