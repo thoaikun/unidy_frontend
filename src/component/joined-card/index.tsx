@@ -4,23 +4,27 @@ import { Card, CardContent, CardMedia, Grid, Typography, useTheme } from '@mui/m
 
 interface Props {
   data: {
-    media: string
-    status: string
-    color: 'success' | 'error' | 'info'
-  }
+    media: string,
+    title: string,
+    status: number,
+    time: string,
+    numberVolunteers: number,
+    maxVolunteers: number,
+  },
+  size?: 'small' | 'medium'
 }
 
-const JoinedCard = ({ data }: Props) => {
+const JoinedCard = ({ data, size = 'medium' }: Props) => {
   const theme = useTheme()
 
   return (
-    <Card sx={{ width: 480, mt: 3, boxShadow: 'none', borderRadius: 1, display: 'flex' }}>
+    <Card sx={{ width: size === 'medium' ? 400 : 360, boxShadow: 'none', borderRadius: 1, display: 'flex' }}>
       <CardMedia component='img' image={data.media} sx={{ width: 150 }} />
 
       <CardContent>
         <Grid container alignItems='center'>
           <Grid item xs={12}>
-            <Typography fontWeight={500}>Trồng cây gây rừng</Typography>
+            <Typography fontWeight={500}>{data.title}</Typography>
           </Grid>
 
           <Grid
@@ -32,15 +36,17 @@ const JoinedCard = ({ data }: Props) => {
             my={1}
             borderRadius={1}
             height={18}
-            border={`1px solid ${theme.palette[data.color].main}`}
-            sx={{ backgroundColor: theme.palette[data.color][200], }}>
-            <Typography fontSize='0.5rem' color={theme.palette[data.color].main}>{data.status}</Typography>
+            border={`1px solid ${theme.palette[data.status < 0 ? 'error' : data.status > 0 ? 'success' : 'info'][data.status < 0 ? 300 : data.status > 0 ? 600 : 500]}`}
+            sx={{ backgroundColor: theme.palette[data.status < 0 ? 'error' : data.status > 0 ? 'success' : 'info'][data.status === 0 ? 200 : 100], }}>
+            <Typography fontSize='0.5rem' color={theme.palette[data.status < 0 ? 'error' : data.status > 0 ? 'success' : 'info'][data.status < 0 ? 300 : data.status > 0 ? 600 : 500]}>
+              {data.status < 0 ? 'ĐÃ HỦY' : data.status > 0 ? 'ĐÃ KẾT THÚC' : 'ĐANG ĐIỄN RA'}
+            </Typography>
           </Grid>
 
           <Grid item xs={12}>
             <Typography variant='caption' fontWeight={300}>
               Đăng ký lúc: <span style={{ color: theme.palette.text.primary, fontWeight: 400 }}>
-                1/23/2023 - 3.32AM
+                {data.time}
               </span>
             </Typography>
           </Grid>
@@ -48,7 +54,7 @@ const JoinedCard = ({ data }: Props) => {
           <Grid item xs={12}>
             <Typography variant='caption' fontWeight={300}>
               Tình nguyện viên <span style={{ color: theme.palette.text.primary, fontWeight: 400 }}>
-                100/120 người
+                {data.numberVolunteers}/{data.maxVolunteers} người
               </span>
             </Typography>
           </Grid>

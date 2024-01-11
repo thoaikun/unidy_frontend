@@ -10,7 +10,7 @@ const PersonalInformation = ({ isOrganization }: Props) => {
   const theme = useTheme()
 
   return (
-    <Card sx={{ width: 480, boxShadow: 'none', p: 1 }}>
+    <Card sx={{ width: 360, boxShadow: 'none', p: 1 }}>
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={12}>

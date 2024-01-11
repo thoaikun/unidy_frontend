@@ -8,32 +8,40 @@ import PersonalInformation from '@/component/personal-information'
 import JoinedCard from '@/component/joined-card'
 import { PostType } from '@/type/post'
 
-const joinedCardData: {
-  media: string
-  status: string
-  color: 'success' | 'error' | 'info'
-}[] = [
-    {
-      media: '/examples/post-media-2.webp',
-      status: 'ĐÃ HỦY',
-      color: 'error',
-    },
-    {
-      media: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ4caJI8kFtBIEREwR8fQwBFwFGjEgteKogh1wmbSb9a8lNHDRB',
-      status: 'ĐANG ĐIỄN RA',
-      color: 'info',
-    },
-    {
-      media: 'http://www.news.cn/english/2021-10/26/1310269188_16352106345691n.jpg',
-      status: 'ĐANG ĐIỄN RA',
-      color: 'info',
-    },
-    {
-      media: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQi7xiogVfM1i8bY5jFoSb_axWThVhT2BySGBt6uFZokDOlmFTz',
-      status: 'ĐÃ KẾT THÚC',
-      color: 'success',
-    },
-  ]
+const joinedCardData = [
+  {
+    media: '/examples/post-media-2.webp',
+    title: 'Trồng cây gây rừng',
+    status: -1,
+    time: '1/23/2023 - 3.32AM',
+    numberVolunteers: 100,
+    maxVolunteers: 120,
+  },
+  {
+    media: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ4caJI8kFtBIEREwR8fQwBFwFGjEgteKogh1wmbSb9a8lNHDRB',
+    title: 'Trồng cây gây rừng',
+    status: 0,
+    time: '1/23/2023 - 3.32AM',
+    numberVolunteers: 100,
+    maxVolunteers: 120,
+  },
+  {
+    media: 'http://www.news.cn/english/2021-10/26/1310269188_16352106345691n.jpg',
+    title: 'Trồng cây gây rừng',
+    status: 0,
+    time: '1/23/2023 - 3.32AM',
+    numberVolunteers: 100,
+    maxVolunteers: 120,
+  },
+  {
+    media: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQi7xiogVfM1i8bY5jFoSb_axWThVhT2BySGBt6uFZokDOlmFTz',
+    title: 'Trồng cây gây rừng',
+    status: 1,
+    time: '1/23/2023 - 3.32AM',
+    numberVolunteers: 100,
+    maxVolunteers: 120,
+  },
+]
 
 const data: PostType[] = [
   {
@@ -115,10 +123,14 @@ const ProfilePage = () => {
         <PersonalInformation isOrganization={isOrganization} />
         {isOrganization &&
           <>
-            <Typography variant='h4' mt={3}>Các chiến dịch gần dây</Typography>
-            {joinedCardData.map((item, index) => (
-              <JoinedCard data={item} key={index} />
-            ))}
+            <Typography variant='h4' my={3}>Các chiến dịch gần dây</Typography>
+            <Grid container width={400} spacing={2.5}>
+              {joinedCardData.map((item, index) => (
+                <Grid item key={index}>
+                  <JoinedCard data={item} size='small' />
+                </Grid>
+              ))}
+            </Grid>
           </>
         }
       </Grid>

@@ -49,7 +49,7 @@ const SideBar = () => {
       orientation='vertical'
       value={value}
       onChange={handleChange}
-      sx={{ height: 'calc(100% - 84px)', backgroundColor: '#ffffff', position: 'absolute' }}
+      sx={{ height: 'calc(100% - 64px)', backgroundColor: '#ffffff', position: 'absolute' }}
       TabIndicatorProps={{ sx: { left: 0 } }}
     >
       {data.map((item, index) => (
