@@ -148,7 +148,7 @@ const theme = createTheme({
       color: '#26292c',
     },
     body2: {
-      fontSize: '0.75rem',
+      fontSize: '0.75rem', // 12px
       color: '#d1d4d7',
     },
     caption: {
@@ -161,6 +161,13 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          boxShadow: 'none',
         },
       },
     },

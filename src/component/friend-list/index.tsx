@@ -39,7 +39,7 @@ const FriendList = () => {
   const data = getData(theme)
 
   return (
-    <Card sx={{ width: 480, mt: 4, boxShadow: 'none', px: 2, position: 'absolute' }}>
+    <Card sx={{ width: 480, mt: 4, px: 2, position: 'absolute' }}>
       <CardContent>
         <Grid container spacing={3}>
           <Grid item>
