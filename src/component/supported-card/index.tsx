@@ -1,6 +1,7 @@
 'use client'
 
 import { Card, CardContent, CardMedia, Grid, Typography, useTheme } from '@mui/material'
+import { useRouter } from 'next/navigation'
 
 interface Props {
   data: {
@@ -15,10 +16,11 @@ interface Props {
 
 const SupportedCard = ({ data }: Props) => {
   const theme = useTheme()
+  const router = useRouter()
 
   return (
-    <Card sx={{ width: 400, boxShadow: 'none', borderRadius: 1, display: 'flex' }}>
-      <CardMedia component='img' image={data.media} sx={{ width: 150 }} />
+    <Card sx={{ width: 400, boxShadow: 'none', borderRadius: 1, display: 'flex', cursor: 'pointer' }}>
+      <CardMedia component='img' image={data.media} sx={{ width: 150 }} onClick={() => router.push('/campaign/123')} />
 
       <CardContent>
         <Grid container alignItems='center'>

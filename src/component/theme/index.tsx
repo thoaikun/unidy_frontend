@@ -127,7 +127,7 @@ const theme = createTheme({
       fontWeight: 500,
     },
     h4: {
-      fontSize: '1.25rem',
+      fontSize: '1.25rem', // 20px
       [`@media (max-width:${breakpoints.lg}px)`]: {
         fontSize: '1rem',
       },
@@ -137,14 +137,14 @@ const theme = createTheme({
       fontWeight: 600,
     },
     h6: {
-      fontSize: '1rem',
+      fontSize: '1rem', // 16px
       fontWeight: 500,
       [`@media (max-width:${breakpoints.lg}px)`]: {
         fontSize: '0.875rem',
       },
     },
     body1: {
-      fontSize: '0.875rem',
+      fontSize: '0.875rem', // 14px
       color: '#26292c',
     },
     body2: {

@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Tab, Tabs } from '@mui/material'
 
 const data = [
@@ -35,6 +35,15 @@ const SideBar = () => {
   const router = useRouter()
   const pathname = usePathname()
   const [value, setValue] = useState<number>(tabIndex[pathname])
+
+  useEffect(() => {
+    if (pathname.includes('campaign')) {
+      setValue(2)
+    }
+    else if (pathname === '/profile') {
+      setValue(-1)
+    }
+  }, [pathname])
 
   const handleChange = useCallback((_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
