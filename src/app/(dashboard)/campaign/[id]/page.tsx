@@ -62,7 +62,7 @@ const CampaignDetail = ({ params }: { params: { id: string } }) => {
     <Grid container spacing={6.5} pt={4.375}>
       <Grid item container spacing={1.875} width={484} justifyContent='center'>
         <Grid item>
-          <Image src='/examples/campaign-detail-media.png' alt='media' width={484} height={300} />
+          <Image src='/examples/campaign-detail-media.jpeg' alt='media' width={484} height={300} />
         </Grid>
 
         <Grid item>
