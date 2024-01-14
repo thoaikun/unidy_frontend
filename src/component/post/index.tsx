@@ -19,7 +19,7 @@ const Post = ({ data }: Props) => {
   }, [])
 
   return (
-    <Card sx={{ mt: 4, width: 700, borderRadius: 2, py: 1 }}>
+    <Card sx={{ mt: 4, width: 1, borderRadius: 2, py: 1 }}>
       <CardHeader
         avatar={<Avatar src={created?.avatar} />}
         title={

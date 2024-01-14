@@ -9,25 +9,25 @@ const getData = (theme: Theme) => ({
   listFriend: [
     {
       fullName: 'Lê Trương Ngọc Trang',
-      avatar: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRlqicyHSn-Eoya7ZmC3E0TmkQwyBTvE-9EnTxoc7CmB6-UIKy5',
+      avatar: '/examples/friend-list-1.svg',
       trophy: 'Nhà tài phiệt',
       color: '#E17AB3',
     },
     {
       fullName: 'Nguyễn Tuyết Vy',
-      avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQErqDm8xrlikREfUwQuCk8ZP2cpEM-dEA9OlUs6EfSJAKCgKVw',
+      avatar: '/examples/friend-list-2.svg',
       trophy: 'Thần từ thiện',
       color: theme.palette.primary.main,
     },
     {
       fullName: 'Trương Huy Thái',
-      avatar: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSVJaOMaLOdJeQ2b5juq8oLd_WdTLuamNGz9g99E9Apgjy0GUY6',
+      avatar: '/examples/friend-list-3.svg',
       trophy: 'Binh nhì từ thiện',
       color: theme.palette.info.main,
     },
     {
       fullName: 'Trương Huy Thái',
-      avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD4Lc84SIuuwDdBVNM5biJiU4skcV3e4vyf1FK6-LLaHq-am4I',
+      avatar: '/examples/friend-list-4.svg',
       trophy: 'Chiến thân tình cảm',
       color: theme.palette.success[600],
     },
