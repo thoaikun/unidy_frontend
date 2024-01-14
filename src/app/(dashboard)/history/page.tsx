@@ -105,7 +105,7 @@ const HistoryPage = () => {
       }
       {joinedHistory &&
         <>
-          <Typography variant='h5' my={2.75}>Lịch sử ủng hộ</Typography>
+          <Typography variant='h5' my={2.75}>Lịch sử tham gia hoạt động</Typography>
           <Grid container spacing={3.75} width={860}>
             {joinedHistory.map((item, index) => (
               <Grid item key={index}>
