@@ -39,15 +39,17 @@ const data: PostType[] = [
 
 const HomePage = () => {
   return (
-    <Grid container spacing={10}>
-      <Grid item xs container>
-        {data.map((item, index) => (
-          <Post data={item} key={index} />
-        ))}
-      </Grid>
+    <Grid container justifyContent='center'>
+      <Grid container spacing={10} maxWidth={1840}>
+        <Grid item xs maxWidth={1200} container>
+          {data.map((item, index) => (
+            <Post data={item} key={index} />
+          ))}
+        </Grid>
 
-      <Grid item xs>
-        <FriendList />
+        <Grid item width={560}>
+          <FriendList />
+        </Grid>
       </Grid>
     </Grid>
   )
