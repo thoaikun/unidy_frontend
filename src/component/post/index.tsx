@@ -51,8 +51,8 @@ const Post = ({ data }: Props) => {
           </Grid>
         </Grid>
 
-        <Box position='relative' width={1} height={360} borderRadius={4}>
-          <Image src={media} alt='media' fill style={{ borderRadius: 8 }} />
+        <Box position='relative' width={1} height={{xl: 540, xs: 360}} borderRadius={4}>
+          <Image src={media} alt='media' fill style={{ borderRadius: 8, objectFit: 'cover' }} />
         </Box>
       </CardContent>
 

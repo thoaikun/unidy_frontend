@@ -64,8 +64,8 @@ const SideBar = () => {
       {data.map((item, index) => (
         <Tab
           key={index}
-          icon={<Image src={index === value ? item.selected : item.origin} alt='dashboard' width={25} height={25} />}
-          sx={{ my: 2, minWidth: 70 }}
+          icon={<Image src={index === value ? item.selected : item.origin} alt='dashboard' width={20} height={20} />}
+          sx={{ py: 3, minWidth: 70 }}
           onClick={handleNavigate(item.path)}
         />
       ))}

@@ -135,7 +135,7 @@ const CustomAppBar = () => {
             <Grid item xs='auto'>
               <IconButton onClick={handleClickNotification}>
                 <Badge color='error' overlap='circular' variant='dot'>
-                  <Image src={`/icons/notification${openNotification ? '-selected' : ''}.svg`} alt='notification' width={30} height={30} />
+                  <Image src={`/icons/notification${openNotification ? '-selected' : ''}.svg`} alt='notification' width={20} height={20} />
                 </Badge>
               </IconButton>
 
@@ -208,17 +208,17 @@ const CustomAppBar = () => {
 
             <Grid item xs='auto'>
               <IconButton>
-                <Image src='/icons/setting.svg' alt='setting' width={30} height={30} />
+                <Image src='/icons/setting.svg' alt='setting' width={20} height={20} />
               </IconButton>
             </Grid>
 
             <Grid container item xs='auto'>
               <IconButton onClick={handleOpenProfile}>
-                <Avatar src='/examples/avatar.jpg' sx={{ width: 40, height: 40 }} />
+                <Avatar src='/examples/avatar.jpg' sx={{ width: 30, height: 30 }} />
               </IconButton>
 
               <IconButton onClick={handleClickMore}>
-                <Image src='/icons/more-vertical.svg' alt='setting' width={20} height={20} />
+                <Image src='/icons/more-vertical.svg' alt='setting' width={15} height={15} />
               </IconButton>
               <Menu
                 anchorEl={moreAnchorEl}
