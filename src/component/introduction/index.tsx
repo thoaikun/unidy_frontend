@@ -23,8 +23,8 @@ const Introduction = () => {
           <Typography variant='h2' color='#ffffff' mb={1}>
             {title[pathname]}
           </Typography>
-          {['Start where you are', 'Use what you have', 'Do what you can'].map(item =>
-            <Typography variant='h5' color='#ffffff' fontWeight={300} key={item}>
+          {['Start where you are', 'Use what you have', 'Do what you can'].map((item, index) =>
+            <Typography variant='h5' color='#ffffff' fontWeight={300} key={index}>
               {item}
             </Typography>
           )}

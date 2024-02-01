@@ -16,7 +16,7 @@ const DashboardLayout = ({ children }: Props) => {
         <SideBar />
       </Grid>
 
-      <Grid item xs px={10}>
+      <Grid item xs px={8}>
         {children}
       </Grid>
     </Grid>

@@ -62,8 +62,8 @@ const SignUpPage = () => {
             connector={<QontoConnector theme={theme} />}
             sx={{ mt: 4, display: { xs: 'flex', lg: 'none' } }}
           >
-            {Array.from(Array(3).keys()).map((item) => (
-              <Step completed={item < Math.floor(step)} sx={{ mx: 2 }} key={item}>
+            {Array.from(Array(3).keys()).map((item, index) => (
+              <Step completed={item < Math.floor(step)} sx={{ mx: 2 }} key={index}>
                 <StepLabel
                   icon={
                     <Image

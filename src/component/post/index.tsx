@@ -1,31 +1,46 @@
 'use client'
 
 import Image from 'next/image'
-import { useCallback, useState } from 'react'
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Grid, IconButton, Typography, useTheme } from '@mui/material'
+import { useCallback } from 'react'
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Grid, IconButton, Typography, useTheme } from '@mui/material'
 import { PostType } from '@/type/post'
+import { useAppDispatch } from '@/lib/hook'
+import { openPostDetail } from '@/lib/features/modals/modalsSlice'
 
-interface Props {
-  data: PostType
-}
-
-const Post = ({ data }: Props) => {
+const Post = ({
+  postId,
+  content,
+  hashtag,
+  status,
+  createDate,
+  updateDate,
+  isBlock,
+  linkImage,
+  userNodes,
+  isLiked,
+  likeCount,
+  comments,
+  isEvent
+}: PostType) => {
   const theme = useTheme()
-  const [postData, setPostData] = useState<PostType>(data)
-  const { content, hashtag, media, loved, numberLoved, numberComments, activity, isEvent, created } = postData
+  const dispatch = useAppDispatch()
 
   const handleaClickLove = useCallback(() => {
-    setPostData(prevState => ({ ...prevState, loved: !prevState.loved }))
+    // setPostData(prevState => ({ ...prevState, loved: !prevState.loved }))
+  }, [])
+
+  const handleOpenPostDetail = useCallback(() => {
+    dispatch(openPostDetail('1'))
   }, [])
 
   return (
-    <Card sx={{ mt: 4, width: 1, borderRadius: 2, py: 1 }}>
+    <Card sx={{ width: 680, borderRadius: 2, py: 1 }}>
       <CardHeader
-        avatar={<Avatar src={created?.avatar} />}
+        avatar={<Avatar src={userNodes.profileImageLink} />}
         title={
           <Grid container spacing={2}>
             <Grid item>
-              <Typography fontWeight={500}>{created?.fullName}</Typography>
+              <Typography fontWeight={500}>{userNodes.fullName}</Typography>
             </Grid>
 
             <Grid item xs container alignItems='center'>
@@ -33,7 +48,7 @@ const Post = ({ data }: Props) => {
             </Grid>
           </Grid>
         }
-        subheader={<Typography color={theme.palette.text.secondary}>{activity}</Typography>}
+        subheader={<Typography color={theme.palette.text.secondary}>{status}</Typography>}
       />
 
       <CardContent sx={{ py: 0 }}>
@@ -42,7 +57,7 @@ const Post = ({ data }: Props) => {
             <Typography whiteSpace='pre-line'>{content}</Typography>
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} container columnGap={1}>
             {hashtag?.map((item, index) => (
               <Typography fontWeight={500} color={theme.palette.text.disabled} key={index}>
                 #{item}
@@ -51,25 +66,30 @@ const Post = ({ data }: Props) => {
           </Grid>
         </Grid>
 
-        <Box position='relative' width={1} height={{xl: 540, xs: 360}} borderRadius={4}>
-          <Image src={media} alt='media' fill style={{ borderRadius: 8, objectFit: 'cover' }} />
-        </Box>
+        <Image
+          src={linkImage}
+          alt='media'
+          width={648}
+          height={324}
+          style={{ borderRadius: 8, cursor: 'pointer', objectFit: 'cover' }}
+          onClick={handleOpenPostDetail}
+        />
       </CardContent>
 
       <CardActions>
         <Grid container spacing={2}>
           <Grid item xs='auto' container alignItems='center'>
             <IconButton onClick={handleaClickLove}>
-              <Image src={`/icons/${loved ? '' : 'dis'}loved.svg`} alt='loved' width={23} height={20} />
+              <Image src={`/icons/${isLiked ? '' : 'dis'}loved.svg`} alt='loved' width={23} height={20} />
             </IconButton>
-            <Typography>{numberLoved} lượt thích</Typography>
+            <Typography>{likeCount} lượt thích</Typography>
           </Grid>
 
           <Grid item xs='auto' container alignItems='center'>
             <IconButton>
               <Image src='/icons/comment.svg' alt='loved' width={23} height={20} />
             </IconButton>
-            <Typography>{numberComments} bình luận</Typography>
+            <Typography>{comments?.length} bình luận</Typography>
           </Grid>
 
           <Grid item xs='auto' container alignItems='center'>

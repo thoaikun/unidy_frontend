@@ -70,8 +70,8 @@ const AccountType = ({ setStep }: Props) => {
       </Typography>
 
       <Grid container spacing={2} mt={4}>
-        {ButtonDetails.map(item =>
-          <Grid item width={1} key={item.key}>
+        {ButtonDetails.map((item, index) =>
+          <Grid item width={1} key={index}>
             <Button
               fullWidth
               startIcon={

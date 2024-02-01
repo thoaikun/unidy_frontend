@@ -1,45 +1,16 @@
 'use client'
 
 import Image from 'next/image'
-import { Avatar, Card, CardContent, Divider, Grid, Theme, Typography, useTheme } from '@mui/material'
-
-const getData = (theme: Theme) => ({
-  trophy: 'Ông hoàng từ thiện',
-  color: theme.palette.warning[400],
-  listFriend: [
-    {
-      fullName: 'Lê Trương Ngọc Trang',
-      avatar: '/examples/friend-list-1.svg',
-      trophy: 'Nhà tài phiệt',
-      color: '#E17AB3',
-    },
-    {
-      fullName: 'Nguyễn Tuyết Vy',
-      avatar: '/examples/friend-list-2.svg',
-      trophy: 'Thần từ thiện',
-      color: theme.palette.primary.main,
-    },
-    {
-      fullName: 'Trương Huy Thái',
-      avatar: '/examples/friend-list-3.svg',
-      trophy: 'Binh nhì từ thiện',
-      color: theme.palette.info.main,
-    },
-    {
-      fullName: 'Trương Huy Thái',
-      avatar: '/examples/friend-list-4.svg',
-      trophy: 'Chiến thân tình cảm',
-      color: theme.palette.success[600],
-    },
-  ],
-})
+import { Avatar, Card, CardContent, Divider, Grid, Typography, useTheme } from '@mui/material'
+import { listFriendData } from '@/fakeData/listFriend'
+import { FriendType } from '@/type/user'
 
 const FriendList = () => {
   const theme = useTheme()
-  const data = getData(theme)
+  const listFriend: FriendType[] = listFriendData
 
   return (
-    <Card sx={{ width: 480, mt: 4, px: 2, position: 'absolute' }}>
+    <Card sx={{ width: 480, position: 'absolute' }}>
       <CardContent>
         <Grid container spacing={3}>
           <Grid item>
@@ -52,7 +23,7 @@ const FriendList = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <Typography variant='h6' color={data.color}>{data.trophy}</Typography>
+              <Typography variant='h6' color={theme.palette.warning[400]}>Ông hoàng từ thiện</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -66,10 +37,10 @@ const FriendList = () => {
             <Typography fontWeight={500}>Bạn bè của bạn</Typography>
           </Grid>
 
-          {data.listFriend.map((item, index) => (
+          {listFriend?.map((item, index) => (
             <Grid item container spacing={2} key={index}>
               <Grid item xs='auto'>
-                <Avatar src={item.avatar} sx={{ width: 32, height: 32 }} />
+                <Avatar src={item.profileImageLink} sx={{ width: 32, height: 32 }} />
               </Grid>
               <Grid item xs container alignItems='center'>
                 <Grid item xs={12}>
