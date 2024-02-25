@@ -1,62 +1,48 @@
 'use client'
 
-import { Avatar, Box, Button, Card, CardActions, CardContent, Chip, Grid, Tab, Table, TableBody, TableCell, TableHead, TableRow, Tabs, Typography, useTheme } from "@mui/material"
+import { useAppSelector } from "@/lib/hook"
+import CampaignDetailOrganization from "@/view/campaign/campaign-detail-organization"
+import CampaignDetailVolunteer from "@/view/campaign/campaign-detail-volunteer"
+import { Avatar, Box, Button, Card, CardActions, CardContent, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Tab, Table, TableBody, TableCell, TableHead, TableRow, Tabs, TextField, Typography, useTheme } from "@mui/material"
 import Image from "next/image"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 
-const spentAmount = [
-  {
-    category: 'Xi măng',
-    quantity: '20kg',
-    cost: '120 triệu',
-    status: 'Đã giải ngân',
-  },
-  {
-    category: 'Gạnh ốp',
-    quantity: '300 viên',
-    cost: '10 triệu',
-    status: 'Đã giải ngân',
-  },
-  {
-    category: 'Vở',
-    quantity: '100 quyển',
-    cost: '33 triệu',
-    status: 'Đã giải ngân',
-  },
-  {
-    category: 'Học bổng',
-    quantity: '30 phần',
-    cost: '50 triệu',
-    status: 'Đã giải ngân',
-  },
-]
-
-const sponsorList = [
-  {
-    avatar: '/examples/avatar-7.svg',
-    name: 'Thoại Lê Nè',
-  },
-  {
-    avatar: '/examples/avatar-7.svg',
-    name: 'Trương Văn Vở',
-  },
-  {
-    avatar: '/examples/avatar-2.svg',
-    name: 'Phương Anh Nguyễn',
-  },
-  {
-    avatar: '/examples/avatar-7.svg',
-    name: 'Phương Anh Nguyễn',
-  },
-  {
-    avatar: '/examples/avatar-7.svg',
-    name: 'Phương Anh Nguyễn',
-  },
-]
+// const sponsorList = [
+//   {
+//     avatar: '/examples/avatar-7.svg',
+//     name: 'Thoại Lê Nè',
+//   },
+//   {
+//     avatar: '/examples/avatar-7.svg',
+//     name: 'Trương Văn Vở',
+//   },
+//   {
+//     avatar: '/examples/avatar-2.svg',
+//     name: 'Phương Anh Nguyễn',
+//   },
+//   {
+//     avatar: '/examples/avatar-7.svg',
+//     name: 'Phương Anh Nguyễn',
+//   },
+//   {
+//     avatar: '/examples/avatar-7.svg',
+//     name: 'Phương Anh Nguyễn',
+//   },
+// ]
 
 const CampaignDetail = ({ params }: { params: { id: string } }) => {
+  const user = useAppSelector(state => state.auth.user)
+  const isOrganization = user?.role === 'organization'
+  const [open, setOpen] = useState<boolean>(false)
   const theme = useTheme()
-  const [tabIndex, setTabIndex] = useState<number>(0)
+
+  const handleOpenEndCampaign = useCallback(() => {
+    setOpen(true)
+  }, [])
+
+  const handleCloseEndCampaign = useCallback(() => {
+    setOpen(false)
+  }, [])
 
   return (
     <Grid container spacing={6.5} pt={4.375}>
@@ -111,79 +97,62 @@ const CampaignDetail = ({ params }: { params: { id: string } }) => {
                   <Typography variant='h6'>Số người tham gia</Typography>
                 </Grid>
               </Grid>
+
+              {isOrganization && <Grid item container justifyContent='space-between' mt={4} spacing={2}>
+                <Grid item xs>
+                  <Button size='large' variant='outlined' fullWidth>
+                    <Typography color='primary'>Cập nhật sự kiện</Typography>
+                  </Button>
+                </Grid>
+                <Grid item xs>
+                  <Button size='large' variant='contained' fullWidth disableElevation onClick={handleOpenEndCampaign}>
+                    <Typography color='#FFFFFF'>Kết thúc chiến dịch</Typography>
+                  </Button>
+                </Grid>
+              </Grid>}
             </Grid>
           </Card>
         </Grid>
       </Grid>
 
-      <Grid item xs>
-        <Card sx={{ px: 5, py: 3 }}>
-          <Tabs value={tabIndex} onChange={(event, newValue) => setTabIndex(newValue)}>
-            <Tab label='Chứng nhận' />
-            <Tab label='Báo cáo chiến dịch' />
-          </Tabs>
+      <Dialog open={open} maxWidth='xs'>
+        <DialogTitle>
+          <Typography variant='h4'>Kết thúc sự kiện?</Typography>
+        </DialogTitle>
 
-          {tabIndex === 0 &&
-            <>
-              <Grid container justifyContent='center'>
-                <Image src='/examples/campaign-detail-certificate.png' alt='media' width={666} height={470} />
-              </Grid>
-              <CardActions sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button variant='outlined' color='secondary' sx={{ width: 161, height: 46 }}>
-                  <Typography variant='h6' fontWeight={400} color={theme.palette.text.primary}>
-                    In chứng nhận
-                  </Typography>
-                </Button>
-                <Button variant='contained' disableElevation sx={{ width: 142, height: 46 }}>
-                  <Typography variant='h6' fontWeight={400}>Quy đổi</Typography>
-                </Button>
-              </CardActions>
-            </>
-          }
+        <DialogContent>
+          <Typography variant='h6' fontWeight={300}>
+            Bạn có chắc chắn muốn kết thúc chiến dịch. Thông tin chiến dịch và bằng khen sẽ được gửi tới những người tham gia. Vui lòng nhập tên sự kiện <span style={{ fontWeight: 500 }}>HiHi</span> để xác nhận.
+          </Typography>
+        </DialogContent>
+        <DialogContent>
+          <TextField fullWidth size='small' placeholder='Nhập tên sự kiện' />
+        </DialogContent>
 
-          {tabIndex === 1 &&
-            <Grid container>
-              <Typography>Thông số</Typography>
-              <Image src='/examples/campaign-detail-chart.svg' alt='media' width={700} height={292} />
-
-              <Typography>Các khoản đã chi</Typography>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Hạng mục</TableCell>
-                    <TableCell>Số lượng</TableCell>
-                    <TableCell>Thành tiền</TableCell>
-                    <TableCell>Trạng thái</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {spentAmount.map((item, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{item.category}</TableCell>
-                      <TableCell>{item.quantity}</TableCell>
-                      <TableCell>{item.cost}</TableCell>
-                      <TableCell>{item.status}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-
-              {/* <Typography>Các nhà hảo tâm đã đóng góp</Typography>
-              {sponsorList.map((item, index) => (
-                <Grid container spacing={1.875} px={2.5} py={1.875} borderBottom={`1px solid ${theme.palette.text.disabled}`}>
-                  <Grid item>
-                    <Avatar src={item.avatar} sx={{ width: 64, height: 64 }} />
-                  </Grid>
-                  <Grid item xs>
-                    <Typography>{item.name}</Typography>
-                    <Typography>Nhà hảo tâm vàng</Typography>
-                    <Typography>Số tiền ủng hộ: 10 triệu đồng</Typography>
-                  </Grid>
-                </Grid>
-              ))} */}
+        <DialogContent>
+          <Grid container spacing={2}>
+            <Grid item xs>
+              <Button
+                fullWidth
+                variant='outlined'
+                sx={{ borderColor: theme.palette.error[300], height: 45 }}
+                color='error'
+                onClick={handleCloseEndCampaign}
+              >
+                <Typography color={theme.palette.error[300]}>Hủy</Typography>
+              </Button>
             </Grid>
-          }
-        </Card>
+            <Grid item xs>
+              <Button fullWidth variant='contained' sx={{ height: 45 }} onClick={handleCloseEndCampaign}>
+                <Typography color='#FFFFFF'>Đồng ý</Typography>
+              </Button>
+            </Grid>
+          </Grid>
+        </DialogContent>
+      </Dialog>
+
+      <Grid item xs>
+        {isOrganization ? <CampaignDetailOrganization /> : <CampaignDetailVolunteer />}
       </Grid>
     </Grid>
   )

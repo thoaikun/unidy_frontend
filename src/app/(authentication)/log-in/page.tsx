@@ -4,10 +4,14 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ChangeEvent, useCallback, useState } from 'react'
 import { Box, Button, Grid, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { useAppDispatch } from '@/lib/hook'
+import { setUser } from '@/lib/features/auth/authSlice'
+import { organizationData, volunteerData } from '@/fakeData/auth'
 
 const LogInPage = () => {
   const theme = useTheme()
   const router = useRouter()
+  const dispatch = useAppDispatch()
 
   const [email, setEmail] = useState<string>()
 
@@ -17,10 +21,12 @@ const LogInPage = () => {
 
   const handleSubmit = useCallback(() => {
     if (email === 'organization@gmail.com') {
-      localStorage.setItem('type', 'organization')
+      dispatch(setUser(organizationData))
+      localStorage.setItem('userData', JSON.stringify(organizationData))
     }
     else {
-      localStorage.setItem('type', 'personal')
+      dispatch(setUser(volunteerData))
+      localStorage.setItem('userData', JSON.stringify(volunteerData))
     }
     router.replace('/home')
   }, [email, router])

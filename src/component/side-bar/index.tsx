@@ -4,8 +4,9 @@ import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { Tab, Tabs } from '@mui/material'
+import { useAppSelector } from '@/lib/hook'
 
-const data = [
+const volunteerSideBar = [
   {
     path: '/home',
     origin: '/icons/home.svg',
@@ -23,7 +24,25 @@ const data = [
   },
 ]
 
-const tabIndex: {
+const organizationSideBar = [
+  {
+    path: '/home',
+    origin: '/icons/home.svg',
+    selected: '/icons/home-selected.svg'
+  },
+  {
+    path: '/history',
+    origin: '/icons/campaign-list.svg',
+    selected: '/icons/campaign-list-selected.svg'
+  },
+  {
+    path: '/message',
+    origin: '/icons/message.svg',
+    selected: '/icons/message.svg'
+  },
+]
+
+const volunteerTabIndex: {
   [field: string]: number
 } = {
   '/home': 0,
@@ -31,16 +50,26 @@ const tabIndex: {
   '/history': 2,
 }
 
+const organizationTabIndex: {
+  [field: string]: number
+} = {
+  '/home': 0,
+  '/history': 1,
+  '/message': 2,
+}
+
 const SideBar = () => {
+  const user = useAppSelector(state => state.auth.user)
+  const isOrganization = user?.role === 'organization'
   const router = useRouter()
   const pathname = usePathname()
-  const [value, setValue] = useState<number>(tabIndex[pathname])
+  const [value, setValue] = useState<number>(isOrganization ? organizationTabIndex[pathname] : volunteerTabIndex[pathname])
 
   useEffect(() => {
     if (pathname.includes('campaign')) {
-      setValue(2)
+      setValue(isOrganization ? organizationTabIndex['/history'] : volunteerTabIndex['/history'])
     }
-    else if (pathname === '/profile') {
+    else if (pathname.includes('/profile')) {
       setValue(-1)
     }
   }, [pathname])
@@ -61,7 +90,7 @@ const SideBar = () => {
       sx={{ height: 'calc(100% - 64px)', backgroundColor: '#ffffff', position: 'absolute' }}
       TabIndicatorProps={{ sx: { left: 0 } }}
     >
-      {data.map((item, index) => (
+      {(isOrganization ? organizationSideBar : volunteerSideBar).map((item, index) => (
         <Tab
           key={index}
           icon={<Image src={index === value ? item.selected : item.origin} alt='dashboard' width={20} height={20} />}

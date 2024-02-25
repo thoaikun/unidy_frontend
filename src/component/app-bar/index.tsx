@@ -27,47 +27,12 @@ import {
 } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-
-const notificationData = [
-  {
-    media: '/examples/unicef.png',
-    content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
-    status: 1,
-    createdAt: new Date(),
-  },
-  {
-    media: '/examples/unicef.png',
-    content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
-    status: 0,
-    createdAt: new Date(),
-  },
-  {
-    media: '/examples/unicef.png',
-    content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
-    status: 0,
-    createdAt: new Date(),
-  },
-  {
-    media: '/examples/unicef.png',
-    content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
-    status: 0,
-    createdAt: new Date(),
-  },
-  {
-    media: '/examples/unicef.png',
-    content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
-    status: 0,
-    createdAt: new Date(),
-  },
-  {
-    media: '/examples/unicef.png',
-    content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
-    status: 0,
-    createdAt: new Date(),
-  },
-]
+import { useAppSelector } from '@/lib/hook'
+import { notificationData } from '@/fakeData/notifications'
 
 const CustomAppBar = () => {
+  const user = useAppSelector(state => state.auth.user)
+  const notifications = notificationData
   const router = useRouter()
   const theme = useTheme()
 
@@ -96,7 +61,7 @@ const CustomAppBar = () => {
   }, [])
 
   const handleOpenProfile = useCallback(() => {
-    router.push('/profile')
+    router.push('/profile/1')
   }, [router])
 
   const handleLogOut = useCallback(() => {
@@ -175,9 +140,9 @@ const CustomAppBar = () => {
 
                   <CardContent>
                     <Grid container spacing={1} maxHeight={450} overflow='auto'>
-                      {notificationData.map((item, index) => (
-                        <>
-                          <Grid item xs={12} key={index}>
+                      {notifications.map((item, index) => (
+                        <div key={index}>
+                          <Grid item xs={12}>
                             <Button startIcon={<Avatar src={item.media} />}>
                               <Grid container color='#000000'>
                                 <Grid item>
@@ -189,10 +154,10 @@ const CustomAppBar = () => {
                               </Grid>
                             </Button>
                           </Grid>
-                          <Grid item xs={12} key={-index}>
+                          <Grid item xs={12}>
                             <Divider />
                           </Grid>
-                        </>
+                        </div>
                       ))}
                     </Grid>
                   </CardContent>
@@ -214,7 +179,7 @@ const CustomAppBar = () => {
 
             <Grid container item xs='auto'>
               <IconButton onClick={handleOpenProfile}>
-                <Avatar src='/examples/avatar.jpg' sx={{ width: 30, height: 30 }} />
+                <Avatar src={user?.image} sx={{ width: 30, height: 30 }} />
               </IconButton>
 
               <IconButton onClick={handleClickMore}>

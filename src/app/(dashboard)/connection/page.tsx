@@ -2,6 +2,7 @@
 
 import { Avatar, Button, Card, CardHeader, Grid, Typography, useTheme } from '@mui/material'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 
 const friendList = [
@@ -73,32 +74,34 @@ const ConnectionPage = () => {
         </Grid>
         {friendRequests.map((item, index) => (
           <Grid item xs={12} key={index}>
-            <Card>
-              <CardHeader
-                avatar={<Avatar src={item.media} sx={{ width: 45, height: 45 }} />}
-                title={<Typography>{item.name}</Typography>}
-                action={
-                  <Grid container alignItems='center' height={60} columnGap={1.25}>
-                    <Button
-                      variant='outlined'
-                      sx={{ height: 28 }}
-                      onClick={() => setFriendRequests(friendRequests.filter((_, idx) => idx !== index))}
-                    >
-                      <Typography variant='body2' color={theme.palette.text.primary}>Xóa</Typography>
-                    </Button>
-                    <Button
-                      variant='contained'
-                      sx={{ height: 28 }}
-                      disableElevation
-                      onClick={() => setFriendRequests(friendRequests.filter((_, idx) => idx !== index))}
-                    >
-                      <Typography variant='body2' color={theme.palette.text.contrast}>Đồng ý</Typography>
-                    </Button>
-                  </Grid>
-                }
-                sx={{ px: 2.5, py: 1.875 }}
-              />
-            </Card>
+            <Link href={`/profile/1`}>
+              <Card>
+                <CardHeader
+                  avatar={<Avatar src={item.media} sx={{ width: 45, height: 45 }} />}
+                  title={<Typography>{item.name}</Typography>}
+                  action={
+                    <Grid container alignItems='center' height={60} columnGap={1.25}>
+                      <Button
+                        variant='outlined'
+                        sx={{ height: 28 }}
+                        onClick={() => setFriendRequests(friendRequests.filter((_, idx) => idx !== index))}
+                      >
+                        <Typography variant='body2' color={theme.palette.text.primary}>Xóa</Typography>
+                      </Button>
+                      <Button
+                        variant='contained'
+                        sx={{ height: 28 }}
+                        disableElevation
+                        onClick={() => setFriendRequests(friendRequests.filter((_, idx) => idx !== index))}
+                      >
+                        <Typography variant='body2' color={theme.palette.text.contrast}>Đồng ý</Typography>
+                      </Button>
+                    </Grid>
+                  }
+                  sx={{ px: 2.5, py: 1.875 }}
+                />
+              </Card>
+            </Link>
           </Grid>
         ))}
       </Grid>

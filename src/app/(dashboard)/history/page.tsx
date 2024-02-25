@@ -1,5 +1,9 @@
+'use client'
+
 import JoinedCard from "@/component/joined-card"
 import SupportedCard from "@/component/supported-card"
+import { useAppSelector } from "@/lib/hook"
+import HistoryOrganization from "@/view/history/history-organization"
 import { Grid, Typography } from "@mui/material"
 
 const supportedHistory = [
@@ -89,33 +93,41 @@ const joinedHistory = [
 ]
 
 const HistoryPage = () => {
+  const user = useAppSelector(state => state.auth.user)
+  const isOrganization = user?.role === 'organization'
+
   return (
-    <>
-      {supportedHistory &&
-        <>
-          <Typography variant='h5' my={2.75}>Lịch sử ủng hộ</Typography>
-          <Grid container spacing={3.75} width={860}>
-            {supportedHistory.map((item, index) => (
-              <Grid item key={index}>
-                <SupportedCard data={item} />
-              </Grid>
-            ))}
-          </Grid>
-        </>
-      }
-      {joinedHistory &&
-        <>
-          <Typography variant='h5' my={2.75}>Lịch sử tham gia hoạt động</Typography>
-          <Grid container spacing={3.75} width={860}>
-            {joinedHistory.map((item, index) => (
-              <Grid item key={index}>
-                <JoinedCard data={item} />
-              </Grid>
-            ))}
-          </Grid>
-        </>
-      }
-    </>
+    isOrganization ? (
+      <HistoryOrganization />
+    ) : (
+      <>
+        {supportedHistory &&
+          <>
+            <Typography variant='h5' my={2.75}>Lịch sử ủng hộ</Typography>
+            <Grid container spacing={3.75} width={860}>
+              {supportedHistory.map((item, index) => (
+                <Grid item key={index}>
+                  <SupportedCard data={item} />
+                </Grid>
+              ))}
+            </Grid>
+          </>
+        }
+        {
+          joinedHistory &&
+          <>
+            <Typography variant='h5' my={2.75}>Lịch sử tham gia hoạt động</Typography>
+            <Grid container spacing={3.75} width={860}>
+              {joinedHistory.map((item, index) => (
+                <Grid item key={index}>
+                  <JoinedCard data={item} />
+                </Grid>
+              ))}
+            </Grid>
+          </>
+        }
+      </>
+    )
   )
 }
 
