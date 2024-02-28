@@ -1,3 +1,5 @@
+type UserRoleType = 'VOLUNTEER' | 'SPONSOR' | 'ORGANIZATION'
+
 type UserType = {
   userId: number
   fullName: string
@@ -7,7 +9,7 @@ type UserType = {
   dayOfBirth: Date
   job: string
   workLocation: string
-  role: string
+  role: UserRoleType
   image: string
 }
 
@@ -23,4 +25,4 @@ type FriendType = UserNodesType & {
   color: string
 }
 
-export type { UserType, UserNodesType, FriendType }
+export type { UserRoleType, UserType, UserNodesType, FriendType }

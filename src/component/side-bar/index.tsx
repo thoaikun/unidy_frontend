@@ -60,7 +60,7 @@ const organizationTabIndex: {
 
 const SideBar = () => {
   const user = useAppSelector(state => state.auth.user)
-  const isOrganization = user?.role === 'organization'
+  const isOrganization = user?.role === 'ORGANIZATION'
   const router = useRouter()
   const pathname = usePathname()
   const [value, setValue] = useState<number>(isOrganization ? organizationTabIndex[pathname] : volunteerTabIndex[pathname])
@@ -72,7 +72,7 @@ const SideBar = () => {
     else if (pathname.includes('/profile')) {
       setValue(-1)
     }
-  }, [pathname])
+  }, [pathname, isOrganization])
 
   const handleChange = useCallback((_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);

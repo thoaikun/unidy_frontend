@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import { Button, Grid, Typography, useTheme } from '@mui/material'
 
-const Finish = () => {
+const Success = () => {
   const theme = useTheme()
   const router = useRouter()
 
@@ -33,4 +33,4 @@ const Finish = () => {
   )
 }
 
-export default Finish
+export default Success

@@ -17,7 +17,7 @@ const PostDetail = () => {
 
   const handleClose = useCallback(() => {
     dispatch(closePostDetail())
-  }, [])
+  }, [dispatch])
 
   return (
     <Dialog open={data.open} maxWidth='lg' fullWidth>

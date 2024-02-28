@@ -47,7 +47,7 @@ const joinedCardData = [
 
 const ProfilePage = () => {
   const user = useAppSelector(state => state.auth.user)
-  const isOrganization = user?.role === 'organization'
+  const isOrganization = user?.role === 'ORGANIZATION'
   const posts: PostType[] = postData
 
   return (

@@ -29,9 +29,12 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useAppSelector } from '@/lib/hook'
 import { notificationData } from '@/fakeData/notifications'
+import { deleteCookie } from 'cookies-next'
+import { toast } from 'react-toastify'
+import api from '@/service/api'
 
 const CustomAppBar = () => {
-  const user = useAppSelector(state => state.auth.user)
+  const { user } = useAppSelector((state) => state.auth)
   const notifications = notificationData
   const router = useRouter()
   const theme = useTheme()
@@ -64,9 +67,16 @@ const CustomAppBar = () => {
     router.push('/profile/1')
   }, [router])
 
-  const handleLogOut = useCallback(() => {
-    localStorage.clear()
-    router.push('/log-in')
+  const handleLogOut = useCallback(async () => {
+    try {
+      await api.get('/auth/logout')
+      deleteCookie('access_token')
+      deleteCookie('refresh_token')
+      router.push('/log-in')
+    }
+    catch (error: any) {
+      toast.error(error.data.error)
+    }
   }, [router])
 
   return (

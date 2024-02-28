@@ -32,7 +32,7 @@ import { useCallback, useState } from "react"
 
 const CampaignDetail = ({ params }: { params: { id: string } }) => {
   const user = useAppSelector(state => state.auth.user)
-  const isOrganization = user?.role === 'organization'
+  const isOrganization = user?.role === 'ORGANIZATION'
   const [open, setOpen] = useState<boolean>(false)
   const theme = useTheme()
 
@@ -106,7 +106,7 @@ const CampaignDetail = ({ params }: { params: { id: string } }) => {
                 </Grid>
                 <Grid item xs>
                   <Button size='large' variant='contained' fullWidth disableElevation onClick={handleOpenEndCampaign}>
-                    <Typography color='#FFFFFF'>Kết thúc chiến dịch</Typography>
+                    <Typography color='#ffffff'>Kết thúc chiến dịch</Typography>
                   </Button>
                 </Grid>
               </Grid>}
@@ -144,7 +144,7 @@ const CampaignDetail = ({ params }: { params: { id: string } }) => {
             </Grid>
             <Grid item xs>
               <Button fullWidth variant='contained' sx={{ height: 45 }} onClick={handleCloseEndCampaign}>
-                <Typography color='#FFFFFF'>Đồng ý</Typography>
+                <Typography color='#ffffff'>Đồng ý</Typography>
               </Button>
             </Grid>
           </Grid>

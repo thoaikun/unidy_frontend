@@ -47,7 +47,7 @@ const HomeOrganization = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container spacing={2} m={0} sx={{ backgroundColor: '#FFFFFF' }} >
+          <Grid container spacing={2} m={0} sx={{ backgroundColor: '#ffffff' }} >
             <Grid item xs={12}>
               <Typography variant='h5'>Thông số</Typography>
             </Grid>

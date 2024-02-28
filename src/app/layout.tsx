@@ -4,6 +4,8 @@ import './globals.css'
 import CustomThemeProvider from '@/component/theme'
 import ModalProvider from '@/view/modals'
 import StoreProvider from './StoreProvider'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const readexPro = Readex_Pro({ subsets: ['latin'] })
 
@@ -26,6 +28,7 @@ export default function RootLayout({
             {children}
           </CustomThemeProvider>
         </StoreProvider>
+        <ToastContainer />
       </body>
     </html>
   )

@@ -2,34 +2,56 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ChangeEvent, useCallback, useState } from 'react'
-import { Box, Button, Grid, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
-import { useAppDispatch } from '@/lib/hook'
-import { setUser } from '@/lib/features/auth/authSlice'
-import { organizationData, volunteerData } from '@/fakeData/auth'
+import { useCallback } from 'react'
+import { Box, Button, Grid, TextField, Typography, useTheme } from '@mui/material'
+import { useAppDispatch, useAppSelector } from '@/lib/hook'
+import { object, string } from 'yup'
+import { Controller, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import api from '@/service/api'
+import { setCookie } from 'cookies-next'
+import { toast } from 'react-toastify'
+import { fetchUserData } from '@/lib/features/auth/authSlice'
+
+interface formData {
+  email: string
+  password: string
+}
+
+const defaultValues: formData = {
+  email: '',
+  password: '',
+}
+
+const schema = object({
+  email: string().email().required(),
+  password: string().required(),
+})
 
 const LogInPage = () => {
   const theme = useTheme()
   const router = useRouter()
   const dispatch = useAppDispatch()
 
-  const [email, setEmail] = useState<string>()
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    defaultValues,
+    mode: 'onChange',
+    resolver: yupResolver(schema)
+  })
 
-  const handleChangeEmail = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value)
-  }, [])
+  const onSubmit = useCallback(async (data: formData) => {
+    try {
+      const response = await api.post('/auth/authenticate', data)
 
-  const handleSubmit = useCallback(() => {
-    if (email === 'organization@gmail.com') {
-      dispatch(setUser(organizationData))
-      localStorage.setItem('userData', JSON.stringify(organizationData))
+      setCookie('access_token', response.data.access_token)
+      setCookie('refresh_token', response.data.refresh_token)
+      dispatch(fetchUserData())
+      router.replace('/home')
     }
-    else {
-      dispatch(setUser(volunteerData))
-      localStorage.setItem('userData', JSON.stringify(volunteerData))
+    catch (error: any) {
+      toast.error(error.data.error)
     }
-    router.replace('/home')
-  }, [email, router])
+  }, [dispatch, router])
 
   return (
     <Grid container spacing={3} maxWidth={567} flexDirection='column'>
@@ -44,30 +66,46 @@ const LogInPage = () => {
       </Grid>
 
       <Grid item>
-        <TextField
-          fullWidth
-          size='medium'
-          type='email'
-          placeholder='Nhập email của bạn'
-          label='Email'
-          InputProps={{ sx: { backgroundColor: '#ffffff' } }}
-          InputLabelProps={{ sx: { fontSize: '1rem' } }}
-          inputProps={{ style: { fontSize: '1rem' } }}
-          value={email}
-          onChange={handleChangeEmail}
+        <Controller
+          control={control}
+          name='email'
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              value={value}
+              onChange={onChange}
+              fullWidth
+              size='medium'
+              type='email'
+              placeholder='Nhập email của bạn'
+              label='Email'
+              InputProps={{ sx: { backgroundColor: '#ffffff' } }}
+              InputLabelProps={{ sx: { fontSize: '1rem' } }}
+              inputProps={{ style: { fontSize: '1rem' } }}
+              error={Boolean(errors.email)}
+            />
+          )}
         />
       </Grid>
 
       <Grid item>
-        <TextField
-          fullWidth
-          size='medium'
-          type='password'
-          placeholder='Nhập mật khẩu của bạn'
-          label='Mật khẩu'
-          InputProps={{ sx: { backgroundColor: '#ffffff' } }}
-          InputLabelProps={{ sx: { fontSize: '1rem' } }}
-          inputProps={{ style: { fontSize: '1rem' } }}
+        <Controller
+          control={control}
+          name='password'
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              value={value}
+              onChange={onChange}
+              fullWidth
+              size='medium'
+              type='password'
+              placeholder='Nhập mật khẩu của bạn'
+              label='Mật khẩu'
+              InputProps={{ sx: { backgroundColor: '#ffffff' } }}
+              InputLabelProps={{ sx: { fontSize: '1rem' } }}
+              inputProps={{ style: { fontSize: '1rem' } }}
+              error={Boolean(errors.password)}
+            />
+          )}
         />
       </Grid>
 
@@ -91,7 +129,7 @@ const LogInPage = () => {
           variant='contained'
           sx={{ width: { xs: 1, lg: 180 }, height: 50 }}
           disableElevation
-          onClick={handleSubmit}
+          onClick={handleSubmit(onSubmit)}
         >
           <Typography fontWeight={700} color='#ffffff'>Đăng nhập</Typography>
         </Button>

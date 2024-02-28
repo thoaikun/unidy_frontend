@@ -31,7 +31,7 @@ const Post = ({
 
   const handleOpenPostDetail = useCallback(() => {
     dispatch(openPostDetail('1'))
-  }, [])
+  }, [dispatch])
 
   return (
     <Card sx={{ width: 680, borderRadius: 2, py: 1 }}>

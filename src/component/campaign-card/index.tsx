@@ -9,7 +9,7 @@ const CampaignCard = () => {
         sx={{ height: 200 }}
         image='/examples/post-media-2.webp'
       />
-      <Box sx={{ position: 'absolute', top: 10, left: 14, backgroundColor: '#FFFFFF', borderRadius: 1, p: 0.5 }}>
+      <Box sx={{ position: 'absolute', top: 10, left: 14, backgroundColor: '#ffffff', borderRadius: 1, p: 0.5 }}>
         <Typography variant='caption' color='inherit'>CÒN LẠI: 25 NGÀY</Typography>
       </Box>
       <Image src='/examples/campaign-progress.svg' alt='campaigb-progess' width={45} height={45} style={{ position: 'absolute', top: 178, right: 20 }} />

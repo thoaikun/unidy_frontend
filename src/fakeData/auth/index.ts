@@ -9,7 +9,7 @@ const volunteerData: UserType = {
   dayOfBirth: new Date(),
   job: 'student',
   workLocation: 'HCMUT',
-  role: 'volunteer',
+  role: 'VOLUNTEER',
   image: '/examples/avatar.jpg',
 }
 
@@ -22,7 +22,7 @@ const organizationData: UserType = {
   dayOfBirth: new Date(),
   job: 'charity organization',
   workLocation: 'World',
-  role: 'organization',
+  role: 'ORGANIZATION',
   image: '/examples/organization-avatar.png',
 }
 

@@ -13,7 +13,7 @@ interface Props {
 
 const HomeVolunteer = ({ posts }: Props) => {
   const user = useAppSelector(state => state.auth.user)
-  const isOrganization = user?.role === 'organization'
+  const isOrganization = user?.role === 'ORGANIZATION'
 
   return (
     isOrganization ? (
