@@ -6,13 +6,15 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const access_token = request.cookies.get('access_token')
 
-  if (['/log-in', '/sign-up'].includes(pathname)) {
-    if (access_token) {
+  if (access_token) {
+    if (['/', '/log-in', '/sign-up'].includes(pathname)) {
       return NextResponse.redirect(new URL('/home', request.url))
     }
   }
-  else if (!access_token) {
-    return NextResponse.redirect(new URL('/log-in', request.url))
+  else {
+    if (!['/log-in', '/sign-up'].includes(pathname)) {
+      return NextResponse.redirect(new URL('/log-in', request.url))
+    }
   }
 
   return NextResponse.next()
