@@ -27,47 +27,15 @@ import {
 } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-
-const notificationData = [
-  {
-    media: '/examples/unicef.png',
-    content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
-    status: 1,
-    createdAt: new Date(),
-  },
-  {
-    media: '/examples/unicef.png',
-    content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
-    status: 0,
-    createdAt: new Date(),
-  },
-  {
-    media: '/examples/unicef.png',
-    content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
-    status: 0,
-    createdAt: new Date(),
-  },
-  {
-    media: '/examples/unicef.png',
-    content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
-    status: 0,
-    createdAt: new Date(),
-  },
-  {
-    media: '/examples/unicef.png',
-    content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
-    status: 0,
-    createdAt: new Date(),
-  },
-  {
-    media: '/examples/unicef.png',
-    content: 'Đặng Hùng Cường đã chia sẽ một hoạt động mới',
-    status: 0,
-    createdAt: new Date(),
-  },
-]
+import { useAppSelector } from '@/lib/hook'
+import { notificationData } from '@/fakeData/notifications'
+import { deleteCookie } from 'cookies-next'
+import { toast } from 'react-toastify'
+import api from '@/service/api'
 
 const CustomAppBar = () => {
+  const { user } = useAppSelector((state) => state.auth)
+  const notifications = notificationData
   const router = useRouter()
   const theme = useTheme()
 
@@ -96,12 +64,19 @@ const CustomAppBar = () => {
   }, [])
 
   const handleOpenProfile = useCallback(() => {
-    router.push('/profile')
+    router.push('/profile/1')
   }, [router])
 
-  const handleLogOut = useCallback(() => {
-    localStorage.clear()
-    router.push('/log-in')
+  const handleLogOut = useCallback(async () => {
+    try {
+      await api.get('/auth/logout')
+      deleteCookie('access_token')
+      deleteCookie('refresh_token')
+      router.push('/log-in')
+    }
+    catch (error: any) {
+      toast.error(error.data.error)
+    }
   }, [router])
 
   return (
@@ -175,9 +150,9 @@ const CustomAppBar = () => {
 
                   <CardContent>
                     <Grid container spacing={1} maxHeight={450} overflow='auto'>
-                      {notificationData.map((item, index) => (
-                        <>
-                          <Grid item xs={12} key={index}>
+                      {notifications.map((item, index) => (
+                        <div key={index}>
+                          <Grid item xs={12}>
                             <Button startIcon={<Avatar src={item.media} />}>
                               <Grid container color='#000000'>
                                 <Grid item>
@@ -189,10 +164,10 @@ const CustomAppBar = () => {
                               </Grid>
                             </Button>
                           </Grid>
-                          <Grid item xs={12} key={-index}>
+                          <Grid item xs={12}>
                             <Divider />
                           </Grid>
-                        </>
+                        </div>
                       ))}
                     </Grid>
                   </CardContent>
@@ -214,7 +189,7 @@ const CustomAppBar = () => {
 
             <Grid container item xs='auto'>
               <IconButton onClick={handleOpenProfile}>
-                <Avatar src='/examples/avatar.jpg' sx={{ width: 30, height: 30 }} />
+                <Avatar src={user?.image} sx={{ width: 30, height: 30 }} />
               </IconButton>
 
               <IconButton onClick={handleClickMore}>

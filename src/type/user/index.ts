@@ -1,13 +1,28 @@
-export type UserType = {
-  userId?: number
-  avatar?: string
-  fullName?: string
-  address?: string
-  dateOfBirth?: Date
-  sex?: string
-  phone?: string
-  email?: string
-  jobString?: string
-  workLocation?: string
-  role?: string
+type UserRoleType = 'VOLUNTEER' | 'SPONSOR' | 'ORGANIZATION'
+
+type UserType = {
+  userId: number
+  fullName: string
+  address: string
+  phone: string
+  sex: 'female' | 'male'
+  dayOfBirth: Date
+  job: string
+  workLocation: string
+  role: UserRoleType
+  image: string
 }
+
+type UserNodesType = {
+  userId: number
+  fullName: string
+  isBlock: boolean
+  profileImageLink: string
+}
+
+type FriendType = UserNodesType & {
+  trophy: string
+  color: string
+}
+
+export type { UserRoleType, UserType, UserNodesType, FriendType }

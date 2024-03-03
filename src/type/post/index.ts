@@ -1,16 +1,19 @@
-import { UserType } from '../user'
+import { UserNodesType } from "../user"
+
 
 export type PostType = {
-  content?: string
-  hashtag?: string[]
-  media: string
-  loved: boolean
-  numberLoved?: number
-  numberComments?: number
-  activity?: string
+  postId: string
+  content: string
+  hashtag: string[]
+  status: string
+  createDate: Date
+  updateDate: Date
+  isBlock: boolean
+  linkImage: string
+  userNodes: UserNodesType
+  isLiked: boolean
+  likeCount: number
+  // comments?: string[]
+  comments?: any[]
   isEvent?: boolean
-  created?: UserType
-  createdAt?: Date
-  updated?: UserType
-  updatedAt?: Date
 }

@@ -26,6 +26,7 @@ declare module '@mui/material/styles' {
 
   interface TypeText {
     contrast: string;
+    light: string;
   }
 }
 
@@ -111,6 +112,7 @@ const theme = createTheme({
       secondary: '#6c757d',
       disabled: '#d1d4d7',
       contrast: '#ffffff',
+      light: '#f0f1f2',
     }
   },
   typography: {
@@ -152,7 +154,7 @@ const theme = createTheme({
       color: '#d1d4d7',
     },
     caption: {
-      fontSize: '0.625rem',
+      fontSize: '0.625rem', // 10px
       color: '#6c757d',
     }
   },

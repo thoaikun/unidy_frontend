@@ -1,6 +1,7 @@
 'use client'
 
 import { Card, CardContent, CardMedia, Grid, Typography, useTheme } from '@mui/material'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 interface Props {
@@ -19,57 +20,59 @@ const SupportedCard = ({ data }: Props) => {
   const router = useRouter()
 
   return (
-    <Card sx={{ width: 400, boxShadow: 'none', borderRadius: 1, display: 'flex', cursor: 'pointer' }}>
-      <CardMedia component='img' image={data.media} sx={{ width: 150 }} onClick={() => router.push('/campaign/123')} />
+    <Link href={`/campaign/1`}>
+      <Card sx={{ width: 400, boxShadow: 'none', borderRadius: 1, display: 'flex' }}>
+        <CardMedia component='img' image={data.media} sx={{ width: 150 }} />
 
-      <CardContent>
-        <Grid container alignItems='center'>
-          <Grid item xs={12}>
-            <Typography fontWeight={500}>{data.title}</Typography>
-          </Grid>
+        <CardContent>
+          <Grid container alignItems='center'>
+            <Grid item xs={12}>
+              <Typography fontWeight={500}>{data.title}</Typography>
+            </Grid>
 
-          <Grid
-            item
-            xs='auto'
-            container
-            alignItems='center'
-            px={1}
-            my={1}
-            borderRadius={1}
-            height={18}
-            border={`1px solid ${theme.palette[data.status < 0 ? 'error' : 'success'][data.status < 0 ? 300 : 600]}`}
-            sx={{ backgroundColor: theme.palette[data.status < 0 ? 'error' : 'success'][100], }}>
-            <Typography fontSize='0.5rem' color={theme.palette[data.status < 0 ? 'error' : 'success'][data.status < 0 ? 300 : 600]}>
-              {data.status === -1 ? 'BỊ LOẠI' : data.status === 0 ? 'ĐÃ ĐÓNG GÓP' : 'HOÀN THÀNH'}
-            </Typography>
-          </Grid>
+            <Grid
+              item
+              xs='auto'
+              container
+              alignItems='center'
+              px={1}
+              my={1}
+              borderRadius={1}
+              height={18}
+              border={`1px solid ${theme.palette[data.status < 0 ? 'error' : 'success'][data.status < 0 ? 300 : 600]}`}
+              sx={{ backgroundColor: theme.palette[data.status < 0 ? 'error' : 'success'][100], }}>
+              <Typography fontSize='0.5rem' color={theme.palette[data.status < 0 ? 'error' : 'success'][data.status < 0 ? 300 : 600]}>
+                {data.status === -1 ? 'BỊ LOẠI' : data.status === 0 ? 'ĐÃ ĐÓNG GÓP' : 'HOÀN THÀNH'}
+              </Typography>
+            </Grid>
 
-          <Grid item xs={12}>
-            <Typography variant='caption' fontWeight={300}>
-              Số tiền ủng hộ: <span style={{ color: theme.palette.error[300], fontWeight: 400 }}>
-                {data.money}
-              </span>
-            </Typography>
-          </Grid>
+            <Grid item xs={12}>
+              <Typography variant='caption' fontWeight={300}>
+                Số tiền ủng hộ: <span style={{ color: theme.palette.error[300], fontWeight: 400 }}>
+                  {data.money}
+                </span>
+              </Typography>
+            </Grid>
 
-          <Grid item xs={12}>
-            <Typography variant='caption' fontWeight={300}>
-              Thời gian: <span style={{ color: theme.palette.text.primary, fontWeight: 400 }}>
-                {data.time}
-              </span>
-            </Typography>
-          </Grid>
+            <Grid item xs={12}>
+              <Typography variant='caption' fontWeight={300}>
+                Thời gian: <span style={{ color: theme.palette.text.primary, fontWeight: 400 }}>
+                  {data.time}
+                </span>
+              </Typography>
+            </Grid>
 
-          <Grid item xs={12}>
-            <Typography variant='caption' fontWeight={300}>
-              Phương thức: <span style={{ color: theme.palette.text.primary, fontWeight: 400 }}>
-                {data.method}
-              </span>
-            </Typography>
+            <Grid item xs={12}>
+              <Typography variant='caption' fontWeight={300}>
+                Phương thức: <span style={{ color: theme.palette.text.primary, fontWeight: 400 }}>
+                  {data.method}
+                </span>
+              </Typography>
+            </Grid>
           </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </Link>
   )
 }
 
