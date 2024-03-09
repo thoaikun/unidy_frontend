@@ -1,29 +1,33 @@
+import { userData } from '@/fakeData'
 import api from '@/service/api'
 import { UserType } from '@/type/user'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-export interface ModalsState {
+export interface AuthState {
   user: UserType | null
   status: 'idle' | 'loading' | 'succeeded' | 'failed',
   error: string | null
 }
 
-const initialState: ModalsState = {
+const initialState: AuthState = {
   user: null,
   status: 'idle',
   error: null
 }
 
-export const fetchUserData = createAsyncThunk(
-  'auth/fetchUserData',
+export const fetchUser = createAsyncThunk(
+  'auth/fetchUser',
   async () => {
     const response = await api.get('/users/profile')
     return response.data
+    // await new Promise(
+    //   resolve => setTimeout(resolve, 3000));
+    // return userData
   },
 )
 
-export const AuthSlice = createSlice({
+export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
@@ -32,14 +36,14 @@ export const AuthSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchUserData.pending, (state) => {
+    builder.addCase(fetchUser.pending, (state) => {
       state.status = 'loading'
     })
-    builder.addCase(fetchUserData.fulfilled, (state, action: PayloadAction<UserType>) => {
+    builder.addCase(fetchUser.fulfilled, (state, action: PayloadAction<UserType>) => {
       state.user = action.payload
       state.status = 'succeeded'
     })
-    builder.addCase(fetchUserData.rejected, (state) => {
+    builder.addCase(fetchUser.rejected, (state) => {
       state.user = null
       state.status = 'failed'
     })
@@ -49,6 +53,6 @@ export const AuthSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { setUser } = AuthSlice.actions
+export const { setUser } = authSlice.actions
 
-export default AuthSlice.reducer
+export default authSlice.reducer

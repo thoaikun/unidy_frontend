@@ -40,7 +40,7 @@ const FriendList = () => {
           {listFriend?.map((item, index) => (
             <Grid item container spacing={2} key={index}>
               <Grid item xs='auto'>
-                <Avatar src={item.profileImageLink} sx={{ width: 32, height: 32 }} />
+                <Avatar src={item.profileImageLink || ''} sx={{ width: 32, height: 32 }} />
               </Grid>
               <Grid item xs container alignItems='center'>
                 <Grid item xs={12}>

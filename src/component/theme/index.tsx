@@ -28,6 +28,20 @@ declare module '@mui/material/styles' {
     contrast: string;
     light: string;
   }
+
+  interface Palette {
+    momo: Palette['primary'];
+  }
+
+  interface PaletteOptions {
+    momo?: PaletteOptions['primary'];
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    momo: true;
+  }
 }
 
 const breakpoints = {
@@ -113,7 +127,10 @@ const theme = createTheme({
       disabled: '#d1d4d7',
       contrast: '#ffffff',
       light: '#f0f1f2',
-    }
+    },
+    momo: {
+      main: '#a50064'
+    },
   },
   typography: {
     fontFamily: readexPro.style.fontFamily,
@@ -125,7 +142,7 @@ const theme = createTheme({
       },
     },
     h3: {
-      fontSize: '2rem',
+      fontSize: '2rem', // 32px
       fontWeight: 500,
     },
     h4: {

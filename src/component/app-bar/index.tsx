@@ -24,6 +24,7 @@ import {
   Dialog,
   DialogContent,
   TextField,
+  Skeleton,
 } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -34,7 +35,8 @@ import { toast } from 'react-toastify'
 import api from '@/service/api'
 
 const CustomAppBar = () => {
-  const { user } = useAppSelector((state) => state.auth)
+  const { user, status } = useAppSelector((state) => state.auth)
+  const isLoading = status !== 'succeeded'
   const notifications = notificationData
   const router = useRouter()
   const theme = useTheme()
@@ -72,6 +74,8 @@ const CustomAppBar = () => {
       await api.get('/auth/logout')
       deleteCookie('access_token')
       deleteCookie('refresh_token')
+      deleteCookie('role')
+      localStorage.clear()
       router.push('/log-in')
     }
     catch (error: any) {
@@ -98,9 +102,13 @@ const CustomAppBar = () => {
             </Grid>
 
             <Grid item xs='auto'>
-              <Button variant='contained' sx={{ px: 2, py: 1 }} onClick={() => setOpenModal(true)}>
-                <Typography color={theme.palette.text.contrast} fontWeight={500}>Tạo kỉ niệm mới</Typography>
-              </Button>
+              {isLoading ? (
+                <Skeleton variant='rounded' width={141} height={37} animation='wave' />
+              ) : (
+                <Button variant='contained' sx={{ px: 2, py: 1 }} disableElevation onClick={() => setOpenModal(true)}>
+                  <Typography color={theme.palette.text.contrast} fontWeight={500}>Tạo kỉ niệm mới</Typography>
+                </Button>
+              )}
             </Grid>
 
             <Grid item xs='auto' height={1}>
@@ -188,8 +196,12 @@ const CustomAppBar = () => {
             </Grid>
 
             <Grid container item xs='auto'>
-              <IconButton onClick={handleOpenProfile}>
-                <Avatar src={user?.image} sx={{ width: 30, height: 30 }} />
+              <IconButton onClick={handleOpenProfile} disabled={isLoading}>
+                {isLoading ? (
+                  <Skeleton variant='circular' width={30} height={30} animation='wave' />
+                ) : (
+                  <Avatar src={user?.image} sx={{ width: 30, height: 30 }} />
+                )}
               </IconButton>
 
               <IconButton onClick={handleClickMore}>

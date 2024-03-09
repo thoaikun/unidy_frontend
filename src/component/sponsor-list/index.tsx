@@ -52,7 +52,7 @@ const SponsorList = () => {
           {listSponsorData?.map((item, index) => (
             <Grid item container spacing={2} key={index}>
               <Grid item xs='auto'>
-                <Avatar src={item.profileImageLink} sx={{ width: 40, height: 40 }} />
+                <Avatar src={item.profileImageLink || ''} sx={{ width: 40, height: 40 }} />
               </Grid>
               <Grid item xs container alignItems='center'>
                 <Typography>{item.fullName}</Typography>

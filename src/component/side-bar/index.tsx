@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
-import { Tab, Tabs } from '@mui/material'
+import { Skeleton, Tab, Tabs } from '@mui/material'
 import { useAppSelector } from '@/lib/hook'
 
 const volunteerSideBar = [
@@ -59,7 +59,7 @@ const organizationTabIndex: {
 }
 
 const SideBar = () => {
-  const user = useAppSelector(state => state.auth.user)
+  const { user, status } = useAppSelector(state => state.auth)
   const isOrganization = user?.role === 'ORGANIZATION'
   const router = useRouter()
   const pathname = usePathname()
@@ -93,7 +93,12 @@ const SideBar = () => {
       {(isOrganization ? organizationSideBar : volunteerSideBar).map((item, index) => (
         <Tab
           key={index}
-          icon={<Image src={index === value ? item.selected : item.origin} alt='dashboard' width={20} height={20} />}
+          icon={status !== 'succeeded' ? (
+            <Skeleton variant='rounded' width={20} height={20} animation='wave' />
+          ) : (
+            <Image src={index === value ? item.selected : item.origin} alt='dashboard' width={20} height={20} />
+          )}
+          disabled={status !== 'succeeded'}
           sx={{ py: 3, minWidth: 70 }}
           onClick={handleNavigate(item.path)}
         />
