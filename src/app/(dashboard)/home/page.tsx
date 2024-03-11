@@ -1,18 +1,15 @@
-import { PostType } from '@/type/post'
-import { postData } from '@/fakeData/posts'
-import HomeVolunteer from '@/view/home/home-volunteer'
-
-const fetchPosts = async (): Promise<PostType[]> => {
-  await new Promise(resolve => setTimeout(resolve, 1000))
-  return postData
-}
+import HomeVolunteer from '@/view/dashboard/home/home-volunteer'
+import HomeOrganization from '@/view/dashboard/home/home-organization'
+import { getCookie } from 'cookies-next'
 
 const HomePage = async () => {
-  const posts: PostType[] = await fetchPosts()
+  const role = getCookie('role')
 
-  return (
-    <HomeVolunteer posts={posts} />
-  )
+  return (role !== 'ORGANIZATION' ? (
+    <HomeVolunteer />
+  ) : (
+    <HomeOrganization />
+  ))
 }
 
 export default HomePage

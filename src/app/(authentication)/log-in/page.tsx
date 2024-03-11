@@ -11,7 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import api from '@/service/api'
 import { setCookie } from 'cookies-next'
 import { toast } from 'react-toastify'
-import { fetchUserData } from '@/lib/features/auth/authSlice'
+import { fetchUser } from '@/lib/features/auth/authSlice'
 
 interface formData {
   email: string
@@ -45,7 +45,10 @@ const LogInPage = () => {
 
       setCookie('access_token', response.data.access_token)
       setCookie('refresh_token', response.data.refresh_token)
-      dispatch(fetchUserData())
+      setCookie('role', response.data.role)
+      localStorage.setItem('isChosenFavorite', response.data.isChosenFavorite)
+
+      dispatch(fetchUser())
       router.replace('/home')
     }
     catch (error: any) {

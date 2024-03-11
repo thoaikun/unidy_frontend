@@ -4,10 +4,10 @@ import { UserNodesType } from "../user"
 export type PostType = {
   postId: string
   content: string
-  hashtag: string[]
+  // hashtag: string[]
   status: string
-  createDate: Date
-  updateDate: Date
+  createDate: string
+  updateDate: string | null
   isBlock: boolean
   linkImage: string
   userNodes: UserNodesType

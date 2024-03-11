@@ -1,7 +1,7 @@
-import { postDetailData } from "@/fakeData/posts"
+import { postDetailData } from "@/fakeData"
 import { closePostDetail } from "@/lib/features/modals/modalsSlice"
 import { useAppDispatch, useAppSelector } from "@/lib/hook"
-import { Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, Dialog, Divider, Grid, IconButton, Typography, useTheme } from "@mui/material"
+import { Avatar, Card, CardActions, CardContent, CardHeader, Dialog, Divider, Grid, IconButton, Typography, useTheme } from "@mui/material"
 import Image from "next/image"
 import { useCallback } from "react"
 
@@ -23,7 +23,7 @@ const PostDetail = () => {
     <Dialog open={data.open} maxWidth='lg' fullWidth>
       <Grid container>
         <Grid item xs='auto'>
-          <Image src={postDetail.linkImage} alt='post-detail-image' width={700} height={700} style={{ objectFit: 'cover' }} />
+          <Image src={JSON.parse(postDetail.linkImage)[0]} alt='post-detail-image' width={700} height={700} style={{ objectFit: 'cover' }} />
         </Grid>
         <Grid item xs p={2}>
           <Grid container justifyContent='flex-end'>
@@ -33,7 +33,7 @@ const PostDetail = () => {
           </Grid>
           <Card sx={{ borderRadius: 2 }}>
             <CardHeader
-              avatar={<Avatar src={postDetail.userNodes.profileImageLink} />}
+              avatar={<Avatar src={postDetail.userNodes.profileImageLink || ''} />}
               title={
                 <Grid container spacing={2}>
                   <Grid item>
@@ -54,13 +54,13 @@ const PostDetail = () => {
                   <Typography whiteSpace='pre-line'>{postDetail.content}</Typography>
                 </Grid>
 
-                <Grid item xs={12} container columnGap={1}>
+                {/* <Grid item xs={12} container columnGap={1}>
                   {postDetail.hashtag?.map((item, index) => (
                     <Typography fontWeight={500} color={theme.palette.primary.main} key={index}>
                       #{item}
                     </Typography>
                   ))}
-                </Grid>
+                </Grid> */}
               </Grid>
             </CardContent>
 

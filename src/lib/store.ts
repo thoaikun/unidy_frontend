@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import modalsSlice from './features/modals/modalsSlice'
 import authSlice from './features/auth/authSlice'
+import postsSlice from './features/posts/postsSlice'
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       modals: modalsSlice,
       auth: authSlice,
+      posts: postsSlice
     },
   })
 }

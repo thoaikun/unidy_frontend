@@ -1,14 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { Avatar, Box, Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material'
 import Post from '@/component/post'
 import Certificate from '@/component/certificate'
 import PersonalInformation from '@/component/personal-information'
 import JoinedCard from '@/component/joined-card'
 import { PostType } from '@/type/post'
-import { postData } from '@/fakeData/posts'
 import { useAppSelector } from '@/lib/hook'
+import { postsData } from '@/fakeData'
 
 const joinedCardData = [
   {
@@ -48,7 +47,7 @@ const joinedCardData = [
 const ProfilePage = () => {
   const user = useAppSelector(state => state.auth.user)
   const isOrganization = user?.role === 'ORGANIZATION'
-  const posts: PostType[] = postData
+  const posts: PostType[] = postsData
 
   return (
     <Grid container pt={5} spacing={6}>
@@ -107,7 +106,7 @@ const ProfilePage = () => {
             </Grid>
             {posts.map((item, index) => (
               <Grid item key={index}>
-                <Post {...item} key={index} />
+                <Post data={item} key={index} />
               </Grid>
             ))}
           </Grid>

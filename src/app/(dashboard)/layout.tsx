@@ -6,7 +6,7 @@ import CustomAppBar from '@/component/app-bar'
 import SideBar from '@/component/side-bar'
 import { useAppDispatch, useAppSelector } from '@/lib/hook'
 import { useRouter } from 'next/navigation'
-import { fetchUserData } from '@/lib/features/auth/authSlice'
+import { fetchUser } from '@/lib/features/auth/authSlice'
 import { deleteCookie } from 'cookies-next'
 
 interface Props {
@@ -28,7 +28,7 @@ const DashboardLayout = ({ children }: Props) => {
 
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(fetchUserData())
+      dispatch(fetchUser())
     }
   }, [status, dispatch])
 
@@ -36,7 +36,7 @@ const DashboardLayout = ({ children }: Props) => {
     <Grid container>
       <CustomAppBar />
 
-      <Grid item width={70} container>
+      <Grid item width={70}>
         <SideBar />
       </Grid>
 
