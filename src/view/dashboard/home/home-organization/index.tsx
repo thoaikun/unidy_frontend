@@ -32,7 +32,7 @@ const tempData = [
 
 const HomeOrganization = () => {
   return (
-    <Grid container spacing={8} mt={0}>
+    <Grid container spacing={8}>
       <Grid item xs container spacing={4}>
         <Grid item xs={12}>
           <Typography variant='h5'>Hoạt động gần đây</Typography>
@@ -83,7 +83,6 @@ const HomeOrganization = () => {
         </Grid>
       </Grid>
     </Grid>
-
   )
 }
 

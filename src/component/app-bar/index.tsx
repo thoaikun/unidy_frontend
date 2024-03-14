@@ -30,12 +30,14 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useAppSelector } from '@/lib/hook'
 import { notificationData } from '@/fakeData/notifications'
-import { deleteCookie } from 'cookies-next'
+import { deleteCookie, getCookie } from 'cookies-next'
 import { toast } from 'react-toastify'
 import api from '@/service/api'
 
 const CustomAppBar = () => {
   const { user, status } = useAppSelector((state) => state.auth)
+  const role = getCookie('role')
+  const isOrganization = role === 'ORGANIZATION'
   const isLoading = status !== 'succeeded'
   const notifications = notificationData
   const router = useRouter()
@@ -66,7 +68,7 @@ const CustomAppBar = () => {
   }, [])
 
   const handleOpenProfile = useCallback(() => {
-    router.push('/profile/1')
+    router.push('/profile')
   }, [router])
 
   const handleLogOut = useCallback(async () => {
@@ -88,22 +90,24 @@ const CustomAppBar = () => {
       <AppBar color='inherit' position='sticky' sx={{ boxShadow: 'none' }}>
         <Toolbar sx={{ height: 60 }}>
           <Grid container spacing={1} px={4} height={1} alignItems='center'>
-            <Grid item width={150}>
+            <Grid item xs md='auto' width={150}>
               <Link href='/home'>
                 <Image src='/images/logo-big.svg' alt='logo' width={80} height={25} />
               </Link>
             </Grid>
 
-            <Grid item xs>
+            <Grid item xs display={{ xs: 'none', md: 'block' }}>
               <InputBase
                 fullWidth
-                startAdornment={<Image src='/icons/search.svg' alt='icon' width={13} height={13} style={{ marginRight: 10 }} />}
+                startAdornment={<Image src='/icons/search.svg' alt='search' width={13} height={13} style={{ marginRight: 10 }} />}
                 placeholder='Type to search' />
             </Grid>
 
-            <Grid item xs='auto'>
-              {isLoading ? (
-                <Skeleton variant='rounded' width={141} height={37} animation='wave' />
+            <Grid item xs='auto' display={{ xs: 'none', md: 'block' }}>
+              {isOrganization ? (
+                <Button variant='contained' sx={{ px: 2, py: 1 }} disableElevation onClick={() => setOpenModal(true)}>
+                  <Typography color={theme.palette.text.contrast} fontWeight={500}>Tạo kỉ niệm mới</Typography>
+                </Button>
               ) : (
                 <Button variant='contained' sx={{ px: 2, py: 1 }} disableElevation onClick={() => setOpenModal(true)}>
                   <Typography color={theme.palette.text.contrast} fontWeight={500}>Tạo kỉ niệm mới</Typography>
@@ -111,8 +115,14 @@ const CustomAppBar = () => {
               )}
             </Grid>
 
-            <Grid item xs='auto' height={1}>
+            <Grid item xs='auto' height={1} display={{ xs: 'none', md: 'block' }}>
               <Divider orientation='vertical' flexItem sx={{ height: 1, borderWidth: 1, mx: 1 }} />
+            </Grid>
+
+            <Grid item xs='auto' display={{ xs: 'block', md: 'none' }}>
+              <IconButton>
+                <Image src='/icons/search-selected.svg' alt='search' width={20} height={20} />
+              </IconButton>
             </Grid>
 
             <Grid item xs='auto'>
@@ -189,13 +199,25 @@ const CustomAppBar = () => {
               </Popover>
             </Grid>
 
-            <Grid item xs='auto'>
+            <Grid item xs='auto' display={{ xs: 'block', md: 'none' }}>
+              <IconButton>
+                <Image src='/icons/message.svg' alt='message' width={20} height={20} />
+              </IconButton>
+            </Grid>
+
+            <Grid item xs='auto' display={{ xs: 'block', md: 'none' }}>
+              <IconButton>
+                <Image src='/icons/more-three-dot.svg' alt='more-three-dot' width={20} height={20} />
+              </IconButton>
+            </Grid>
+
+            <Grid item xs='auto' display={{ xs: 'none', md: 'block' }}>
               <IconButton>
                 <Image src='/icons/setting.svg' alt='setting' width={20} height={20} />
               </IconButton>
             </Grid>
 
-            <Grid container item xs='auto'>
+            <Grid item xs='auto' container display={{ xs: 'none', md: 'flex' }}>
               <IconButton onClick={handleOpenProfile} disabled={isLoading}>
                 {isLoading ? (
                   <Skeleton variant='circular' width={30} height={30} animation='wave' />
@@ -205,7 +227,7 @@ const CustomAppBar = () => {
               </IconButton>
 
               <IconButton onClick={handleClickMore}>
-                <Image src='/icons/more-vertical.svg' alt='setting' width={15} height={15} />
+                <Image src='/icons/more-vertical.svg' alt='more-vertical' width={15} height={15} />
               </IconButton>
               <Menu
                 anchorEl={moreAnchorEl}

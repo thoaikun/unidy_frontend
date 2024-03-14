@@ -4,14 +4,14 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 export interface ModalsState {
   postDetail: {
     open: boolean
-    id: string
+    postId: string
   }
 }
 
 const initialState: ModalsState = {
   postDetail: {
     open: false,
-    id: '',
+    postId: '',
   },
 }
 
@@ -21,11 +21,11 @@ export const modalsSlice = createSlice({
   reducers: {
     openPostDetail: (state, action: PayloadAction<string>) => {
       state.postDetail.open = true
-      state.postDetail.id = action.payload
+      state.postDetail.postId = action.payload
     },
     closePostDetail: (state) => {
       state.postDetail.open = false
-      state.postDetail.id = ''
+      state.postDetail.postId = ''
     },
   },
 })

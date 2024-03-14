@@ -30,7 +30,7 @@ const NewPasswordForm = () => {
           type='password'
           placeholder='Nhập mật khẩu mới'
           label='Mật khẩu mới'
-          InputProps={{ sx: { backgroundColor: '#ffffff' } }}
+          InputProps={{ sx: { backgroundColor: '#ffffff', fontSize: '1rem' } }}
           InputLabelProps={{ sx: { fontSize: '1rem' } }}
           inputProps={{ style: { fontSize: '1rem' } }}
         />
@@ -43,7 +43,7 @@ const NewPasswordForm = () => {
           type='password'
           placeholder='Nhập lại mật khẩu mới'
           label='Xác nhận mật khẩu mới'
-          InputProps={{ sx: { backgroundColor: '#ffffff' } }}
+          InputProps={{ sx: { backgroundColor: '#ffffff', fontSize: '1rem' } }}
           InputLabelProps={{ sx: { fontSize: '1rem' } }}
           inputProps={{ style: { fontSize: '1rem' } }}
         />

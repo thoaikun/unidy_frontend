@@ -19,19 +19,18 @@ const HomeVolunteer = () => {
   return (status !== 'succeeded' ? (
     <HomeVolunteerLoading />
   ) : (
-    <Grid container justifyContent='center' columnGap={8} mt={4}>
-      <Grid item container xs='auto' flexDirection='column' spacing={4}>
+    <Grid container justifyContent='center' columnGap={8} flexWrap={"nowrap"}>
+      <Grid item container flexShrink={2} maxWidth={680} spacing={4}>
         {posts.map((item, index) => (
-          <Grid item key={item.postId}>
+          <Grid item xs={12} key={item.postId}>
             <Post data={item} key={index} />
           </Grid>
         ))}
       </Grid >
 
-      <Grid item xs='auto'>
-        <Box width={480}>
-          <FriendList />
-        </Box>
+      <Grid item flexShrink={3} maxWidth={480} display={{ xs: 'none', lg: 'block' }}
+      >
+        <FriendList />
       </Grid>
     </Grid >
   )

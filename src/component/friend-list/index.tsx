@@ -10,7 +10,7 @@ const FriendList = () => {
   const listFriend: FriendType[] = listFriendData
 
   return (
-    <Card sx={{ width: 480, position: 'absolute' }}>
+    <Card sx={{ width:1, position: 'sticky', top: 96 }}>
       <CardContent>
         <Grid container spacing={3}>
           <Grid item>

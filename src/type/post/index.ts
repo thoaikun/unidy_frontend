@@ -17,3 +17,8 @@ export type PostType = {
   comments?: any[]
   isEvent?: boolean
 }
+
+export type CustomPostType = PostType & {
+  userNode: UserNodesType
+  userLikes: UserNodesType[]
+}

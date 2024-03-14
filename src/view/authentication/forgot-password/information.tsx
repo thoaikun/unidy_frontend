@@ -32,7 +32,10 @@ const InformationForm = ({ setStep }: Props) => {
           type='email'
           placeholder='Nhập email của bạn'
           label='Email'
-          InputProps={{ sx: { backgroundColor: '#ffffff' }, endAdornment: <Button sx={{ width: 100 }}>Lấy OTP</Button> }}
+          InputProps={{
+            sx: { backgroundColor: '#ffffff', fontSize: '1rem' },
+            endAdornment: <Button sx={{ width: 100 }}>Lấy OTP</Button>
+          }}
           InputLabelProps={{ sx: { fontSize: '1rem' } }}
           inputProps={{ style: { fontSize: '1rem' } }}
         />
@@ -44,7 +47,7 @@ const InformationForm = ({ setStep }: Props) => {
           size='medium'
           placeholder='Nhập OTP'
           label='Mã OTP'
-          InputProps={{ sx: { backgroundColor: '#ffffff' } }}
+          InputProps={{ sx: { backgroundColor: '#ffffff', fontSize: '1rem' } }}
           InputLabelProps={{ sx: { fontSize: '1rem' } }}
           inputProps={{ style: { fontSize: '1rem' } }}
         />

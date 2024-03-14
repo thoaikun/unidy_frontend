@@ -22,7 +22,7 @@ export const fetchUser = createAsyncThunk(
     const response = await api.get('/users/profile')
     return response.data
     // await new Promise(
-    //   resolve => setTimeout(resolve, 3000));
+    //   resolve => setTimeout(resolve, 1000));
     // return userData
   },
 )

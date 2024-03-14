@@ -67,7 +67,7 @@ const CampaignDetail = ({ params }: { params: { id: string } }) => {
                     color: theme.palette.success[600],
                     border: `1px solid ${theme.palette.success[600]}`,
                     borderRadius: 1,
-                    fontSize: 10,
+                    fontSize: '0.625rem',
                     height: 21,
                   }}
                 />

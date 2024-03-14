@@ -1,10 +1,9 @@
-'use client'
-
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { Skeleton, Tab, Tabs } from '@mui/material'
 import { useAppSelector } from '@/lib/hook'
+import { getCookie } from 'cookies-next'
 
 const volunteerSideBar = [
   {
@@ -13,7 +12,7 @@ const volunteerSideBar = [
     selected: '/icons/home-selected.svg'
   },
   {
-    path: '/connection',
+    path: '/connections',
     origin: '/icons/connection.svg',
     selected: '/icons/connection-selected.svg'
   },
@@ -46,7 +45,7 @@ const volunteerTabIndex: {
   [field: string]: number
 } = {
   '/home': 0,
-  '/connection': 1,
+  '/connections': 1,
   '/history': 2,
 }
 
@@ -59,8 +58,8 @@ const organizationTabIndex: {
 }
 
 const SideBar = () => {
-  const { user, status } = useAppSelector(state => state.auth)
-  const isOrganization = user?.role === 'ORGANIZATION'
+  const role = getCookie('role')
+  const isOrganization = role === 'ORGANIZATION'
   const router = useRouter()
   const pathname = usePathname()
   const [value, setValue] = useState<number>(isOrganization ? organizationTabIndex[pathname] : volunteerTabIndex[pathname])
@@ -75,7 +74,7 @@ const SideBar = () => {
   }, [pathname, isOrganization])
 
   const handleChange = useCallback((_event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    setValue(newValue)
   }, [])
 
   const handleNavigate = useCallback((path: string) => () => {
@@ -93,12 +92,7 @@ const SideBar = () => {
       {(isOrganization ? organizationSideBar : volunteerSideBar).map((item, index) => (
         <Tab
           key={index}
-          icon={status !== 'succeeded' ? (
-            <Skeleton variant='rounded' width={20} height={20} animation='wave' />
-          ) : (
-            <Image src={index === value ? item.selected : item.origin} alt='dashboard' width={20} height={20} />
-          )}
-          disabled={status !== 'succeeded'}
+          icon={<Image src={index === value ? item.selected : item.origin} alt='dashboard' width={20} height={20} />}
           sx={{ py: 3, minWidth: 70 }}
           onClick={handleNavigate(item.path)}
         />

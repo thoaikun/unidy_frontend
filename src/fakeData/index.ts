@@ -1,5 +1,5 @@
 import { UserType } from "@/type/user";
-import { PostType } from "@/type/post";
+import { CustomPostType, PostType } from "@/type/post";
 
 export const userData: UserType = {
   address: 'Thủ Đức',
@@ -84,7 +84,7 @@ export const postsData: PostType[] = [
   }
 ]
 
-export const postDetailData: PostType = {
+export const postDetailData: CustomPostType = {
   postId: '2024-02-03T10:35:47.301741400_5',
   content: 'Trong ánh bình minh ấm áp, chúng tôi khởi đầu hành trình phát cháo từ thiện. Bát cháo không chỉ là thức ăn, mà còn là lá thư tình nguyện, mang theo niềm tin và sự chia sẻ. Trải qua những con đường nhỏ, chúng tôi không chỉ đem lại bữa ăn ấm lòng mà còn xây dựng một cộng đồng đồng lòng, nơi tình người là ngôn ngữ chung. Hành trình này không chỉ là sự chia sẻ thực phẩm mà còn là dịp để tìm kiếm những khoảnh khắc đẹp, làm cho trái tim chúng tôi trở nên giàu có hơn bằng trái tim của mình.',
   status: 'Hạnh phúc',
@@ -92,7 +92,15 @@ export const postDetailData: PostType = {
   updateDate: null,
   isBlock: false,
   linkImage: '["https://unidy.s3.ap-southeast-1.amazonaws.com/post-images/5/71641db0-6bfa-4118-a849-e4709ff428bc.jpeg"]',
+  userLikes: [],
   userNodes: {
+    userId: 5,
+    fullName: 'Nguyễn Hoàng Bảo Hùng',
+    isBlock: false,
+    profileImageLink: 'https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/5/a846a438-c802-4de2-b8cd-a6fb32292cbe.jpeg',
+    role: null
+  },
+  userNode: {
     userId: 5,
     fullName: 'Nguyễn Hoàng Bảo Hùng',
     isBlock: false,
