@@ -31,7 +31,7 @@ const Introduction = () => {
         </Box>
       </Grid>
       <Grid item container justifyContent='flex-end' alignItems='center'>
-        <Image src='/images/ballon.svg' alt='ballon' height={300} width={265} priority />
+        <Image src='/images/authentication/ballon.svg' alt='ballon' height={300} width={265} priority />
       </Grid>
     </Grid>
   )

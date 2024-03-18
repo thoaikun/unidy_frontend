@@ -10,7 +10,7 @@ enum ListMode {
   top,
 }
 
-const SponsorList = () => {
+const ListSponsor = () => {
   const [mode, setMode] = useState<ListMode>(ListMode.recent)
   const handleChangeMode = useCallback((newMode: ListMode) => () => {
     setMode(newMode)
@@ -25,7 +25,7 @@ const SponsorList = () => {
             <Button
               startIcon={
                 <Image
-                  src={`/icons/recent${mode === ListMode.recent ? '-selected' : ''}.svg`}
+                  src={`/images/dashboard/home/list-sponsor/recent${mode === ListMode.recent ? '-selected' : ''}.svg`}
                   alt='recent-icon'
                   width={15}
                   height={15}
@@ -35,7 +35,7 @@ const SponsorList = () => {
             <Button
               startIcon={
                 <Image
-                  src={`/icons/top${mode === ListMode.top ? '-selected' : ''}.svg`}
+                  src={`/images/dashboard/home/list-sponsor/top${mode === ListMode.top ? '-selected' : ''}.svg`}
                   alt='top-icon'
                   width={15}
                   height={15}
@@ -71,4 +71,4 @@ const SponsorList = () => {
   )
 }
 
-export default SponsorList
+export default ListSponsor

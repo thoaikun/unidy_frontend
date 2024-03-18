@@ -21,22 +21,22 @@ interface ButtonProps {
 
 const ButtonDetails: ButtonProps[] = [{
   key: 'VOLUNTEER',
-  image: '/images/heart-1.svg',
-  selectedImage: '/images/heart-2.svg',
+  image: '/images/authentication/sign-up/heart.svg',
+  selectedImage: '/images/authentication/sign-up/heart-selected.svg',
   alt: 'heart',
   title: 'Người thiện nguyện',
   subtitle: 'Tham gia các chương trình từ thiện',
 }, {
   key: 'SPONSOR',
-  image: '/images/dollar-1.svg',
-  selectedImage: '/images/dollar-2.svg',
+  image: '/images/authentication/sign-up/dollar.svg',
+  selectedImage: '/images/authentication/sign-up/dollar-selected.svg',
   alt: 'dollar',
   title: 'Nhà hảo tâm',
   subtitle: 'Ủng hộ tiền cho các chương trình từ thiện',
 }, {
   key: 'ORGANIZATION',
-  image: '/images/building-1.svg',
-  selectedImage: '/images/building-2.svg',
+  image: '/images/authentication/sign-up/building.svg',
+  selectedImage: '/images/authentication/sign-up/building-selected.svg',
   alt: 'building',
   title: 'Nhà tổ chức',
   subtitle: 'Tổ chức các hoạt động từ thiện',

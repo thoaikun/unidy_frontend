@@ -1,12 +1,12 @@
 'use client'
 
-import FriendList from "@/component/friend-list"
 import Post from "@/component/post"
 import { useAppDispatch, useAppSelector } from "@/lib/hook"
-import { Box, Grid } from "@mui/material"
+import { Grid } from "@mui/material"
 import HomeVolunteerLoading from "./loading"
 import { useEffect } from "react"
 import { fetchPosts } from "@/lib/features/posts/postsSlice"
+import ListFriend from "@/component/list-friend"
 
 const HomeVolunteer = () => {
   const { posts, status } = useAppSelector((state) => state.posts)
@@ -30,7 +30,7 @@ const HomeVolunteer = () => {
 
       <Grid item flexShrink={3} maxWidth={480} display={{ xs: 'none', lg: 'block' }}
       >
-        <FriendList />
+        <ListFriend />
       </Grid>
     </Grid >
   )

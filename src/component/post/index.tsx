@@ -113,21 +113,21 @@ const Post = ({ data }: Props) => {
           <Grid container spacing={2}>
             <Grid item xs='auto' container alignItems='center'>
               <IconButton onClick={handleaClickLike}>
-                <Image src={`/icons/${isLiked ? '' : 'dis'}loved.svg`} alt='loved' width={23} height={20} />
+                <Image src={`/images/dashboard/post-card/${isLiked ? '' : 'dis'}loved.svg`} alt='loved' width={23} height={20} />
               </IconButton>
               <Typography>{likeCount} lượt thích</Typography>
             </Grid>
 
             <Grid item xs='auto' container alignItems='center'>
               <IconButton>
-                <Image src='/icons/comment.svg' alt='loved' width={23} height={20} />
+                <Image src='/images/dashboard/post-card/comment.svg' alt='comment' width={23} height={20} />
               </IconButton>
               <Typography>{comments?.length} bình luận</Typography>
             </Grid>
 
             <Grid item xs='auto' container alignItems='center'>
               <IconButton>
-                <Image src='/icons/share.svg' alt='loved' width={23} height={20} />
+                <Image src='/images/dashboard/post-card/share.svg' alt='share' width={23} height={20} />
               </IconButton>
               <Typography>Chia sẻ</Typography>
             </Grid>

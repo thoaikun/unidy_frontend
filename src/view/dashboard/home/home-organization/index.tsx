@@ -1,5 +1,5 @@
 import CampaignCard from "@/component/campaign-card"
-import SponsorList from "@/component/sponsor-list"
+import ListSponsor from "@/component/list-sponsor"
 import { Card, CardContent, Grid, Typography } from "@mui/material"
 import Image from "next/image"
 
@@ -60,7 +60,7 @@ const HomeOrganization = () => {
 
       <Grid item xs='auto' container flexDirection='column' spacing={4}>
         <Grid item>
-          <SponsorList />
+          <ListSponsor />
         </Grid>
 
         <Grid item container spacing={2} width={432}>

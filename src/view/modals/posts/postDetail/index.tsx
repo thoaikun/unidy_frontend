@@ -69,7 +69,7 @@ const PostDetail = () => {
           <Grid item xs>
             <Grid container justifyContent='flex-end' p={2}>
               <IconButton onClick={handleClose}>
-                <Image src='/icons/close.svg' alt='close-icon' width={20} height={20} />
+                <Image src='/images/dashboard/modal/close.svg' alt='close-icon' width={20} height={20} />
               </IconButton>
             </Grid>
             <Card>

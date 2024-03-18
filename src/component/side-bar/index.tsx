@@ -8,36 +8,36 @@ import { getCookie } from 'cookies-next'
 const volunteerSideBar = [
   {
     path: '/home',
-    origin: '/icons/home.svg',
-    selected: '/icons/home-selected.svg'
+    origin: '/images/dashboard/side-bar/home.svg',
+    selected: '/images/dashboard/side-bar/home-selected.svg'
   },
   {
     path: '/connections',
-    origin: '/icons/connection.svg',
-    selected: '/icons/connection-selected.svg'
+    origin: '/images/dashboard/side-bar/connection.svg',
+    selected: '/images/dashboard/side-bar/connection-selected.svg'
   },
   {
     path: '/history',
-    origin: '/icons/history.svg',
-    selected: '/icons/history-selected.svg'
+    origin: '/images/dashboard/side-bar/history.svg',
+    selected: '/images/dashboard/side-bar/history-selected.svg'
   },
 ]
 
 const organizationSideBar = [
   {
     path: '/home',
-    origin: '/icons/home.svg',
-    selected: '/icons/home-selected.svg'
+    origin: '/images/dashboard/side-bar/home.svg',
+    selected: '/images/dashboard/side-bar/home-selected.svg'
   },
   {
     path: '/history',
-    origin: '/icons/campaign-list.svg',
-    selected: '/icons/campaign-list-selected.svg'
+    origin: '/images/dashboard/side-bar/campaign-list.svg',
+    selected: '/images/dashboard/side-bar/campaign-list-selected.svg'
   },
   {
     path: '/message',
-    origin: '/icons/message.svg',
-    selected: '/icons/message.svg'
+    origin: '/images/dashboard/side-bar/message.svg',
+    selected: '/images/dashboard/side-bar/message.svg'
   },
 ]
 

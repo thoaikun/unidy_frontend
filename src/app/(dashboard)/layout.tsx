@@ -3,7 +3,7 @@
 import { ReactNode, useEffect } from 'react'
 import { Grid } from '@mui/material'
 import CustomAppBar from '@/component/app-bar'
-import SideBar from '@/component/side-bar'
+import SideBar from '../../component/side-bar'
 import { useAppDispatch, useAppSelector } from '@/lib/hook'
 import { useRouter } from 'next/navigation'
 import { fetchUser } from '@/lib/features/auth/authSlice'
