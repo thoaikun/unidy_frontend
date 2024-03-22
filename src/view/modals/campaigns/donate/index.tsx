@@ -1,18 +1,22 @@
+import { closeDonateModal } from "@/lib/features/modals/modalsSlice"
+import { useAppDispatch, useAppSelector } from "@/lib/hook"
 import { Close } from "@mui/icons-material"
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, TextField, Typography } from "@mui/material"
 import Image from "next/image"
+import { useCallback } from "react"
 
-interface Props {
-  open: boolean
-  id: string
-  onClose: () => void
-}
+const DonateModal = () => {
+  const { campaignId } = useAppSelector((state) => state.modals.donateModal)
+  const dispatch = useAppDispatch()
 
-const DonateModal = ({ open, id, onClose }: Props) => {
+  const handleClose = useCallback(() => {
+    dispatch(closeDonateModal())
+  }, [dispatch])
+
   return (
-    <Dialog open={open} fullWidth>
+    <Dialog open={true} fullWidth>
       <DialogActions>
-        <IconButton onClick={onClose}>
+        <IconButton onClick={handleClose}>
           <Close />
         </IconButton>
       </DialogActions>

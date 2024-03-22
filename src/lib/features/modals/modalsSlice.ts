@@ -6,12 +6,20 @@ export interface ModalsState {
     open: boolean
     postId: string
   }
+  donateModal: {
+    open: boolean
+    campaignId: string
+  }
 }
 
 const initialState: ModalsState = {
   postDetail: {
     open: false,
     postId: '',
+  },
+  donateModal: {
+    open: false,
+    campaignId: '',
   },
 }
 
@@ -27,10 +35,18 @@ export const modalsSlice = createSlice({
       state.postDetail.open = false
       state.postDetail.postId = ''
     },
+    openDonateModal: (state, action: PayloadAction<string>) => {
+      state.donateModal.open = true
+      state.donateModal.campaignId = action.payload
+    },
+    closeDonateModal: (state) => {
+      state.donateModal.open = false
+      state.donateModal.campaignId = ''
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { openPostDetail, closePostDetail } = modalsSlice.actions
+export const { openPostDetail, closePostDetail, openDonateModal, closeDonateModal } = modalsSlice.actions
 
 export default modalsSlice.reducer

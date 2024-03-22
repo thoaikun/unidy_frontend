@@ -84,7 +84,7 @@ const SideBar = () => {
   return (
     <Tabs
       orientation='vertical'
-      value={value}
+      value={value >= 0 && value}
       onChange={handleChange}
       sx={{ height: 'calc(100% - 64px)', backgroundColor: '#ffffff', position: 'absolute' }}
       TabIndicatorProps={{ sx: { left: 0 } }}

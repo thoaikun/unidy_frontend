@@ -1,7 +1,6 @@
 import { UserNodesType } from "../user"
 
-
-export type PostType = {
+type PostType = {
   postId: string
   content: string
   // hashtag: string[]
@@ -15,10 +14,7 @@ export type PostType = {
   likeCount: number
   // comments?: string[]
   comments?: any[]
-  isEvent?: boolean
+  userLikes?: UserNodesType[]
 }
 
-export type CustomPostType = PostType & {
-  userNode: UserNodesType
-  userLikes: UserNodesType[]
-}
+export type { PostType }

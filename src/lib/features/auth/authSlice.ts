@@ -3,6 +3,7 @@ import api from '@/service/api'
 import { UserType } from '@/type/user'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { setCookie } from 'cookies-next'
 
 export interface AuthState {
   user: UserType | null
@@ -23,6 +24,7 @@ export const fetchUser = createAsyncThunk(
     return response.data
     // await new Promise(
     //   resolve => setTimeout(resolve, 1000));
+    // setCookie('user_data', userData)
     // return userData
   },
 )

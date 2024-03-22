@@ -77,6 +77,7 @@ const CustomAppBar = () => {
       deleteCookie('access_token')
       deleteCookie('refresh_token')
       deleteCookie('role')
+      deleteCookie('user_data')
       localStorage.clear()
       router.push('/log-in')
     }
@@ -92,7 +93,7 @@ const CustomAppBar = () => {
           <Grid container spacing={1} px={4} height={1} alignItems='center'>
             <Grid item xs md='auto' width={150}>
               <Link href='/home'>
-                <Image src='/images/logo-big.svg' alt='logo' width={80} height={25} />
+                <Image src='/images/logo-big.svg' alt='logo' width={80} height={25} priority />
               </Link>
             </Grid>
 

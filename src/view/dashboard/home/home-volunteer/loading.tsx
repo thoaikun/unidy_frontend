@@ -2,24 +2,26 @@ import { Box, Card, CardContent, CardHeader, Divider, Grid, Skeleton, Typography
 
 const HomeVolunteerLoading = () => {
   return (
-    <Grid container justifyContent='center' columnGap={8} mt={4}>
-      <Grid item container xs='auto'>
-        <Card sx={{ width: 680, borderRadius: 2, py: 1 }}>
-          <CardHeader
-            avatar={<Skeleton variant='circular' width={40} height={40} animation='wave' />}
-            title={<Skeleton width='50%' animation='wave' />}
-            subheader={<Skeleton width='50%' animation='wave' />}
-          />
+    <Grid container justifyContent='center' columnGap={8} flexWrap='nowrap'>
+      <Grid item container flexShrink={2} maxWidth={680} spacing={4}>
+        <Grid item xs={12}>
+          <Card sx={{ borderRadius: 2, py: 1 }}>
+            <CardHeader
+              avatar={<Skeleton variant='circular' width={40} height={40} animation='wave' />}
+              title={<Skeleton width='50%' animation='wave' />}
+              subheader={<Skeleton width='50%' animation='wave' />}
+            />
 
-          <CardContent sx={{ py: 0 }}>
-            <Skeleton variant='rounded' height={58} sx={{ mb: 2 }} animation='wave' />
-            <Skeleton variant='rounded' width={648} height={324} animation='wave' />
-          </CardContent>
-        </Card>
+            <CardContent sx={{ py: 0 }}>
+              <Skeleton variant='rounded' height={58} sx={{ mb: 2 }} animation='wave' />
+              <Skeleton variant='rounded' width='100%' height={300} animation='wave' />
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
 
-      <Grid item xs='auto' display={{ xs: 'none', lg: 'block' }}>
-        <Card sx={{ width: 480, position: 'sticky', top: 96 }}>
+      <Grid item container flexShrink={3} maxWidth={480} display={{ xs: 'none', lg: 'block' }}>
+        <Card sx={{ width: 1 }}>
           <CardContent>
             <Grid container spacing={3}>
               <Grid item>

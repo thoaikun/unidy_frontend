@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosRetry from "axios-retry";
 import { getCookie } from "cookies-next";
 
 const api = axios.create({
@@ -30,5 +31,7 @@ api.interceptors.response.use(
     return Promise.reject(error.response)
   },
 )
+
+axiosRetry(api, { retries: 3 })
 
 export default api

@@ -1,23 +1,29 @@
 'use client'
 
-import { Grid, Typography } from '@mui/material'
-import Post from '@/component/post'
-import Certificate from '@/component/certificate'
-import PersonalInformation from '@/component/personal-information'
-import JoinedCard from '@/component/joined-card'
-import { PostType } from '@/type/post'
-import { useAppSelector } from '@/lib/hook'
-import { joinedCardData, postsData } from '@/fakeData'
-import { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
-import api from '@/service/api'
-import ProfileCardLoading from '@/view/dashboard/profile/profile-card/loading'
-import ProfileCard from '@/view/dashboard/profile/profile-card'
-import PostLoading from '@/component/post/loading'
-import PersonalInformationLoading from '@/component/personal-information/loading'
-import CertificateLoading from '@/component/certificate/loading'
+import Certificate from "@/component/certificate"
+import CertificateLoading from "@/component/certificate/loading"
+import JoinedCard from "@/component/joined-card"
+import PersonalInformation from "@/component/personal-information"
+import PersonalInformationLoading from "@/component/personal-information/loading"
+import Post from "@/component/post"
+import PostLoading from "@/component/post/loading"
+import { joinedCardData, postsData } from "@/fakeData"
+import { useAppSelector } from "@/lib/hook"
+import api from "@/service/api"
+import { PostType } from "@/type/post"
+import ProfileCard from "@/view/dashboard/profile/profile-card"
+import ProfileCardLoading from "@/view/dashboard/profile/profile-card/loading"
+import { Grid, Typography } from "@mui/material"
+import { useEffect, useState } from "react"
+import { toast } from "react-toastify"
 
-const ProfilePage = () => {
+interface Props {
+  params: {
+    userId: number
+  }
+}
+
+const Profile = ({ params }: Props) => {
   const { user, status } = useAppSelector(state => state.auth)
   const isOrganization = user?.role === 'ORGANIZATION'
   const [posts, setPosts] = useState<PostType[]>([])
@@ -110,4 +116,4 @@ const ProfilePage = () => {
   )
 }
 
-export default ProfilePage
+export default Profile

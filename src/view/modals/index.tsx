@@ -2,12 +2,16 @@
 
 import { useAppSelector } from "@/lib/hook"
 import PostDetail from "./posts/postDetail"
+import DonateModal from "./campaigns/donate"
 
 const ModalProvider = () => {
-  const postDetail = useAppSelector(state => state.modals.postDetail)
+  const { postDetail, donateModal } = useAppSelector(state => state.modals)
 
   return (
-    postDetail.open && <PostDetail />
+    <>
+      {postDetail.open && <PostDetail />}
+      {donateModal.open && <DonateModal />}
+    </>
   )
 }
 

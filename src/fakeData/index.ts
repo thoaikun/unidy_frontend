@@ -1,5 +1,6 @@
-import { UserType } from "@/type/user";
-import { CustomPostType, PostType } from "@/type/post";
+import { UserType } from '@/type/user'
+import { PostType } from '@/type/post'
+import { CampaignType } from '@/type/campaign'
 
 export const userData: UserType = {
   address: 'Thủ Đức',
@@ -84,7 +85,7 @@ export const postsData: PostType[] = [
   }
 ]
 
-export const postDetailData: CustomPostType = {
+export const postDetailData: PostType = {
   postId: '2024-02-03T10:35:47.301741400_5',
   content: 'Trong ánh bình minh ấm áp, chúng tôi khởi đầu hành trình phát cháo từ thiện. Bát cháo không chỉ là thức ăn, mà còn là lá thư tình nguyện, mang theo niềm tin và sự chia sẻ. Trải qua những con đường nhỏ, chúng tôi không chỉ đem lại bữa ăn ấm lòng mà còn xây dựng một cộng đồng đồng lòng, nơi tình người là ngôn ngữ chung. Hành trình này không chỉ là sự chia sẻ thực phẩm mà còn là dịp để tìm kiếm những khoảnh khắc đẹp, làm cho trái tim chúng tôi trở nên giàu có hơn bằng trái tim của mình.',
   status: 'Hạnh phúc',
@@ -100,13 +101,374 @@ export const postDetailData: CustomPostType = {
     profileImageLink: 'https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/5/a846a438-c802-4de2-b8cd-a6fb32292cbe.jpeg',
     role: null
   },
-  userNode: {
-    userId: 5,
-    fullName: 'Nguyễn Hoàng Bảo Hùng',
-    isBlock: false,
-    profileImageLink: 'https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/5/a846a438-c802-4de2-b8cd-a6fb32292cbe.jpeg',
-    role: null
-  },
   isLiked: false,
   likeCount: 0
 }
+
+export const joinedCardData = [
+  {
+    media: '/examples/post-media-2.webp',
+    title: 'Trồng cây gây rừng',
+    status: -1,
+    time: '1/23/2023 - 3.32AM',
+    numberVolunteers: 100,
+    maxVolunteers: 120,
+  },
+  {
+    media: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ4caJI8kFtBIEREwR8fQwBFwFGjEgteKogh1wmbSb9a8lNHDRB',
+    title: 'Trồng cây gây rừng',
+    status: 0,
+    time: '1/23/2023 - 3.32AM',
+    numberVolunteers: 100,
+    maxVolunteers: 120,
+  },
+  {
+    media: 'http://www.news.cn/english/2021-10/26/1310269188_16352106345691n.jpg',
+    title: 'Trồng cây gây rừng',
+    status: 0,
+    time: '1/23/2023 - 3.32AM',
+    numberVolunteers: 100,
+    maxVolunteers: 120,
+  },
+  {
+    media: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQi7xiogVfM1i8bY5jFoSb_axWThVhT2BySGBt6uFZokDOlmFTz',
+    title: 'Trồng cây gây rừng',
+    status: 1,
+    time: '1/23/2023 - 3.32AM',
+    numberVolunteers: 100,
+    maxVolunteers: 120,
+  },
+]
+
+export const campaignsData: CampaignType[] = [
+  {
+    campaign: {
+      campaignId: '4',
+      title: 'Mùa hè xanh',
+      hashTag: null,
+      content: 'Mùa hè xanh',
+      status: 'IN_PROGRESS',
+      startDate: '2024-02-03T10:30:24',
+      endDate: '2024-03-03T10:30:24',
+      timeTakePlace: '2024-04-03T10:30:24',
+      location: 'Sai Gon',
+      numOfRegister: 5,
+      createDate: null,
+      updateDate: null,
+      isBlock: false,
+      linkImage: null,
+      donationBudget: 100000000,
+      donationBudgetReceived: 60000000,
+      userNode: null,
+      donate: null,
+      userLikes: []
+    },
+    organizationNode: {
+      userId: 13,
+      fullName: 'Organization 1',
+      isBlock: false,
+      profileImageLink: 'https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/13/786a7539-932a-4844-9fa4-d09456015db9.png',
+      role: 'ORGANIZATION'
+    },
+    likeCount: 0,
+    isLiked: false,
+    isJoined: false
+  },
+  {
+    campaign: {
+      campaignId: '6',
+      title: 'Hoa phượng đỏ',
+      hashTag: null,
+      content: 'Hoa phượng đỏ',
+      status: 'IN_PROGRESS',
+      startDate: '2024-02-03T10:30:24',
+      endDate: '2024-03-03T10:30:24',
+      timeTakePlace: '2024-04-03T10:30:24',
+      location: 'Sai Gon',
+      numOfRegister: 5,
+      createDate: null,
+      updateDate: null,
+      isBlock: false,
+      linkImage: null,
+      donationBudget: 100000000,
+      donationBudgetReceived: 60020000,
+      userNode: null,
+      donate: null,
+      userLikes: []
+    },
+    organizationNode: {
+      userId: 13,
+      fullName: 'Organization 1',
+      isBlock: false,
+      profileImageLink: 'https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/13/786a7539-932a-4844-9fa4-d09456015db9.png',
+      role: 'ORGANIZATION'
+    },
+    likeCount: 0,
+    isLiked: false,
+    isJoined: false
+  },
+  {
+    campaign: {
+      campaignId: '7',
+      title: 'Kỳ nghỉ hồng',
+      hashTag: null,
+      content: 'Kỳ nghỉ hồng',
+      status: 'IN_PROGRESS',
+      startDate: '2024-02-03T10:30:24',
+      endDate: '2024-03-03T10:30:24',
+      timeTakePlace: '2024-04-03T10:30:24',
+      location: 'Sai Gon',
+      numOfRegister: 5,
+      createDate: null,
+      updateDate: null,
+      isBlock: false,
+      linkImage: null,
+      donationBudget: 100000000,
+      donationBudgetReceived: 60000000,
+      userNode: null,
+      donate: null,
+      userLikes: []
+    },
+    organizationNode: {
+      userId: 13,
+      fullName: 'Organization 1',
+      isBlock: false,
+      profileImageLink: 'https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/13/786a7539-932a-4844-9fa4-d09456015db9.png',
+      role: 'ORGANIZATION'
+    },
+    likeCount: 0,
+    isLiked: false,
+    isJoined: false
+  },
+  {
+    campaign: {
+      campaignId: '9',
+      title: 'Hành quân xanh',
+      hashTag: null,
+      content: 'Hành quân xanh',
+      status: 'IN_PROGRESS',
+      startDate: '2024-02-03T10:30:24',
+      endDate: '2024-03-03T10:30:24',
+      timeTakePlace: '2024-04-03T10:30:24',
+      location: 'Sai Gon',
+      numOfRegister: 5,
+      createDate: null,
+      updateDate: null,
+      isBlock: false,
+      linkImage: null,
+      donationBudget: 100000000,
+      donationBudgetReceived: 60200000,
+      userNode: null,
+      donate: null,
+      userLikes: []
+    },
+    organizationNode: {
+      userId: 13,
+      fullName: 'Organization 1',
+      isBlock: false,
+      profileImageLink: 'https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/13/786a7539-932a-4844-9fa4-d09456015db9.png',
+      role: 'ORGANIZATION'
+    },
+    likeCount: 0,
+    isLiked: false,
+    isJoined: false
+  },
+  {
+    campaign: {
+      campaignId: '10',
+      title: 'Tình nguyện tại đảo',
+      hashTag: null,
+      content: 'Tình nguyện tại đảo',
+      status: 'IN_PROGRESS',
+      startDate: '2024-02-03T10:30:24',
+      endDate: '2024-03-03T10:30:24',
+      timeTakePlace: '2024-04-03T10:30:24',
+      location: 'Sai Gon',
+      numOfRegister: 5,
+      createDate: null,
+      updateDate: null,
+      isBlock: false,
+      linkImage: null,
+      donationBudget: 100000000,
+      donationBudgetReceived: 60000000,
+      userNode: null,
+      donate: null,
+      userLikes: []
+    },
+    organizationNode: {
+      userId: 13,
+      fullName: 'Organization 1',
+      isBlock: false,
+      profileImageLink: 'https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/13/786a7539-932a-4844-9fa4-d09456015db9.png',
+      role: 'ORGANIZATION'
+    },
+    likeCount: 0,
+    isLiked: false,
+    isJoined: true
+  },
+  {
+    campaign: {
+      campaignId: '2',
+      title: 'Vệ sinh khu phố',
+      hashTag: null,
+      content: 'Vệ sinh khu phố',
+      status: 'IN_PROGRESS',
+      startDate: '2024-02-03T10:30:24',
+      endDate: '2024-03-03T10:30:24',
+      timeTakePlace: '2024-04-03T10:30:24',
+      location: 'Sai Gon',
+      numOfRegister: 5,
+      createDate: null,
+      updateDate: null,
+      isBlock: false,
+      linkImage: null,
+      donationBudget: 100000000,
+      donationBudgetReceived: 60000000,
+      userNode: null,
+      donate: null,
+      userLikes: []
+    },
+    organizationNode: {
+      userId: 13,
+      fullName: 'Organization 1',
+      isBlock: false,
+      profileImageLink: 'https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/13/786a7539-932a-4844-9fa4-d09456015db9.png',
+      role: 'ORGANIZATION'
+    },
+    likeCount: 0,
+    isLiked: false,
+    isJoined: false
+  },
+  {
+    campaign: {
+      campaignId: '3',
+      title: 'Tuyên truyền phòng chống sốt rét',
+      hashTag: null,
+      content: 'Tuyên truyền phòng chống sốt rét',
+      status: 'IN_PROGRESS',
+      startDate: '2024-02-03T10:30:24',
+      endDate: '2024-03-03T10:30:24',
+      timeTakePlace: '2024-04-03T10:30:24',
+      location: 'Sai Gon',
+      numOfRegister: 5,
+      createDate: null,
+      updateDate: null,
+      isBlock: false,
+      linkImage: null,
+      donationBudget: 100000000,
+      donationBudgetReceived: 60000000,
+      userNode: null,
+      donate: null,
+      userLikes: []
+    },
+    organizationNode: {
+      userId: 13,
+      fullName: 'Organization 1',
+      isBlock: false,
+      profileImageLink: 'https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/13/786a7539-932a-4844-9fa4-d09456015db9.png',
+      role: 'ORGANIZATION'
+    },
+    likeCount: 0,
+    isLiked: false,
+    isJoined: false
+  },
+  {
+    campaign: {
+      campaignId: '4',
+      title: 'Mùa hè xanh',
+      hashTag: null,
+      content: 'Mùa hè xanh',
+      status: 'IN_PROGRESS',
+      startDate: '2024-02-03T10:30:24',
+      endDate: '2024-03-03T10:30:24',
+      timeTakePlace: '2024-04-03T10:30:24',
+      location: 'Sai Gon',
+      numOfRegister: 5,
+      createDate: null,
+      updateDate: null,
+      isBlock: false,
+      linkImage: null,
+      donationBudget: 100000000,
+      donationBudgetReceived: 60000000,
+      userNode: null,
+      donate: null,
+      userLikes: []
+    },
+    organizationNode: {
+      userId: 13,
+      fullName: 'Organization 1',
+      isBlock: false,
+      profileImageLink: 'https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/13/786a7539-932a-4844-9fa4-d09456015db9.png',
+      role: 'ORGANIZATION'
+    },
+    likeCount: 0,
+    isLiked: false,
+    isJoined: false
+  },
+  {
+    campaign: {
+      campaignId: '5',
+      title: 'Xuân tình nguyện',
+      hashTag: null,
+      content: 'Xuân tình nguyện',
+      status: 'IN_PROGRESS',
+      startDate: '2024-02-03T10:30:24',
+      endDate: '2024-03-03T10:30:24',
+      timeTakePlace: '2024-04-03T10:30:24',
+      location: 'Sai Gon',
+      numOfRegister: 5,
+      createDate: null,
+      updateDate: null,
+      isBlock: false,
+      linkImage: null,
+      donationBudget: 100000000,
+      donationBudgetReceived: 60000000,
+      userNode: null,
+      donate: null,
+      userLikes: []
+    },
+    organizationNode: {
+      userId: 13,
+      fullName: 'Organization 1',
+      isBlock: false,
+      profileImageLink: 'https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/13/786a7539-932a-4844-9fa4-d09456015db9.png',
+      role: 'ORGANIZATION'
+    },
+    likeCount: 0,
+    isLiked: false,
+    isJoined: false
+  },
+  {
+    campaign: {
+      campaignId: '1',
+      title: 'Phát cháo',
+      hashTag: null,
+      content: 'Phát cháo',
+      status: 'IN_PROGRESS',
+      startDate: '2024-02-03T10:30:24',
+      endDate: '2024-03-03T10:30:24',
+      timeTakePlace: '2024-04-03T10:30:24',
+      location: 'Sai Gon',
+      numOfRegister: 5,
+      createDate: null,
+      updateDate: null,
+      isBlock: false,
+      linkImage: null,
+      donationBudget: 100000000,
+      donationBudgetReceived: 60200000,
+      userNode: null,
+      donate: null,
+      userLikes: []
+    },
+    organizationNode: {
+      userId: 13,
+      fullName: 'Organization 1',
+      isBlock: false,
+      profileImageLink: 'https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/13/786a7539-932a-4844-9fa4-d09456015db9.png',
+      role: 'ORGANIZATION'
+    },
+    likeCount: 0,
+    isLiked: false,
+    isJoined: false
+  }
+]
