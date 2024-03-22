@@ -8,22 +8,22 @@ const getData = (theme: Theme) => ({
   color: theme.palette.warning[400],
   history: [
     {
-      media: '/icons/green-rank.svg',
+      media: '/images/dashboard/certificate/green-rank.svg',
       tilte: 'Hiến máu nhân đạo',
       location: 'Đại học bách khoa',
     },
     {
-      media: '/icons/gray-rank.svg',
+      media: '/images/dashboard/certificate/gray-rank.svg',
       tilte: 'Phát cháo từ thiện',
       location: 'Bệnh viện Truyền máu huyết học',
     },
     {
-      media: '/icons/blue-rank.svg',
+      media: '/images/dashboard/certificate/blue-rank.svg',
       tilte: 'Góp quỹ vắc xin Covid 19',
       location: 'Nhà',
     },
     {
-      media: '/icons/gray-rank.svg',
+      media: '/images/dashboard/certificate/gray-rank.svg',
       tilte: 'Hỗ trợ quán cơm từ thiện',
       location: 'Quán cơm từ thiện số 24',
     },
@@ -35,11 +35,11 @@ const Certificate = () => {
   const data = getData(theme)
 
   return (
-    <Card sx={{ width: 360, mb: 3, px: 2 }}>
+    <Card sx={{ px: 2 }}>
       <CardContent>
         <Grid container spacing={3}>
           <Grid item>
-            <Image src='/icons/trophy.svg' alt='trophy' width={28} height={45} />
+            <Image src='/images/dashboard/list-friend/trophy.svg' alt='trophy' width={28} height={45} />
           </Grid>
 
           <Grid item xs container alignItems='center'>

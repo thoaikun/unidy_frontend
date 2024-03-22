@@ -53,7 +53,7 @@ const DonateModal = ({ open, id, onClose }: Props) => {
             <Button
               variant='outlined'
               color='momo'
-              startIcon={<Image src='/images/momo.svg' alt='momo' width={27} height={27} />}
+              startIcon={<Image src='/images/dashboard/modal/momo.svg' alt='momo' width={27} height={27} />}
             >
               <Typography variant="h4" fontWeight={500}>Momo</Typography>
             </Button>

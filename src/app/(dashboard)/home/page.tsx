@@ -1,11 +1,12 @@
 import HomeVolunteer from '@/view/dashboard/home/home-volunteer'
 import HomeOrganization from '@/view/dashboard/home/home-organization'
-import { getCookie } from 'cookies-next'
+import { cookies } from 'next/headers'
 
-const HomePage = async () => {
-  const role = getCookie('role')
+const HomePage = () => {
+  const cookieStore = cookies()
+  const role = cookieStore.get('role')
 
-  return (role !== 'ORGANIZATION' ? (
+  return (role?.value !== 'ORGANIZATION' ? (
     <HomeVolunteer />
   ) : (
     <HomeOrganization />

@@ -47,7 +47,7 @@ const PersonalInformation = ({ control, errors, handleNext, handleBack }: Props)
               size='medium'
               placeholder='Nhập họ và tên của bạn'
               label='Họ và tên'
-              InputProps={{ sx: { backgroundColor: '#ffffff' } }}
+              InputProps={{ sx: { backgroundColor: '#ffffff', fontSize: '1rem' } }}
               InputLabelProps={{ sx: { fontSize: '1rem' } }}
               inputProps={{ style: { fontSize: '1rem' } }}
               error={Boolean(errors.fullName)}
@@ -69,7 +69,7 @@ const PersonalInformation = ({ control, errors, handleNext, handleBack }: Props)
               size='medium'
               type='date'
               label='Ngày sinh'
-              InputProps={{ sx: { backgroundColor: '#ffffff' } }}
+              InputProps={{ sx: { backgroundColor: '#ffffff', fontSize: '1rem' } }}
               InputLabelProps={{ sx: { fontSize: '1rem' }, shrink: true, }}
               inputProps={{ style: { fontSize: '1rem' } }}
               error={Boolean(errors.dayOfBirth)}
@@ -84,14 +84,14 @@ const PersonalInformation = ({ control, errors, handleNext, handleBack }: Props)
           name='sex'
           render={({ field: { onChange, onBlur, value } }) => (
             <FormControl fullWidth>
-              <InputLabel>Giới tính</InputLabel>
+              <InputLabel sx={{ fontSize: '1rem' }}>Giới tính</InputLabel>
               <Select
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
                 fullWidth
                 label='Giới tính'
-                sx={{ backgroundColor: '#ffffff' }}
+                sx={{ backgroundColor: '#ffffff', fontSize: '1rem' }}
                 error={Boolean(errors.sex)}
               >
                 <MenuItem value='MALE'>Nam</MenuItem>
@@ -115,7 +115,7 @@ const PersonalInformation = ({ control, errors, handleNext, handleBack }: Props)
               size='medium'
               placeholder='Nhập số điện thoại của bạn'
               label='Số điện thoại'
-              InputProps={{ sx: { backgroundColor: '#ffffff' } }}
+              InputProps={{ sx: { backgroundColor: '#ffffff', fontSize: '1rem' } }}
               InputLabelProps={{ sx: { fontSize: '1rem' } }}
               inputProps={{ style: { fontSize: '1rem' } }}
               error={Boolean(errors.phone)}
@@ -137,7 +137,7 @@ const PersonalInformation = ({ control, errors, handleNext, handleBack }: Props)
               size='medium'
               placeholder='Nhập nghề nghiệp của bạn'
               label='Nghề nghiệp'
-              InputProps={{ sx: { backgroundColor: '#ffffff' } }}
+              InputProps={{ sx: { backgroundColor: '#ffffff', fontSize: '1rem' } }}
               InputLabelProps={{ sx: { fontSize: '1rem' } }}
               inputProps={{ style: { fontSize: '1rem' } }}
               error={Boolean(errors.job)}
@@ -159,7 +159,7 @@ const PersonalInformation = ({ control, errors, handleNext, handleBack }: Props)
               size='medium'
               placeholder='Nhập nơi công tác của bạn'
               label='Nơi công tác'
-              InputProps={{ sx: { backgroundColor: '#ffffff' } }}
+              InputProps={{ sx: { backgroundColor: '#ffffff', fontSize: '1rem' } }}
               InputLabelProps={{ sx: { fontSize: '1rem' } }}
               inputProps={{ style: { fontSize: '1rem' } }}
               error={Boolean(errors.workLocation)}

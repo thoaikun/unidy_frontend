@@ -4,15 +4,21 @@ import type { NextRequest } from 'next/server'
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
-  const access_token = request.cookies.get('access_token')
+  const accessToken = request.cookies.get('access_token')
 
-  if (access_token) {
-    if (['/', '/log-in', '/sign-up'].includes(pathname)) {
+  if (accessToken) {
+    if (['/', '/log-in', '/sign-up', '/forgot-password'].includes(pathname)) {
       return NextResponse.redirect(new URL('/home', request.url))
+    } else if (pathname.includes('/profile/')) {
+      const userId = pathname.substring(9)
+      const userData = request.cookies.get('user_data')
+      if (userData && JSON.parse(userData.value).userId === parseInt(userId)) {
+        return NextResponse.redirect(new URL('/profile', request.url))
+      }
     }
   }
   else {
-    if (!['/log-in', '/sign-up'].includes(pathname)) {
+    if (!['/log-in', '/sign-up', '/forgot-password'].includes(pathname)) {
       return NextResponse.redirect(new URL('/log-in', request.url))
     }
   }

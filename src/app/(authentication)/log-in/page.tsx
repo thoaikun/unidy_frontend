@@ -81,7 +81,7 @@ const LogInPage = () => {
               type='email'
               placeholder='Nhập email của bạn'
               label='Email'
-              InputProps={{ sx: { backgroundColor: '#ffffff' } }}
+              InputProps={{ sx: { backgroundColor: '#ffffff', fontSize: '1rem' } }}
               InputLabelProps={{ sx: { fontSize: '1rem' } }}
               inputProps={{ style: { fontSize: '1rem' } }}
               error={Boolean(errors.email)}
@@ -103,7 +103,7 @@ const LogInPage = () => {
               type='password'
               placeholder='Nhập mật khẩu của bạn'
               label='Mật khẩu'
-              InputProps={{ sx: { backgroundColor: '#ffffff' } }}
+              InputProps={{ sx: { backgroundColor: '#ffffff', fontSize: '1rem' } }}
               InputLabelProps={{ sx: { fontSize: '1rem' } }}
               inputProps={{ style: { fontSize: '1rem' } }}
               error={Boolean(errors.password)}

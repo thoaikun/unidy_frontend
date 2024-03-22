@@ -1,5 +1,5 @@
 import CampaignCard from "@/component/campaign-card"
-import SponsorList from "@/component/sponsor-list"
+import ListSponsor from "@/component/list-sponsor"
 import { Card, CardContent, Grid, Typography } from "@mui/material"
 import Image from "next/image"
 
@@ -32,7 +32,7 @@ const tempData = [
 
 const HomeOrganization = () => {
   return (
-    <Grid container spacing={8} mt={0}>
+    <Grid container spacing={8}>
       <Grid item xs container spacing={4}>
         <Grid item xs={12}>
           <Typography variant='h5'>Hoạt động gần đây</Typography>
@@ -60,7 +60,7 @@ const HomeOrganization = () => {
 
       <Grid item xs='auto' container flexDirection='column' spacing={4}>
         <Grid item>
-          <SponsorList />
+          <ListSponsor />
         </Grid>
 
         <Grid item container spacing={2} width={432}>
@@ -83,7 +83,6 @@ const HomeOrganization = () => {
         </Grid>
       </Grid>
     </Grid>
-
   )
 }
 

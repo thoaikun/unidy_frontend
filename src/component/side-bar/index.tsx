@@ -1,44 +1,43 @@
-'use client'
-
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { Skeleton, Tab, Tabs } from '@mui/material'
 import { useAppSelector } from '@/lib/hook'
+import { getCookie } from 'cookies-next'
 
 const volunteerSideBar = [
   {
     path: '/home',
-    origin: '/icons/home.svg',
-    selected: '/icons/home-selected.svg'
+    origin: '/images/dashboard/side-bar/home.svg',
+    selected: '/images/dashboard/side-bar/home-selected.svg'
   },
   {
-    path: '/connection',
-    origin: '/icons/connection.svg',
-    selected: '/icons/connection-selected.svg'
+    path: '/connections',
+    origin: '/images/dashboard/side-bar/connection.svg',
+    selected: '/images/dashboard/side-bar/connection-selected.svg'
   },
   {
     path: '/history',
-    origin: '/icons/history.svg',
-    selected: '/icons/history-selected.svg'
+    origin: '/images/dashboard/side-bar/history.svg',
+    selected: '/images/dashboard/side-bar/history-selected.svg'
   },
 ]
 
 const organizationSideBar = [
   {
     path: '/home',
-    origin: '/icons/home.svg',
-    selected: '/icons/home-selected.svg'
+    origin: '/images/dashboard/side-bar/home.svg',
+    selected: '/images/dashboard/side-bar/home-selected.svg'
   },
   {
     path: '/history',
-    origin: '/icons/campaign-list.svg',
-    selected: '/icons/campaign-list-selected.svg'
+    origin: '/images/dashboard/side-bar/campaign-list.svg',
+    selected: '/images/dashboard/side-bar/campaign-list-selected.svg'
   },
   {
     path: '/message',
-    origin: '/icons/message.svg',
-    selected: '/icons/message.svg'
+    origin: '/images/dashboard/side-bar/message.svg',
+    selected: '/images/dashboard/side-bar/message.svg'
   },
 ]
 
@@ -46,7 +45,7 @@ const volunteerTabIndex: {
   [field: string]: number
 } = {
   '/home': 0,
-  '/connection': 1,
+  '/connections': 1,
   '/history': 2,
 }
 
@@ -59,23 +58,24 @@ const organizationTabIndex: {
 }
 
 const SideBar = () => {
-  const { user, status } = useAppSelector(state => state.auth)
-  const isOrganization = user?.role === 'ORGANIZATION'
+  const role = getCookie('role')
+  const isOrganization = role === 'ORGANIZATION'
   const router = useRouter()
   const pathname = usePathname()
-  const [value, setValue] = useState<number>(isOrganization ? organizationTabIndex[pathname] : volunteerTabIndex[pathname])
+  const [value, setValue] = useState<number | false>(isOrganization ? organizationTabIndex[pathname] : volunteerTabIndex[pathname])
 
   useEffect(() => {
     if (pathname.includes('campaign')) {
       setValue(isOrganization ? organizationTabIndex['/history'] : volunteerTabIndex['/history'])
     }
-    else if (pathname.includes('/profile')) {
-      setValue(-1)
+    else {
+      const temp = isOrganization ? organizationTabIndex[pathname] : volunteerTabIndex[pathname]
+      setValue(temp >= 0 && temp)
     }
   }, [pathname, isOrganization])
 
   const handleChange = useCallback((_event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    setValue(newValue)
   }, [])
 
   const handleNavigate = useCallback((path: string) => () => {
@@ -93,12 +93,7 @@ const SideBar = () => {
       {(isOrganization ? organizationSideBar : volunteerSideBar).map((item, index) => (
         <Tab
           key={index}
-          icon={status !== 'succeeded' ? (
-            <Skeleton variant='rounded' width={20} height={20} animation='wave' />
-          ) : (
-            <Image src={index === value ? item.selected : item.origin} alt='dashboard' width={20} height={20} />
-          )}
-          disabled={status !== 'succeeded'}
+          icon={<Image src={index === value ? item.selected : item.origin} alt='dashboard' width={20} height={20} />}
           sx={{ py: 3, minWidth: 70 }}
           onClick={handleNavigate(item.path)}
         />

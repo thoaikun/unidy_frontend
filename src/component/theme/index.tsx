@@ -45,7 +45,7 @@ declare module '@mui/material/Button' {
 }
 
 const breakpoints = {
-  lg: 1200
+  lg: 1199,
 }
 
 const theme = createTheme({

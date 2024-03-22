@@ -21,24 +21,14 @@ export const fetchPosts = createAsyncThunk(
   async () => {
     const response = await api.get('/posts', {
       params: {
-        cursor: (() => {
-          const today = new Date
-          let month = '' + (today.getMonth() + 1)
-          let day = '' + today.getDate()
-          let year = today.getFullYear()
-
-          if (month.length < 2)
-            month = '0' + month;
-          if (day.length < 2)
-            day = '0' + day;
-          return [year, month, day].join('-')
-        })(),
+        skip: 0,
         limit: 5,
       }
     })
     return response.data
+
     // await new Promise(
-    //   resolve => setTimeout(resolve, 3000));
+    //   resolve => setTimeout(resolve, 1000));
     // return postsData
   },
 )
@@ -46,7 +36,13 @@ export const fetchPosts = createAsyncThunk(
 export const postsSlice = createSlice({
   name: 'posts',
   initialState,
-  reducers: {},
+  reducers: {
+    reactPost: (state, action: PayloadAction<{ postId: string, isLiked: boolean }>) => {
+      state.posts = state.posts.map((post) =>
+        post.postId !== action.payload.postId ? post : { ...post, isLiked: action.payload.isLiked }
+      )
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchPosts.pending, (state) => {
       state.status = 'loading'
@@ -65,6 +61,6 @@ export const postsSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { } = postsSlice.actions
+export const { reactPost } = postsSlice.actions
 
 export default postsSlice.reducer

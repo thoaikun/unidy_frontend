@@ -17,7 +17,7 @@ const CustomStepper = ({ isVolunteer, step }: Props) => {
       {(isVolunteer ? volunteerSteps : organizationSteps).map((item, index) => (
         <Grid item container alignItems='center' key={index}>
           {Math.floor(step) > index + 1 ?
-            <Image src='/images/completed.svg' alt='completed' height={30} width={30} /> :
+            <Image src='/images/authentication/sign-up/completed.svg' alt='completed' height={30} width={30} /> :
             <Grid
               container
               justifyContent='center'
@@ -47,18 +47,10 @@ const CustomStepper = ({ isVolunteer, step }: Props) => {
       ))}
 
       <Image
-        src='/images/polygon-2.svg'
-        alt='polygon'
-        height={135}
-        width={480}
-        style={{ position: 'absolute', bottom: 0, left: 0 }}
-      />
-
-      <Image
-        src='/images/polygon-1.svg'
-        alt='polygon'
-        height={201}
-        width={342}
+        src='/images/authentication/sign-up/background.svg'
+        alt='background'
+        height={300}
+        width={500}
         style={{ position: 'absolute', bottom: 0, left: 0 }}
       />
     </Grid>

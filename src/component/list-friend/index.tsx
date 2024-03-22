@@ -5,16 +5,16 @@ import { Avatar, Card, CardContent, Divider, Grid, Typography, useTheme } from '
 import { listFriendData } from '@/fakeData/listFriend'
 import { FriendType } from '@/type/user'
 
-const FriendList = () => {
+const ListFriend = () => {
   const theme = useTheme()
   const listFriend: FriendType[] = listFriendData
 
   return (
-    <Card sx={{ width: 480, position: 'absolute' }}>
+    <Card sx={{ width: 1, position: 'sticky', top: 96 }}>
       <CardContent>
         <Grid container spacing={3}>
           <Grid item>
-            <Image src='/icons/trophy.svg' alt='trophy' width={28} height={45} />
+            <Image src='/images/dashboard/list-friend/trophy.svg' alt='trophy' width={28} height={45} />
           </Grid>
 
           <Grid item xs container alignItems='center'>
@@ -58,4 +58,4 @@ const FriendList = () => {
   )
 }
 
-export default FriendList
+export default ListFriend

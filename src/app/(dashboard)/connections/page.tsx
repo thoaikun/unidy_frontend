@@ -20,7 +20,7 @@ const friendList = [
   },
 ]
 
-const ConnectionPage = () => {
+const ConnectionsPage = () => {
   const theme = useTheme()
   const [friendRequests, setFriendRequests] = useState([
     {
@@ -180,4 +180,4 @@ const ConnectionPage = () => {
   )
 }
 
-export default ConnectionPage
+export default ConnectionsPage

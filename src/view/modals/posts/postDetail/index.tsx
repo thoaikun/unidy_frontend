@@ -1,119 +1,175 @@
 import { postDetailData } from "@/fakeData"
 import { closePostDetail } from "@/lib/features/modals/modalsSlice"
+import { reactPost } from "@/lib/features/posts/postsSlice"
 import { useAppDispatch, useAppSelector } from "@/lib/hook"
-import { Avatar, Card, CardActions, CardContent, CardHeader, Dialog, Divider, Grid, IconButton, Typography, useTheme } from "@mui/material"
+import api from "@/service/api"
+import { PostType } from "@/type/post"
+import { Avatar, Card, CardActions, CardContent, CardHeader, Dialog, Divider, Grid, IconButton, Skeleton, Typography, useTheme } from "@mui/material"
 import Image from "next/image"
-import { useCallback } from "react"
+import { useCallback, useEffect, useState } from "react"
+import { toast } from "react-toastify"
 
 const PostDetail = () => {
   const theme = useTheme()
-  const data = useAppSelector(state => state.modals.postDetail)
+  const [postData, setPostData] = useState<PostType>()
+  const { open, postId } = useAppSelector(state => state.modals.postDetail)
+  const { user } = useAppSelector((state) => state.auth)
   const dispatch = useAppDispatch()
-  const postDetail = postDetailData
 
-  const handleaClickLove = useCallback(() => {
-    // setPostData(prevState => ({ ...prevState, loved: !prevState.loved }))
-  }, [])
+  const getPostData = useCallback(async () => {
+    try {
+      const response = await api.get('/posts/get-post-by-postId', {
+        params: {
+          postId,
+        }
+      })
+      setPostData(response.data[0])
+      // setPostData(postDetailData)
+    }
+    catch (error: any) {
+      toast.error(error.data.error)
+    }
+  }, [postId])
+
+  useEffect(() => {
+    getPostData()
+  }, [getPostData])
+
+  const isLiked = postData?.userLikes?.find((item) => item.userId === user?.userId)
+  const handleaClickLove = useCallback(async () => {
+    try {
+      const response = await api.patch(`/posts/${isLiked ? 'unlike' : 'like'}?postId=${postId}`)
+      if (response.status === 200) {
+        await getPostData()
+        dispatch(reactPost({ postId, isLiked: !isLiked }))
+      }
+    }
+    catch (error: any) {
+      toast.error(error.data.error)
+    }
+  }, [dispatch, postId, getPostData, isLiked])
 
   const handleClose = useCallback(() => {
     dispatch(closePostDetail())
   }, [dispatch])
 
   return (
-    <Dialog open={data.open} maxWidth='lg' fullWidth>
-      <Grid container>
-        <Grid item xs='auto'>
-          <Image src={JSON.parse(postDetail.linkImage)[0]} alt='post-detail-image' width={700} height={700} style={{ objectFit: 'cover' }} />
-        </Grid>
-        <Grid item xs p={2}>
-          <Grid container justifyContent='flex-end'>
-            <IconButton onClick={handleClose}>
-              <Image src='/icons/close.svg' alt='close-icon' width={20} height={20} />
-            </IconButton>
-          </Grid>
-          <Card sx={{ borderRadius: 2 }}>
-            <CardHeader
-              avatar={<Avatar src={postDetail.userNodes.profileImageLink || ''} />}
-              title={
-                <Grid container spacing={2}>
-                  <Grid item>
-                    <Typography fontWeight={500}>{postDetail.userNodes.fullName}</Typography>
-                  </Grid>
-
-                  <Grid item xs container alignItems='center'>
-                    <Typography variant='body2' fontWeight={300}>• 10m</Typography>
-                  </Grid>
-                </Grid>
-              }
-              subheader={<Typography color={theme.palette.text.secondary}>{status}</Typography>}
+    <Dialog open={open} maxWidth='lg' fullWidth>
+      {postData ? (
+        <Grid container spacing={2}>
+          <Grid item xs='auto' height={716}>
+            <Image
+              src={JSON.parse(postData.linkImage)[0]}
+              alt='post-detail-image'
+              width={700}
+              height={700}
+              style={{ objectFit: 'cover' }}
             />
+          </Grid>
+          <Grid item xs>
+            <Grid container justifyContent='flex-end' p={2}>
+              <IconButton onClick={handleClose}>
+                <Image src='/images/dashboard/modal/close.svg' alt='close-icon' width={20} height={20} />
+              </IconButton>
+            </Grid>
+            <Card>
+              <CardHeader
+                avatar={<Avatar src={postData.userNodes.profileImageLink || ''} />}
+                title={
+                  <Grid container spacing={2}>
+                    <Grid item>
+                      <Typography fontWeight={500}>{postData.userNodes.fullName}</Typography>
+                    </Grid>
 
-            <CardContent sx={{ py: 0 }}>
-              <Grid container spacing={1} pb={2}>
-                <Grid item xs={12}>
-                  <Typography whiteSpace='pre-line'>{postDetail.content}</Typography>
-                </Grid>
+                    <Grid item xs container alignItems='center'>
+                      <Typography variant='body2' fontWeight={300}>• 10m</Typography>
+                    </Grid>
+                  </Grid>
+                }
+                subheader={<Typography color={theme.palette.text.secondary}>{status}</Typography>}
+              />
 
-                {/* <Grid item xs={12} container columnGap={1}>
-                  {postDetail.hashtag?.map((item, index) => (
+              <CardContent sx={{ py: 0 }}>
+                <Grid container spacing={1} pb={2}>
+                  <Grid item xs={12}>
+                    <Typography whiteSpace='pre-line'>{postData.content}</Typography>
+                  </Grid>
+
+                  {/* <Grid item xs={12} container columnGap={1}>
+                  {postData.hashtag?.map((item, index) => (
                     <Typography fontWeight={500} color={theme.palette.primary.main} key={index}>
                       #{item}
                     </Typography>
                   ))}
                 </Grid> */}
-              </Grid>
-            </CardContent>
-
-            <CardActions>
-              <Grid container spacing={2}>
-                <Grid item xs='auto' container alignItems='center'>
-                  <IconButton onClick={handleaClickLove}>
-                    <Image src={`/icons/${postDetail.isLiked ? '' : 'dis'}loved.svg`} alt='loved' width={23} height={20} />
-                  </IconButton>
-                  <Typography>{postDetail.likeCount} lượt thích</Typography>
                 </Grid>
+              </CardContent>
 
-                <Grid item xs='auto' container alignItems='center'>
-                  <IconButton>
-                    <Image src='/icons/comment.svg' alt='loved' width={23} height={20} />
-                  </IconButton>
-                  <Typography>{postDetail.comments?.length} bình luận</Typography>
-                </Grid>
-
-                <Grid item xs='auto' container alignItems='center'>
-                  <IconButton>
-                    <Image src='/icons/share.svg' alt='loved' width={23} height={20} />
-                  </IconButton>
-                  <Typography>Chia sẻ</Typography>
-                </Grid>
-              </Grid>
-            </CardActions>
-
-            <Divider sx={{ borderColor: '#000000' }} />
-
-            <Grid container spacing={2} mt={2}>
-              {postDetail.comments?.map((item, index) => (
-                <Grid item container spacing={2} key={index}>
-                  <Grid item xs='auto'>
-                    <Avatar src={item.userNodes.profileImageLink} sx={{ width: 35, height: 35 }} />
+              <CardActions>
+                <Grid container spacing={2}>
+                  <Grid item xs='auto' container alignItems='center'>
+                    <IconButton onClick={handleaClickLove}>
+                      <Image src={`/images/dashboard/post-card/${isLiked ? '' : 'dis'}loved.svg`} alt='loved' width={23} height={20} />
+                    </IconButton>
+                    <Typography>{postData.userLikes?.length} lượt thích</Typography>
                   </Grid>
-                  <Grid item xs container>
-                    <Grid item xs={12}>
-                      <Typography variant='h6'>{item.userNodes.fullName}</Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Typography variant='body1'>{item.content}</Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Typography variant='caption'>Trả lời</Typography>
-                    </Grid>
+
+                  <Grid item xs='auto' container alignItems='center'>
+                    <IconButton>
+                      <Image src='/images/dashboard/post-card/comment.svg' alt='loved' width={23} height={20} />
+                    </IconButton>
+                    <Typography>{postData.comments?.length} bình luận</Typography>
+                  </Grid>
+
+                  <Grid item xs='auto' container alignItems='center'>
+                    <IconButton>
+                      <Image src='/images/dashboard/post-card/share.svg' alt='loved' width={23} height={20} />
+                    </IconButton>
+                    <Typography>Chia sẻ</Typography>
                   </Grid>
                 </Grid>
-              ))}
-            </Grid>
-          </Card>
+              </CardActions>
+
+              <Divider sx={{ borderColor: '#000000' }} />
+
+              <Grid container spacing={2} mt={2}>
+                {postData.comments?.map((item, index) => (
+                  <Grid item container spacing={2} key={index}>
+                    <Grid item xs='auto'>
+                      <Avatar src={item.userNodes.profileImageLink} sx={{ width: 35, height: 35 }} />
+                    </Grid>
+                    <Grid item xs container>
+                      <Grid item xs={12}>
+                        <Typography variant='h6'>{item.userNodes.fullName}</Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Typography variant='body1'>{item.content}</Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Typography variant='caption'>Trả lời</Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                ))}
+              </Grid>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
+      ) : (
+        <Grid container spacing={2}>
+          <Grid item xs='auto'>
+            <Skeleton variant='rounded' width={700} height={700} animation='wave' />
+          </Grid>
+          <Grid item xs>
+            <Grid container justifyContent='flex-end' p={2}>
+              <IconButton onClick={handleClose}>
+                <Image src='/images/dashboard/modal/close.svg' alt='close-icon' width={20} height={20} />
+              </IconButton>
+            </Grid>
+            <Skeleton variant='rounded' width='100%' height={632} animation='wave' />
+          </Grid>
+        </Grid>
+      )}
     </Dialog >
   )
 }

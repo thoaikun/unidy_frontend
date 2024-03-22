@@ -82,7 +82,7 @@ const SignUpView = ({ role, handleBackToSelectRole }: IProps) => {
                 <StepLabel
                   icon={
                     <Image
-                      src={`icons/dot-${item > Math.floor(step) - 1 ? 'todo' : item < Math.floor(step) - 1 ? 'done' : 'doing'}.svg`}
+                      src={`/images/authentication/sign-up/mobile/dot-${item > Math.floor(step) - 1 ? 'todo' : item < Math.floor(step) - 1 ? 'done' : 'doing'}.svg`}
                       alt='dot'
                       width={20}
                       height={20}
