@@ -7,10 +7,10 @@ import PersonalInformation from "@/component/personal-information"
 import PersonalInformationLoading from "@/component/personal-information/loading"
 import Post from "@/component/post"
 import PostLoading from "@/component/post/loading"
-import { joinedCardData, postsData } from "@/fakeData"
-import { useAppSelector } from "@/lib/hook"
+import { joinedCardData, postsData, userData as fakeUserData } from "@/fakeData"
 import api from "@/service/api"
 import { PostType } from "@/type/post"
+import { UserType } from "@/type/user"
 import ProfileCard from "@/view/dashboard/profile/profile-card"
 import ProfileCardLoading from "@/view/dashboard/profile/profile-card/loading"
 import { Grid, Typography } from "@mui/material"
@@ -23,16 +23,20 @@ interface Props {
   }
 }
 
-const Profile = ({ params }: Props) => {
-  const { user, status } = useAppSelector(state => state.auth)
-  const isOrganization = user?.role === 'ORGANIZATION'
+const Profile = ({ params: { userId } }: Props) => {
+  const [userData, setUserData] = useState<UserType | null>(null)
+  const [isLoadingUser, setIsLoadingUser] = useState<boolean>(true)
+  const isOrganization = userData?.role === 'ORGANIZATION'
   const [posts, setPosts] = useState<PostType[]>([])
   const [isLoadingPost, setIsLoadingPost] = useState<boolean>(true)
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await api.get('/posts/get-post-by-userId', {
+        let response = await api.get(`/users/profile/${userId}`)
+        setUserData(response.data)
+        setIsLoadingUser(false)
+        response = await api.get('/posts/get-post-by-userId', {
           params: {
             skip: 0,
             limit: 5,
@@ -40,22 +44,25 @@ const Profile = ({ params }: Props) => {
         })
         setPosts(response.data)
         setIsLoadingPost(false)
+
+        // setUserData(fakeUserData)
         // setPosts(postsData)
+        // setTimeout(() => setIsLoadingUser(false), 1000)
         // setTimeout(() => setIsLoadingPost(false), 2000)
       }
       catch (error: any) {
         toast.error(error.data.error)
       }
     })()
-  }, [])
+  }, [userId])
 
   return (
     <Grid container pt={5} spacing={6}>
       <Grid item xs={12}>
-        {status !== 'succeeded' ? (
+        {isLoadingUser ? (
           <ProfileCardLoading />
         ) : (
-          <ProfileCard userData={user} />
+          <ProfileCard userData={userData} />
         )}
       </Grid>
 
@@ -64,7 +71,7 @@ const Profile = ({ params }: Props) => {
           <Grid container spacing={3} position='sticky' top={72}>
             {!isOrganization && (
               <Grid item xs={12}>
-                {status !== 'succeeded' ? (
+                {isLoadingUser ? (
                   <CertificateLoading />
                 ) : (
                   <Certificate />
@@ -73,10 +80,10 @@ const Profile = ({ params }: Props) => {
             )}
 
             <Grid item xs={12}>
-              {status !== 'succeeded' ? (
+              {isLoadingUser ? (
                 <PersonalInformationLoading />
               ) : (
-                <PersonalInformation userData={user} />
+                <PersonalInformation userData={userData} />
               )}
             </Grid>
 

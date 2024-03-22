@@ -26,6 +26,7 @@ export const fetchPosts = createAsyncThunk(
       }
     })
     return response.data
+
     // await new Promise(
     //   resolve => setTimeout(resolve, 1000));
     // return postsData

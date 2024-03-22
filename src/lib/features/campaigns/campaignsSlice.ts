@@ -27,6 +27,7 @@ export const fetchCampaigns = createAsyncThunk(
       }
     })
     return response.data.campaigns
+
     // await new Promise(
     //   resolve => setTimeout(resolve, 1000));
     // return campaignsData

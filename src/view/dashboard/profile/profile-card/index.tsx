@@ -21,7 +21,7 @@ const ProfileCard = ({ userData }: Props) => {
 
       <Box ml={33} mb={2}>
         <CardContent>
-          <Typography variant='h3'>{userData?.fullName}</Typography>
+          <Typography variant='h3'>{userData?.fullName || 'Unknown name'}</Typography>
         </CardContent>
 
         <CardActions>

@@ -62,14 +62,15 @@ const SideBar = () => {
   const isOrganization = role === 'ORGANIZATION'
   const router = useRouter()
   const pathname = usePathname()
-  const [value, setValue] = useState<number>(isOrganization ? organizationTabIndex[pathname] : volunteerTabIndex[pathname])
+  const [value, setValue] = useState<number | false>(isOrganization ? organizationTabIndex[pathname] : volunteerTabIndex[pathname])
 
   useEffect(() => {
     if (pathname.includes('campaign')) {
       setValue(isOrganization ? organizationTabIndex['/history'] : volunteerTabIndex['/history'])
     }
-    else if (pathname.includes('/profile')) {
-      setValue(-1)
+    else {
+      const temp = isOrganization ? organizationTabIndex[pathname] : volunteerTabIndex[pathname]
+      setValue(temp >= 0 && temp)
     }
   }, [pathname, isOrganization])
 
@@ -84,7 +85,7 @@ const SideBar = () => {
   return (
     <Tabs
       orientation='vertical'
-      value={value >= 0 && value}
+      value={value}
       onChange={handleChange}
       sx={{ height: 'calc(100% - 64px)', backgroundColor: '#ffffff', position: 'absolute' }}
       TabIndicatorProps={{ sx: { left: 0 } }}
