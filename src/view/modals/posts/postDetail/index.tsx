@@ -1,5 +1,5 @@
 import { postDetailData } from "@/fakeData"
-import { closePostDetail } from "@/lib/features/modals/modalsSlice"
+import { closePostDetail } from "@/lib/features/modals/postDetailModal/postDetailModalSlice"
 import { reactPost } from "@/lib/features/posts/postsSlice"
 import { useAppDispatch, useAppSelector } from "@/lib/hook"
 import api from "@/service/api"
@@ -12,7 +12,7 @@ import { toast } from "react-toastify"
 const PostDetail = () => {
   const theme = useTheme()
   const [postData, setPostData] = useState<PostType>()
-  const { open, postId } = useAppSelector(state => state.modals.postDetail)
+  const { open, postId } = useAppSelector(state => state.postDetailModal)
   const { user } = useAppSelector((state) => state.auth)
   const dispatch = useAppDispatch()
 

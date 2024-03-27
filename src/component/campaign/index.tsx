@@ -4,11 +4,10 @@ import Image from 'next/image'
 import { useCallback, useRef, useState } from 'react'
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Grid, IconButton, Typography, useTheme } from '@mui/material'
 import { useAppDispatch } from '@/lib/hook'
-import DonateModal from '@/view/dashboard/home/home-volunteer/donate-modal'
 import { toast } from 'react-toastify'
 import Link from 'next/link'
 import { CampaignType } from '@/type/campaign'
-import { openDonateModal } from '@/lib/features/modals/modalsSlice'
+import { openDonateModal } from '@/lib/features/modals/donateModal/donateModalSlice'
 
 interface Props {
   data: CampaignType
@@ -36,8 +35,11 @@ const Campaign = ({ data }: Props) => {
   }, [])
 
   const handleOpenDonateModal = useCallback(() => {
-    dispatch(openDonateModal(campaign.campaignId))
-  }, [dispatch, campaign.campaignId])
+    dispatch(openDonateModal({
+      campaignId: campaign.campaignId,
+      organizationUserId: organizationNode.userId,
+    }))
+  }, [dispatch, campaign.campaignId, organizationNode.userId])
 
   const handleJoinCampaign = useCallback(() => {
     toast.info('Tính năng đang được phát triển')
