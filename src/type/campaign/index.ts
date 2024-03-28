@@ -1,4 +1,4 @@
-import { UserNodesType } from "../user"
+import { UserNodeType } from "../user"
 
 type CampaignDetailType = {
   campaignId: string
@@ -17,14 +17,14 @@ type CampaignDetailType = {
   linkImage: string | null
   donationBudget: number
   donationBudgetReceived: number
-  userNode: UserNodesType | null
+  userNode: UserNodeType | null
   donate: string | null
-  userLikes: UserNodesType[]
+  userLikes: UserNodeType[]
 }
 
 type CampaignType = {
   campaign: CampaignDetailType
-  organizationNode: UserNodesType
+  organizationNode: UserNodeType
   likeCount: number
   isLiked: boolean
   isJoined: boolean

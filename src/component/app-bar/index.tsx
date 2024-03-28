@@ -28,11 +28,15 @@ import {
 } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { useAppSelector } from '@/lib/hook'
+import { useAppDispatch, useAppSelector } from '@/lib/hook'
 import { notificationData } from '@/fakeData/notifications'
 import { deleteCookie, getCookie } from 'cookies-next'
 import { toast } from 'react-toastify'
 import api from '@/service/api'
+import { resetUser } from '@/lib/features/auth/authSlice'
+import { resetFriends } from '@/lib/features/friends/friendsSlice'
+import { resetPosts } from '@/lib/features/posts/postsSlice'
+import { resetCampaigns } from '@/lib/features/campaigns/campaignsSlice'
 
 const CustomAppBar = () => {
   const { user, status } = useAppSelector((state) => state.auth)
@@ -42,6 +46,7 @@ const CustomAppBar = () => {
   const notifications = notificationData
   const router = useRouter()
   const theme = useTheme()
+  const dispatch = useAppDispatch()
 
   const [openModal, setOpenModal] = useState<boolean>(false)
 
@@ -74,17 +79,24 @@ const CustomAppBar = () => {
   const handleLogOut = useCallback(async () => {
     try {
       await api.get('/auth/logout')
+
       deleteCookie('access_token')
       deleteCookie('refresh_token')
       deleteCookie('role')
       deleteCookie('user_data')
       localStorage.clear()
+
+      dispatch(resetUser())
+      dispatch(resetFriends())
+      dispatch(resetPosts())
+      dispatch(resetCampaigns())
+
       router.push('/log-in')
     }
     catch (error: any) {
       toast.error(error.data.error)
     }
-  }, [router])
+  }, [dispatch, router])
 
   return (
     <>

@@ -6,7 +6,9 @@ import DonateModal from "./campaigns/donate"
 import CustomBackdrop from "./backdrop"
 
 const ModalProvider = () => {
-  const { backdrop, postDetailModal, donateModal } = useAppSelector((state) => state)
+  const backdrop = useAppSelector((state) => state.backdrop)
+  const postDetailModal = useAppSelector((state) => state.postDetailModal)
+  const donateModal = useAppSelector((state) => state.donateModal)
 
   return (
     <>

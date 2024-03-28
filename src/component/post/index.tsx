@@ -21,7 +21,7 @@ const Post = ({ data }: Props) => {
     content,
     status,
     linkImage,
-    userNodes,
+    userNode,
     isLiked,
     likeCount,
     comments,
@@ -52,15 +52,15 @@ const Post = ({ data }: Props) => {
       <Card sx={{ borderRadius: 2, py: 1 }}>
         <CardHeader
           avatar={
-            <Link href={`/profile/${userNodes.userId}`}>
-              <Avatar src={userNodes.profileImageLink || ''} />
+            <Link href={`/profile/${userNode.userId}`}>
+              <Avatar src={userNode.profileImageLink || ''} />
             </Link>
           }
           title={
             <Grid container spacing={2}>
               <Grid item>
-                <Link href={`/profile/${userNodes.userId}`}>
-                  <Typography fontWeight={500}>{userNodes.fullName}</Typography>
+                <Link href={`/profile/${userNode.userId}`}>
+                  <Typography fontWeight={500}>{userNode.fullName}</Typography>
                 </Link>
               </Grid>
 
@@ -103,7 +103,7 @@ const Post = ({ data }: Props) => {
               <IconButton>
                 <Image src='/images/dashboard/post-card/comment.svg' alt='comment' width={23} height={20} />
               </IconButton>
-              <Typography>{comments?.length} bình luận</Typography>
+              <Typography>{comments?.length || 69} bình luận</Typography>
             </Grid>
 
             <Grid item xs='auto' container alignItems='center'>

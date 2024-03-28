@@ -74,11 +74,11 @@ const PostDetail = () => {
             </Grid>
             <Card>
               <CardHeader
-                avatar={<Avatar src={postData.userNodes.profileImageLink || ''} />}
+                avatar={<Avatar src={postData.userNode.profileImageLink || ''} />}
                 title={
                   <Grid container spacing={2}>
                     <Grid item>
-                      <Typography fontWeight={500}>{postData.userNodes.fullName}</Typography>
+                      <Typography fontWeight={500}>{postData.userNode.fullName}</Typography>
                     </Grid>
 
                     <Grid item xs container alignItems='center'>
@@ -136,11 +136,11 @@ const PostDetail = () => {
                 {postData.comments?.map((item, index) => (
                   <Grid item container spacing={2} key={index}>
                     <Grid item xs='auto'>
-                      <Avatar src={item.userNodes.profileImageLink} sx={{ width: 35, height: 35 }} />
+                      <Avatar src={item.userNode.profileImageLink} sx={{ width: 35, height: 35 }} />
                     </Grid>
                     <Grid item xs container>
                       <Grid item xs={12}>
-                        <Typography variant='h6'>{item.userNodes.fullName}</Typography>
+                        <Typography variant='h6'>{item.userNode.fullName}</Typography>
                       </Grid>
                       <Grid item xs={12}>
                         <Typography variant='body1'>{item.content}</Typography>

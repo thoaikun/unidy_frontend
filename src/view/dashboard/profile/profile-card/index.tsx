@@ -2,7 +2,7 @@ import { UserType } from "@/type/user"
 import { Avatar, Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
 
 interface Props {
-  userData: UserType | null
+  userData: (UserType & { isFriend?: boolean }) | null
 }
 
 const ProfileCard = ({ userData }: Props) => {
@@ -25,14 +25,28 @@ const ProfileCard = ({ userData }: Props) => {
         </CardContent>
 
         <CardActions>
-          {userData?.role !== 'ORGANIZATION' ? (
-            <>
-              <Button variant='contained' sx={{ width: 210, height: 30 }} disableElevation>Nhắn tin</Button>
-              <Button variant='outlined' sx={{ width: 148, height: 30 }}>Xóa kết bạn</Button>
-            </>
-          ) : (
-            <Button variant='contained' sx={{ width: 210, height: 30 }} disableElevation>Theo dõi</Button>
-          )}
+          {(() => {
+            if (userData?.role !== 'ORGANIZATION') {
+              if (userData?.isFriend) {
+                return (
+                  <>
+                    <Button variant='contained' sx={{ width: 210, height: 30 }} disableElevation>Nhắn tin</Button>
+                    <Button variant='outlined' sx={{ width: 148, height: 30 }}>Xóa kết bạn</Button>
+                  </>
+                )
+              }
+              else {
+                return (
+                  <Button variant='contained' sx={{ width: 148, height: 30 }} disableElevation>Kết bạn</Button>
+                )
+              }
+            }
+            else {
+              return (
+                <Button variant='contained' sx={{ width: 210, height: 30 }} disableElevation>Theo dõi</Button>
+              )
+            }
+          })()}
         </CardActions>
       </Box>
     </Card>

@@ -1,4 +1,4 @@
-import { UserNodesType } from "../user"
+import { UserNodeType } from "../user"
 
 type PostType = {
   postId: string
@@ -9,12 +9,12 @@ type PostType = {
   updateDate: string | null
   isBlock: boolean
   linkImage: string
-  userNodes: UserNodesType
+  userNode: UserNodeType
   isLiked: boolean
   likeCount: number
   // comments?: string[]
   comments?: any[]
-  userLikes?: UserNodesType[]
+  userLikes?: UserNodeType[]
 }
 
 export type { PostType }

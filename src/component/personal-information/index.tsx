@@ -38,7 +38,7 @@ const PersonalInformation = ({ userData }: Props) => {
           ) : (
             [
               { title: 'Ngày sinh', value: userData?.dayOfBirth && new Date(userData.dayOfBirth).toLocaleDateString() },
-              { title: 'Giới tính', value: userData?.sex === 'FEMALE' ? 'Nam' : 'Nữ' },
+              { title: 'Giới tính', value: userData?.sex ? (userData?.sex !== 'MALE' ? 'Nam' : 'Nữ') : 'Không có thông tin' },
               { title: 'Công việc', value: userData?.job },
               { title: 'Tại', value: userData?.workLocation },
             ].map((item, index) => (

@@ -1,6 +1,6 @@
-import { UserNodesType } from "@/type/user"
+import { UserNodeType } from "@/type/user"
 
-const listSponsorData: UserNodesType[] = [
+const listSponsorData: UserNodeType[] = [
   {
     userId: 1,
     fullName: 'Lê Trương Ngọc Trang',
