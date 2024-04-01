@@ -8,6 +8,8 @@ import { toast } from 'react-toastify'
 import Link from 'next/link'
 import { CampaignType } from '@/type/campaign'
 import { openDonateModal } from '@/lib/features/modals/donateModal/donateModalSlice'
+import api from '@/service/api'
+import { reactCampaign } from '@/lib/features/campaigns/campaignsSlice'
 
 interface Props {
   data: CampaignType
@@ -15,8 +17,18 @@ interface Props {
 
 const Campaign = ({ data }: Props) => {
   const {
-    campaign,
-    organizationNode,
+    campaign: {
+      campaignId,
+      title,
+      hashTag,
+      content,
+      linkImage,
+    },
+    organizationNode: {
+      userId,
+      fullName,
+      profileImageLink,
+    },
     likeCount,
     isLiked,
     isJoined
@@ -26,9 +38,17 @@ const Campaign = ({ data }: Props) => {
   const imageRef = useRef<HTMLImageElement | null>(null)
   const [imageRatio, setImageRatio] = useState<number>(1)
 
-  const handleaClickLike = useCallback(async () => {
-    toast.info('Tính năng đang được phát triển')
-  }, [])
+  const handleClickLike = useCallback(async () => {
+    try {
+      const response = await api.patch(`/campaign/${isLiked ? 'cancel-like' : 'like'}?campaignId=${campaignId}`)
+      if (response.status === 200) {
+        dispatch(reactCampaign({ campaignId, isLiked: !isLiked }))
+      }
+    }
+    catch (error: any) {
+      toast.error(error.data.error)
+    }
+  }, [dispatch, campaignId, isLiked])
 
   const handleOpenPostDetail = useCallback(() => {
     toast.info('Tính năng đang được phát triển')
@@ -36,10 +56,10 @@ const Campaign = ({ data }: Props) => {
 
   const handleOpenDonateModal = useCallback(() => {
     dispatch(openDonateModal({
-      campaignId: campaign.campaignId,
-      organizationUserId: organizationNode.userId,
+      campaignId,
+      organizationUserId: userId,
     }))
-  }, [dispatch, campaign.campaignId, organizationNode.userId])
+  }, [dispatch, campaignId, userId])
 
   const handleJoinCampaign = useCallback(() => {
     toast.info('Tính năng đang được phát triển')
@@ -49,15 +69,15 @@ const Campaign = ({ data }: Props) => {
     <Card sx={{ borderRadius: 2, py: 1 }}>
       <CardHeader
         avatar={
-          <Link href={`/profile/${organizationNode.userId}`}>
-            <Avatar src={organizationNode.profileImageLink || ''} />
+          <Link href={`/profile/${userId}`}>
+            <Avatar src={profileImageLink || ''} />
           </Link>
         }
         title={
           <Grid container spacing={2}>
             <Grid item>
-              <Link href={`/profile/${organizationNode.userId}`}>
-                <Typography fontWeight={500}>{organizationNode.fullName}</Typography>
+              <Link href={`/profile/${userId}`}>
+                <Typography fontWeight={500}>{fullName}</Typography>
               </Link>
             </Grid>
 
@@ -66,17 +86,17 @@ const Campaign = ({ data }: Props) => {
             </Grid>
           </Grid>
         }
-        subheader={<Typography color={theme.palette.text.secondary}>{campaign.title}</Typography>}
+        subheader={<Typography color={theme.palette.text.secondary}>{title}</Typography>}
       />
 
       <CardContent sx={{ py: 0 }}>
         <Grid container spacing={1} mb={2}>
           <Grid item xs={12}>
-            <Typography whiteSpace='pre-line'>{campaign.content}</Typography>
+            <Typography whiteSpace='pre-line'>{content}</Typography>
           </Grid>
 
           <Grid item xs={12} container columnGap={1}>
-            {campaign.hashTag?.map((item, index) => (
+            {hashTag?.map((item, index) => (
               <Typography fontWeight={500} color={theme.palette.text.disabled} key={index}>
                 #{item}
               </Typography>
@@ -87,7 +107,7 @@ const Campaign = ({ data }: Props) => {
         <Grid item xs={12} height={(imageRef.current?.width || 300) * imageRatio} maxHeight={600} position='relative'>
           <Image
             ref={imageRef}
-            src={campaign.linkImage ? JSON.parse(campaign.linkImage)[0] : '/examples/campaign-media.svg'}
+            src={linkImage ? JSON.parse(linkImage)[0] : '/examples/campaign-media.svg'}
             alt='media'
             fill
             sizes='300px'
@@ -101,7 +121,7 @@ const Campaign = ({ data }: Props) => {
       <CardActions>
         <Grid container spacing={2}>
           <Grid item xs='auto' container alignItems='center'>
-            <IconButton onClick={handleaClickLike}>
+            <IconButton onClick={handleClickLike}>
               <Image src={`/images/dashboard/post-card/${isLiked ? '' : 'dis'}loved.svg`} alt='loved' width={23} height={20} />
             </IconButton>
             <Typography>{likeCount} lượt thích</Typography>

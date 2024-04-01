@@ -13,7 +13,7 @@ type UserType = {
   image: string
 }
 
-type UserNodesType = {
+type UserNodeType = {
   userId: number
   fullName: string
   isBlock: boolean
@@ -21,9 +21,23 @@ type UserNodesType = {
   role: UserRoleType | null
 }
 
-type FriendType = UserNodesType & {
-  trophy: string
-  color: string
+enum FriendRequestStatus {
+  decline = -1,
+  accept = 1
 }
 
-export type { UserRoleType, UserType, UserNodesType, FriendType }
+type FriendRequestType = {
+  userRequest: UserNodeType
+  requestAt: string
+  status?: FriendRequestStatus
+}
+
+type RecommendationFriendType = {
+  fiendSuggest: UserNodeType
+  numOfMutualFriend: number
+  mutualFriends: UserNodeType[]
+  isSent?: boolean
+}
+
+export { FriendRequestStatus }
+export type { UserRoleType, UserType, UserNodeType, FriendRequestType, RecommendationFriendType }

@@ -1,7 +1,6 @@
 import { campaignsData } from '@/fakeData'
 import api from '@/service/api'
 import { CampaignType } from '@/type/campaign'
-import { PostType } from '@/type/post'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
@@ -38,9 +37,10 @@ export const campaignsSlice = createSlice({
   name: 'campaigns',
   initialState,
   reducers: {
-    reactCampaign: (state, action: PayloadAction<{ postId: string, isLiked: boolean }>) => {
+    resetCampaigns: () => initialState,
+    reactCampaign: (state, action: PayloadAction<{ campaignId: string, isLiked: boolean }>) => {
       state.campaigns = state.campaigns.map((campaignDetail) =>
-        campaignDetail.campaign.campaignId !== action.payload.postId ? campaignDetail : { ...campaignDetail, isLiked: action.payload.isLiked }
+        campaignDetail.campaign.campaignId !== action.payload.campaignId ? campaignDetail : { ...campaignDetail, isLiked: action.payload.isLiked }
       )
     },
   },
@@ -62,6 +62,6 @@ export const campaignsSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { reactCampaign } = campaignsSlice.actions
+export const { resetCampaigns, reactCampaign } = campaignsSlice.actions
 
 export default campaignsSlice.reducer

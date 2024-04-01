@@ -1,4 +1,4 @@
-import { UserType } from '@/type/user'
+import { FriendRequestType, RecommendationFriendType, UserNodeType, UserType } from '@/type/user'
 import { PostType } from '@/type/post'
 import { CampaignType } from '@/type/campaign'
 
@@ -37,7 +37,7 @@ export const postsData: PostType[] = [
     updateDate: null,
     isBlock: false,
     linkImage: '["https://unidy.s3.ap-southeast-1.amazonaws.com/post-images/5/71641db0-6bfa-4118-a849-e4709ff428bc.jpeg"]',
-    userNodes: {
+    userNode: {
       userId: 5,
       fullName: 'Nguyễn Hoàng Bảo Hùng',
       isBlock: false,
@@ -55,7 +55,7 @@ export const postsData: PostType[] = [
     updateDate: null,
     isBlock: false,
     linkImage: '["https://unidy.s3.ap-southeast-1.amazonaws.com/post-images/5/bf2a6d31-7f50-45fc-9da8-4987984e2332.jpeg","https://unidy.s3.ap-southeast-1.amazonaws.com/post-images/5/69360845-934f-43ca-aeee-33ca763a3cff.jpeg"]',
-    userNodes: {
+    userNode: {
       userId: 5,
       fullName: 'Nguyễn Hoàng Bảo Hùng',
       isBlock: false,
@@ -73,7 +73,7 @@ export const postsData: PostType[] = [
     updateDate: null,
     isBlock: false,
     linkImage: '["https://unidy.s3.ap-southeast-1.amazonaws.com/post-images/10/3790f2b4-d1d4-497a-bad4-a7491aab0f30.png","https://unidy.s3.ap-southeast-1.amazonaws.com/post-images/10/9f09a1a6-88ed-40fc-820b-c4da3b6bf9f6.jpeg"]',
-    userNodes: {
+    userNode: {
       userId: 10,
       fullName: 'Trương A',
       isBlock: false,
@@ -94,7 +94,7 @@ export const postDetailData: PostType = {
   isBlock: false,
   linkImage: '["https://unidy.s3.ap-southeast-1.amazonaws.com/post-images/5/71641db0-6bfa-4118-a849-e4709ff428bc.jpeg"]',
   userLikes: [],
-  userNodes: {
+  userNode: {
     userId: 5,
     fullName: 'Nguyễn Hoàng Bảo Hùng',
     isBlock: false,
@@ -470,5 +470,71 @@ export const campaignsData: CampaignType[] = [
     likeCount: 0,
     isLiked: false,
     isJoined: false
+  }
+]
+
+export const friendsData: UserNodeType[] = [
+  {
+    userId: 5,
+    fullName: 'Nguyễn Hoàng Bảo Hùng',
+    isBlock: false,
+    profileImageLink: 'https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/5/a846a438-c802-4de2-b8cd-a6fb32292cbe.jpeg',
+    role: null
+  },
+  {
+    userId: 10,
+    fullName: 'Trương A',
+    isBlock: false,
+    profileImageLink: null,
+    role: null
+  },
+  {
+    userId: 11,
+    fullName: 'Johny Nguyễn',
+    isBlock: false,
+    profileImageLink: null,
+    role: null
+  },
+  {
+    userId: 15,
+    fullName: 'Lê Nguyễn Huyền Thoại',
+    isBlock: false,
+    profileImageLink: null,
+    role: null
+  }
+]
+
+export const friendRequestsData: FriendRequestType[] = [
+  {
+    userRequest: {
+      userId: 3,
+      fullName: "Trương Huy Thái",
+      isBlock: false,
+      profileImageLink: null,
+      role: null
+    },
+    requestAt: "2024-03-28T12:49:57"
+  }
+]
+
+export const recommendationFriendsData: RecommendationFriendType[] = [
+  {
+    fiendSuggest: {
+      userId: 16,
+      fullName: "Lê Nguyễn Huyền Thoại",
+      isBlock: false,
+      profileImageLink: null,
+      role: null
+    },
+    numOfMutualFriend: 1,
+    mutualFriends: [
+      {
+        userId: 3,
+        fullName: "Trương Huy Thái",
+        isBlock: false,
+        profileImageLink: null,
+        role: null
+      }
+    ]
   }
 ]

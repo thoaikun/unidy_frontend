@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import { fetchUser } from '@/lib/features/auth/authSlice'
 import { deleteCookie } from 'cookies-next'
 import CustomBottomNavigation from '@/component/bottom-navigation'
+import { fetchFriends } from '@/lib/features/friends/friendsSlice'
 
 interface Props {
   children: ReactNode
@@ -20,18 +21,21 @@ const DashboardLayout = ({ children }: Props) => {
   const router = useRouter()
 
   useEffect(() => {
-    if (status === 'failed') {
-      deleteCookie('access_token')
-      deleteCookie('refresh_token')
-      router.replace('/log-in')
-    }
-  }, [status, router])
-
-  useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchUser())
     }
-  }, [status, dispatch])
+    else if (status === 'succeeded') {
+      dispatch(fetchFriends())
+    }
+    else if (status === 'failed') {
+      deleteCookie('access_token')
+      deleteCookie('refresh_token')
+      deleteCookie('role')
+      deleteCookie('user_data')
+
+      router.replace('/log-in')
+    }
+  }, [status, dispatch, router])
 
   return (
     <Grid container>

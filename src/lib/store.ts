@@ -5,6 +5,7 @@ import campaignsSlice from './features/campaigns/campaignsSlice'
 import backdropSlice from './features/modals/backdrop/backdropSlice'
 import postDetailModalSlice from './features/modals/postDetailModal/postDetailModalSlice'
 import donateModalSlice from './features/modals/donateModal/donateModalSlice'
+import friendsSlice from './features/friends/friendsSlice'
 
 export const makeStore = () => {
   return configureStore({
@@ -15,6 +16,7 @@ export const makeStore = () => {
       auth: authSlice,
       posts: postsSlice,
       campaigns: campaignsSlice,
+      friends: friendsSlice,
     },
   })
 }

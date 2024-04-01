@@ -39,7 +39,7 @@ const Certificate = () => {
       <CardContent>
         <Grid container spacing={3}>
           <Grid item>
-            <Image src='/images/dashboard/list-friend/trophy.svg' alt='trophy' width={28} height={45} />
+            <Image src='/images/dashboard/list-friends/trophy.svg' alt='trophy' width={28} height={45} />
           </Grid>
 
           <Grid item xs container alignItems='center'>
