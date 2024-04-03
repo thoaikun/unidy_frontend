@@ -1,6 +1,6 @@
 import { FriendRequestType, RecommendationFriendType, UserNodeType, UserType } from '@/type/user'
 import { PostType } from '@/type/post'
-import { CampaignType } from '@/type/campaign'
+import { CampaignHistoryType, CampaignType } from '@/type/campaign'
 
 export const userData: UserType = {
   address: 'Thủ Đức',
@@ -105,39 +105,34 @@ export const postDetailData: PostType = {
   likeCount: 0
 }
 
-export const joinedCardData = [
+export const joinedCardData: CampaignHistoryType[] = [
   {
-    media: '/examples/post-media-2.webp',
-    title: 'Trồng cây gây rừng',
-    status: -1,
-    time: '1/23/2023 - 3.32AM',
-    numberVolunteers: 100,
-    maxVolunteers: 120,
-  },
-  {
-    media: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ4caJI8kFtBIEREwR8fQwBFwFGjEgteKogh1wmbSb9a8lNHDRB',
-    title: 'Trồng cây gây rừng',
-    status: 0,
-    time: '1/23/2023 - 3.32AM',
-    numberVolunteers: 100,
-    maxVolunteers: 120,
-  },
-  {
-    media: 'http://www.news.cn/english/2021-10/26/1310269188_16352106345691n.jpg',
-    title: 'Trồng cây gây rừng',
-    status: 0,
-    time: '1/23/2023 - 3.32AM',
-    numberVolunteers: 100,
-    maxVolunteers: 120,
-  },
-  {
-    media: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQi7xiogVfM1i8bY5jFoSb_axWThVhT2BySGBt6uFZokDOlmFTz',
-    title: 'Trồng cây gây rừng',
-    status: 1,
-    time: '1/23/2023 - 3.32AM',
-    numberVolunteers: 100,
-    maxVolunteers: 120,
-  },
+    userId: 4,
+    campaignId: 5,
+    timeJoin: "2024-03-23T00:00:00.000+00:00",
+    status: "APPROVE",
+    campaign: {
+      campaignId: 5,
+      title: "Xuân tình nguyện",
+      description: "Xuân tình nguyện",
+      categories: null,
+      numberVolunteer: 10,
+      numberVolunteerRegistered: 1,
+      donationBudget: 20000000,
+      donationBudgetReceived: 10000000,
+      startDate: "2023-01-23T00:00:00.000+00:00",
+      endDate: "2023-02-23T00:00:00.000+00:00",
+      timeTakePlace: null,
+      location: "sai gon",
+      status: "COMPLETE",
+      createDate: "2023-01-22",
+      updateDate: null,
+      updateBy: null,
+      owner: 13,
+      hashTag: null,
+      link_image: null
+    }
+  }
 ]
 
 export const campaignsData: CampaignType[] = [

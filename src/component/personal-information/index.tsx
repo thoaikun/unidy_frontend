@@ -1,15 +1,17 @@
 'use client'
 
-import { UserType } from '@/type/user'
+import { OrganizationType, UserType } from '@/type/user'
 import { Button, Card, CardActions, CardContent, Divider, Grid, Typography, useTheme } from '@mui/material'
 
 interface Props {
-  userData: UserType | null
+  isOrganization?: boolean
+  userData?: UserType | null
+  organizationData?: OrganizationType | null
+  editable?: boolean
 }
 
-const PersonalInformation = ({ userData }: Props) => {
+const PersonalInformation = ({ isOrganization, userData, organizationData, editable }: Props) => {
   const theme = useTheme()
-  const isOrganization = userData?.role === 'ORGANIZATION'
 
   return (
     <Card sx={{ p: 1 }}>
@@ -25,9 +27,9 @@ const PersonalInformation = ({ userData }: Props) => {
 
           {isOrganization ? (
             [
-              { title: 'Ngày thành lập', value: '09/10/2002' },
-              { title: 'Mô tả', value: 'International Volunteer HQ Limited is a New Zealand-based volunteer travel company founded by Daniel John Radcliffe in 2007. In September 2015, it has sent 50,000 volunteers overseas to 30 countries on 200 different projects' },
-              { title: 'Trụ sở chính:', value: 'New zealand' },
+              { title: 'Ngày thành lập', value: 'Không có thông tin' },
+              { title: 'Mô tả', value: 'Không có thông tin' },
+              { title: 'Trụ sở chính', value: `${organizationData?.address}, ${organizationData?.country}` },
             ].map((item, index) => (
               <Grid item xs={12} key={index}>
                 <Typography variant='body2' color={theme.palette.text.primary}>
@@ -52,11 +54,13 @@ const PersonalInformation = ({ userData }: Props) => {
         </Grid>
       </CardContent>
 
-      <CardActions sx={{ px: 2 }}>
-        <Button sx={{ border: '1px dashed #d1d4d7' }} fullWidth>
-          <Typography variant='caption' color={theme.palette.text.primary}>Chỉnh sửa thông tin</Typography>
-        </Button>
-      </CardActions>
+      {editable && (
+        <CardActions sx={{ px: 2 }}>
+          <Button sx={{ border: '1px dashed #d1d4d7' }} fullWidth>
+            <Typography variant='caption' color={theme.palette.text.primary}>Chỉnh sửa thông tin</Typography>
+          </Button>
+        </CardActions>
+      )}
     </Card >
   )
 }

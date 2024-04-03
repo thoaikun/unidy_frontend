@@ -2,6 +2,7 @@ import { closeBackdrop, openBackdrop } from "@/lib/features/modals/backdrop/back
 import { closeDonateModal } from "@/lib/features/modals/donateModal/donateModalSlice"
 import { useAppDispatch, useAppSelector } from "@/lib/hook"
 import api from "@/service/api"
+import { numberWithDots } from "@/utils/number-with-dots"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Close } from "@mui/icons-material"
 import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, FormHelperText, Grid, IconButton, TextField, Typography } from "@mui/material"
@@ -56,7 +57,7 @@ const DonateModal = () => {
         } else {
           clearErrors('donateAmount')
           value = value.substring(0, 13)
-          onChange(value ? parseInt(value.replaceAll('.', '')).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '')
+          onChange(value ? numberWithDots(value) : '')
         }
       }, [setError, clearErrors])
 

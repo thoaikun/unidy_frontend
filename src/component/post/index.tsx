@@ -52,14 +52,14 @@ const Post = ({ data }: Props) => {
       <Card sx={{ borderRadius: 2, py: 1 }}>
         <CardHeader
           avatar={
-            <Link href={`/profile/${userNode.userId}`}>
+            <Link href={`/users/${userNode.userId}`}>
               <Avatar src={userNode.profileImageLink || ''} />
             </Link>
           }
           title={
             <Grid container spacing={2}>
               <Grid item>
-                <Link href={`/profile/${userNode.userId}`}>
+                <Link href={`/users/${userNode.userId}`}>
                   <Typography fontWeight={500}>{userNode.fullName}</Typography>
                 </Link>
               </Grid>

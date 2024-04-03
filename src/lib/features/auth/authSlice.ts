@@ -20,13 +20,13 @@ const initialState: AuthState = {
 export const fetchUser = createAsyncThunk(
   'auth/fetchUser',
   async () => {
-    const response = await api.get('/users/profile')
-    return response.data
+    // const response = await api.get('/users/profile')
+    // return response.data
 
-    // await new Promise(
-    //   resolve => setTimeout(resolve, 1000));
-    // setCookie('user_data', userData)
-    // return userData
+    await new Promise(
+      resolve => setTimeout(resolve, 1000));
+    setCookie('user_data', userData)
+    return userData
   },
 )
 

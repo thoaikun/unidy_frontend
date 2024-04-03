@@ -24,24 +24,26 @@ const ProfilePage = () => {
   const [isLoadingPost, setIsLoadingPost] = useState<boolean>(true)
 
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await api.get('/posts/get-post-by-userId', {
-          params: {
-            skip: 0,
-            limit: 5,
-          }
-        })
-        setPosts(response.data)
-        setIsLoadingPost(false)
-        // setPosts(postsData)
-        // setTimeout(() => setIsLoadingPost(false), 2000)
-      }
-      catch (error: any) {
-        toast.error(error.data.error)
-      }
-    })()
-  }, [])
+    if (user?.userId) {
+      (async () => {
+        try {
+          const response = await api.get(`/posts/users/${user?.userId}`, {
+            params: {
+              skip: 0,
+              limit: 5,
+            }
+          })
+          setPosts(response.data)
+          setIsLoadingPost(false)
+          // setPosts(postsData)
+          // setTimeout(() => setIsLoadingPost(false), 2000)
+        }
+        catch (error: any) {
+          toast.error(error.data.error)
+        }
+      })()
+    }
+  }, [user?.userId])
 
   return (
     <Grid container pt={5} spacing={6}>
@@ -100,7 +102,7 @@ const ProfilePage = () => {
               </Grid>
             ) : (posts.map((item, index) => (
               <Grid item xs={12} key={index}>
-                <Post data={item} key={index} />
+                <Post data={item} />
               </Grid>
             )))}
           </Grid>

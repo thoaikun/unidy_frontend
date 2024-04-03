@@ -13,6 +13,18 @@ type UserType = {
   image: string
 }
 
+type OrganizationType = {
+  userId: number
+  organizationName: string
+  address: string
+  phone: string
+  email: string
+  country: string
+  image: string
+  firebaseTopic: string
+  isFollow: boolean
+}
+
 type UserNodeType = {
   userId: number
   fullName: string
@@ -39,5 +51,11 @@ type RecommendationFriendType = {
   isSent?: boolean
 }
 
+type UserTransactionType = {
+  userId: number
+  fullName: string
+  linkImage: string
+}
+
 export { FriendRequestStatus }
-export type { UserRoleType, UserType, UserNodeType, FriendRequestType, RecommendationFriendType }
+export type { UserRoleType, UserType, OrganizationType, UserNodeType, FriendRequestType, RecommendationFriendType, UserTransactionType }
