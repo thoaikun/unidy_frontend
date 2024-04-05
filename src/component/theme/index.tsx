@@ -48,7 +48,7 @@ const breakpoints = {
   lg: 1199,
 }
 
-const theme = createTheme({
+export const theme = createTheme({
   palette: {
     background: {
       default: '#eef2fc',

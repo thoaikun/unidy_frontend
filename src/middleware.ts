@@ -9,11 +9,20 @@ export function middleware(request: NextRequest) {
   if (accessToken) {
     if (['/', '/log-in', '/sign-up', '/forgot-password'].includes(pathname)) {
       return NextResponse.redirect(new URL('/home', request.url))
-    } else if (pathname.includes('/profile/')) {
-      const userId = pathname.substring(9)
+    }
+    else {
       const userData = request.cookies.get('user_data')
-      if (userData && JSON.parse(userData.value).userId === parseInt(userId)) {
-        return NextResponse.redirect(new URL('/profile', request.url))
+      if (pathname.includes('/users/')) {
+        const userId = pathname.substring(7)
+        if (userData && JSON.parse(userData.value).userId === parseInt(userId)) {
+          return NextResponse.redirect(new URL('/profile', request.url))
+        }
+      }
+      else if (pathname.includes('/organizations/')) {
+        const userId = pathname.substring(15)
+        if (userData && JSON.parse(userData.value).userId === parseInt(userId)) {
+          return NextResponse.redirect(new URL('/profile', request.url))
+        }
       }
     }
   }

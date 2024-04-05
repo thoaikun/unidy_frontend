@@ -1,32 +1,36 @@
 'use client'
 
+import { CampaignHistoryType, campaignStatusColor, campaignStatusTitle } from '@/type/campaign'
 import { Card, CardContent, CardMedia, Grid, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
 
 interface Props {
-  data: {
-    media: string,
-    title: string,
-    status: number,
-    time: string,
-    numberVolunteers: number,
-    maxVolunteers: number,
-  },
+  data: CampaignHistoryType,
   size?: 'small' | 'medium'
 }
 
-const JoinedCard = ({ data, size = 'medium' }: Props) => {
+const JoinedCard = ({ data: {
+  timeJoin,
+  campaignId,
+  campaign: {
+    link_image,
+    title,
+    status,
+    numberVolunteerRegistered,
+    numberVolunteer,
+  }
+}, size = 'medium' }: Props) => {
   const theme = useTheme()
 
   return (
-    <Link href={`/campaign/1`}>
+    <Link href={`/campaigns/${campaignId}`}>
       <Card sx={{ width: size === 'medium' ? 400 : 360, borderRadius: 1, display: 'flex' }}>
-        <CardMedia component='img' image={data.media} sx={{ width: 150 }} />
+        <CardMedia component='img' image={link_image || '/examples/post-media-2.webp'} sx={{ width: 150 }} />
 
         <CardContent>
           <Grid container alignItems='center'>
             <Grid item xs={12}>
-              <Typography fontWeight={500}>{data.title}</Typography>
+              <Typography fontWeight={500}>{title}</Typography>
             </Grid>
 
             <Grid
@@ -38,17 +42,18 @@ const JoinedCard = ({ data, size = 'medium' }: Props) => {
               my={1}
               borderRadius={1}
               height={18}
-              border={`1px solid ${theme.palette[data.status < 0 ? 'error' : data.status > 0 ? 'success' : 'info'][data.status < 0 ? 300 : data.status > 0 ? 600 : 500]}`}
-              sx={{ backgroundColor: theme.palette[data.status < 0 ? 'error' : data.status > 0 ? 'success' : 'info'][data.status === 0 ? 200 : 100], }}>
-              <Typography fontSize='0.5rem' color={theme.palette[data.status < 0 ? 'error' : data.status > 0 ? 'success' : 'info'][data.status < 0 ? 300 : data.status > 0 ? 600 : 500]}>
-                {data.status < 0 ? 'ĐÃ HỦY' : data.status > 0 ? 'ĐÃ KẾT THÚC' : 'ĐANG ĐIỄN RA'}
+              border={`1px solid ${campaignStatusColor[status].color}`}
+              sx={{ backgroundColor: campaignStatusColor[status].background }}
+            >
+              <Typography fontSize='0.5rem' color={campaignStatusColor[status].color}>
+                {campaignStatusTitle[status]}
               </Typography>
             </Grid>
 
             <Grid item xs={12}>
               <Typography variant='caption' fontWeight={300}>
                 Đăng ký lúc: <span style={{ color: theme.palette.text.primary, fontWeight: 400 }}>
-                  {data.time}
+                  {timeJoin ? new Date(timeJoin).toLocaleDateString() : 'Không có thông tin'}
                 </span>
               </Typography>
             </Grid>
@@ -56,7 +61,7 @@ const JoinedCard = ({ data, size = 'medium' }: Props) => {
             <Grid item xs={12}>
               <Typography variant='caption' fontWeight={300}>
                 Tình nguyện viên <span style={{ color: theme.palette.text.primary, fontWeight: 400 }}>
-                  {data.numberVolunteers}/{data.maxVolunteers} người
+                  {numberVolunteerRegistered}/{numberVolunteer} người
                 </span>
               </Typography>
             </Grid>

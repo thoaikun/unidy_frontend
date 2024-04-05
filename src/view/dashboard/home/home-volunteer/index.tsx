@@ -3,7 +3,6 @@
 import Post from "@/component/post"
 import { useAppDispatch, useAppSelector } from "@/lib/hook"
 import { Grid } from "@mui/material"
-import HomeVolunteerLoading from "./loading"
 import { useEffect, useState } from "react"
 import { fetchPosts } from "@/lib/features/posts/postsSlice"
 import ListFriends from "@/component/list-friends"

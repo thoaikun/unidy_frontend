@@ -1,3 +1,4 @@
+import { numberWithDots } from "@/utils/number-with-dots"
 import { Close } from "@mui/icons-material"
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, TextField, Typography } from "@mui/material"
 import Image from "next/image"
@@ -31,7 +32,7 @@ const DonateModal = ({ open, id, onClose }: Props) => {
             {[50000, 100000, 200000, 500000].map((item) => (
               <Grid item key={item}>
                 <Button variant='outlined' color="inherit">
-                  <Typography variant="h4" fontWeight={500}>{item.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</Typography>
+                  <Typography variant="h4" fontWeight={500}>{numberWithDots(item)}</Typography>
                 </Button>
               </Grid>
             ))}

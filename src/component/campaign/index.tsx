@@ -69,14 +69,14 @@ const Campaign = ({ data }: Props) => {
     <Card sx={{ borderRadius: 2, py: 1 }}>
       <CardHeader
         avatar={
-          <Link href={`/profile/${userId}`}>
+          <Link href={`/organizations/${userId}`}>
             <Avatar src={profileImageLink || ''} />
           </Link>
         }
         title={
           <Grid container spacing={2}>
             <Grid item>
-              <Link href={`/profile/${userId}`}>
+              <Link href={`/organizations/${userId}`}>
                 <Typography fontWeight={500}>{fullName}</Typography>
               </Link>
             </Grid>
