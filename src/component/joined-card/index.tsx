@@ -23,7 +23,7 @@ const JoinedCard = ({ data: {
   const theme = useTheme()
 
   return (
-    <Link href={`/campaign/${campaignId}`}>
+    <Link href={`/campaigns/${campaignId}`}>
       <Card sx={{ width: size === 'medium' ? 400 : 360, borderRadius: 1, display: 'flex' }}>
         <CardMedia component='img' image={link_image || '/examples/post-media-2.webp'} sx={{ width: 150 }} />
 
@@ -42,10 +42,10 @@ const JoinedCard = ({ data: {
               my={1}
               borderRadius={1}
               height={18}
-              border={(theme) => `1px solid ${theme.palette[campaignStatusColor[status].color][campaignStatusColor[status].main]}`}
-              sx={{ backgroundColor: (theme) => theme.palette[campaignStatusColor[status].color][campaignStatusColor[status].background] }}
+              border={`1px solid ${campaignStatusColor[status].color}`}
+              sx={{ backgroundColor: campaignStatusColor[status].background }}
             >
-              <Typography fontSize='0.5rem' color={(theme) => theme.palette[campaignStatusColor[status].color][campaignStatusColor[status].main]}>
+              <Typography fontSize='0.5rem' color={campaignStatusColor[status].color}>
                 {campaignStatusTitle[status]}
               </Typography>
             </Grid>

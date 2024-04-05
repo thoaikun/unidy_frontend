@@ -1,16 +1,19 @@
-import { PaletteColor } from "@mui/material"
+import { theme } from "@/component/theme"
 import { UserNodeType, UserTransactionType } from "../user"
+
+type CampaignStatusType = 'IN_PROGRESS' | 'COMPLETE' | 'BLOCK'
 
 type CampaignDetailType = {
   campaignId: string
   title: string
   hashTag: string[] | null
   content: string
-  status: string
+  status: CampaignStatusType
   startDate: string
   endDate: string
   timeTakePlace: string
   location: string
+  numbersVolunteer: number
   numOfRegister: number
   createDate: string | null
   updateDate: string | null
@@ -31,31 +34,25 @@ type CampaignType = {
   isJoined: boolean
 }
 
-type CampaignStatusType = 'IN_PROGRESS' | 'COMPLETE' | 'BLOCK'
-
 type CampaignStatusColorType = {
   [key in CampaignStatusType]: {
-    color: 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success',
-    main: keyof PaletteColor
-    background: keyof PaletteColor
+    background: string
+    color: string
   }
 }
 
 const campaignStatusColor: CampaignStatusColorType = {
   IN_PROGRESS: {
-    color: 'info',
-    main: 600,
-    background: 200,
+    background: theme.palette.info[200],
+    color: theme.palette.info[600],
   },
   COMPLETE: {
-    color: 'success',
-    main: 600,
-    background: 100,
+    background: theme.palette.success[100],
+    color: theme.palette.success[600],
   },
   BLOCK: {
-    color: 'error',
-    main: 300,
-    background: 100,
+    background: theme.palette.error[100],
+    color: theme.palette.error[300],
   },
 }
 
@@ -108,5 +105,14 @@ type CampaignHistoryType = {
   campaign: CampaignTransactionType
 }
 
+type CertificateType = {
+  certificateId: number
+  campaignId: number
+  campaignName: string
+  organizationId: number
+  organizationName: string
+  certificateLink: string
+}
+
 export { campaignStatusColor, campaignStatusTitle }
-export type { CampaignType, TransactionType, CampaignHistoryType }
+export type { CampaignDetailType, CampaignType, TransactionType, CampaignHistoryType, CertificateType }

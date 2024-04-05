@@ -1,5 +1,6 @@
 import CustomTable from "@/component/table"
 import { spentAmount } from "@/fakeData/campaigns"
+import CertificatePreview from "@/view/dashboard/campaigns/certificate-preview"
 import { Button, Card, CardActions, Grid, Tab, Tabs, Typography } from "@mui/material"
 import Image from "next/image"
 import { useState } from "react"
@@ -22,34 +23,21 @@ const headerSpentAmount = [
     label: 'Trạng thái',
   },
 ]
+interface Props {
+  campaignId: string
+}
 
-const CampaignDetailVolunteer = () => {
+const CampaignDetailVolunteer = ({ campaignId }: Props) => {
   const [tabIndex, setTabIndex] = useState<number>(0)
 
   return (
     <Card sx={{ px: 5, py: 3 }}>
-      <Tabs value={tabIndex} onChange={(event, newValue) => setTabIndex(newValue)}>
+      <Tabs value={tabIndex} onChange={(event, newValue) => setTabIndex(newValue)} sx={{ mb: 2 }}>
         <Tab label='Chứng nhận' sx={{ textTransform: 'none' }} />
         <Tab label='Báo cáo chiến dịch' sx={{ textTransform: 'none' }} />
       </Tabs>
 
-      {tabIndex === 0 &&
-        <>
-          <Grid container justifyContent='center'>
-            <Image src='/examples/campaign-detail-certificate.png' alt='media' width={666} height={470} />
-          </Grid>
-          <CardActions sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button variant='outlined' color='secondary' sx={{ width: 161, height: 46 }}>
-              <Typography variant='h6' fontWeight={400} color='primary'>
-                In chứng nhận
-              </Typography>
-            </Button>
-            <Button variant='contained' disableElevation sx={{ width: 142, height: 46 }}>
-              <Typography variant='h6' fontWeight={400}>Quy đổi</Typography>
-            </Button>
-          </CardActions>
-        </>
-      }
+      {tabIndex === 0 && <CertificatePreview campaignId={campaignId} />}
 
       {tabIndex === 1 &&
         <Grid container>

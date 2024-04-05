@@ -7,8 +7,8 @@ import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
 const JoinedCampaigns = () => {
-  const [isLoadingJoinedCampaign, setIsLoadingJoinedCampaign] = useState<boolean>(true)
-  const [joinedCampaign, setJoinedCampaign] = useState<CampaignHistoryType[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [data, setData] = useState<CampaignHistoryType[]>([])
 
   useEffect(() => {
     (async () => {
@@ -20,8 +20,8 @@ const JoinedCampaigns = () => {
           }
         })
 
-        setJoinedCampaign(response.data)
-        setIsLoadingJoinedCampaign(false)
+        setData(response.data)
+        setIsLoading(false)
       }
       catch (error: any) {
         toast.error(error.data.error)
@@ -37,16 +37,16 @@ const JoinedCampaigns = () => {
 
       <Grid item xs={12} container spacing={3.75}>
         {(() => {
-          if (isLoadingJoinedCampaign) {
+          if (isLoading) {
             return (
               <Grid item xs={6}>
                 <JoinedCardLoading />
               </Grid>
             )
           }
-          else if (joinedCampaign.length !== 0) {
+          else if (data.length !== 0) {
             return (
-              joinedCampaign.map((item) => (
+              data.map((item) => (
                 <Grid item xs={6} key={item.campaignId}>
                   <JoinedCard data={item} />
                 </Grid>

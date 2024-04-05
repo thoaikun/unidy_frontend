@@ -17,7 +17,6 @@ const TransactionCard = ({ data: {
   transactionType,
   transactionAmount,
   transactionTime,
-  campaignId,
   campaign: {
     link_image,
     title,
@@ -27,7 +26,7 @@ const TransactionCard = ({ data: {
   const theme = useTheme()
 
   return (
-    // <Link href={`/campaign/${campaignId}`}>
+    // <Link href={`/campaigns/${campaignId}`}>
     <Card sx={{ boxShadow: 'none', borderRadius: 1, display: 'flex' }}>
       <CardMedia component='img' image={link_image || '/examples/post-media-2.webp'} sx={{ width: 150 }} />
 
@@ -46,12 +45,12 @@ const TransactionCard = ({ data: {
             my={1}
             borderRadius={1}
             height={18}
-            border={(theme) => `1px solid ${theme.palette[campaignStatusColor[status].color][campaignStatusColor[status].main]}`}
-            sx={{ backgroundColor: (theme) => theme.palette[campaignStatusColor[status].color][campaignStatusColor[status].background] }}
+            border={`1px solid ${campaignStatusColor[status].color}`}
+            sx={{ backgroundColor: campaignStatusColor[status].background }}
           >
             <Typography
               fontSize='0.5rem'
-              color={(theme) => theme.palette[campaignStatusColor[status].color][campaignStatusColor[status].main]}
+              color={campaignStatusColor[status].color}
             >
               {campaignStatusTitle[status]}
             </Typography>

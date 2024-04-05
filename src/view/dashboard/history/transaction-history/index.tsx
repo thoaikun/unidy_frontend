@@ -7,8 +7,8 @@ import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
 const TransactionHistory = () => {
-  const [isLoadingTransactionHistory, setIsLoadingTransactionHistory] = useState<boolean>(true)
-  const [transactionHistory, setTransactionHistory] = useState<TransactionType[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [data, setData] = useState<TransactionType[]>([])
 
   useEffect(() => {
     (async () => {
@@ -20,8 +20,8 @@ const TransactionHistory = () => {
           }
         })
 
-        setTransactionHistory(response.data)
-        setIsLoadingTransactionHistory(false)
+        setData(response.data)
+        setIsLoading(false)
       }
       catch (error: any) {
         toast.error(error.data.error)
@@ -37,16 +37,16 @@ const TransactionHistory = () => {
 
       <Grid item xs={12} container spacing={3.75}>
         {(() => {
-          if (isLoadingTransactionHistory) {
+          if (isLoading) {
             return (
               <Grid item xs={6}>
                 <TransactionCardLoading />
               </Grid>
             )
           }
-          else if (transactionHistory.length !== 0) {
+          else if (data.length !== 0) {
             return (
-              transactionHistory.map((item) => (
+              data.map((item) => (
                 <Grid item xs={6} key={item.transactionId}>
                   <TransactionCard data={item} />
                 </Grid>
