@@ -21,7 +21,7 @@ interface Props {
   }
 }
 
-const UserProfile = ({ params: { userId } }: Props) => {
+const VolunteerProfile = ({ params: { userId } }: Props) => {
   const [userData, setUserData] = useState<UserType | null>(null)
   const [isLoadingUser, setIsLoadingUser] = useState<boolean>(true)
   const [posts, setPosts] = useState<PostType[]>([])
@@ -30,7 +30,7 @@ const UserProfile = ({ params: { userId } }: Props) => {
   useEffect(() => {
     (async () => {
       try {
-        let response = await api.get(`/users/profile/${userId}`)
+        let response = await api.get(`/users/profile/volunteers/${userId}`)
         setUserData(response.data)
         setIsLoadingUser(false)
         response = await api.get(`/posts/users/${userId}`, {
@@ -102,4 +102,4 @@ const UserProfile = ({ params: { userId } }: Props) => {
   )
 }
 
-export default UserProfile
+export default VolunteerProfile

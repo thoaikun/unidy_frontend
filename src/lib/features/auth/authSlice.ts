@@ -14,19 +14,19 @@ export interface AuthState {
 const initialState: AuthState = {
   user: null,
   status: 'idle',
-  error: null
+  error: null,
 }
 
 export const fetchUser = createAsyncThunk(
   'auth/fetchUser',
   async () => {
-    const response = await api.get('/users/profile')
-    return response.data
-
     // await new Promise(
     //   resolve => setTimeout(resolve, 1000));
     // setCookie('user_data', userData)
     // return userData
+
+    const response = await api.get('/users/profile')
+    return response.data
   },
 )
 

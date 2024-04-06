@@ -17,23 +17,19 @@ const TransactionCard = ({ data: {
   transactionType,
   transactionAmount,
   transactionTime,
-  campaign: {
-    link_image,
-    title,
-    status,
-  },
+  campaign,
 } }: Props) => {
   const theme = useTheme()
 
   return (
     // <Link href={`/campaigns/${campaignId}`}>
     <Card sx={{ boxShadow: 'none', borderRadius: 1, display: 'flex' }}>
-      <CardMedia component='img' image={link_image || '/examples/post-media-2.webp'} sx={{ width: 150 }} />
+      <CardMedia component='img' image={campaign?.link_image || '/examples/post-media-2.webp'} sx={{ width: 150 }} />
 
       <CardContent>
         <Grid container alignItems='center'>
           <Grid item xs={12}>
-            <Typography fontWeight={500}>{title}</Typography>
+            <Typography fontWeight={500}>{campaign?.title}</Typography>
           </Grid>
 
           <Grid
@@ -45,14 +41,14 @@ const TransactionCard = ({ data: {
             my={1}
             borderRadius={1}
             height={18}
-            border={`1px solid ${campaignStatusColor[status].color}`}
-            sx={{ backgroundColor: campaignStatusColor[status].background }}
+            border={`1px solid ${campaignStatusColor[campaign?.status || 'BLOCK'].color}`}
+            sx={{ backgroundColor: campaignStatusColor[campaign?.status || 'BLOCK'].background }}
           >
             <Typography
               fontSize='0.5rem'
-              color={campaignStatusColor[status].color}
+              color={campaignStatusColor[campaign?.status || 'BLOCK'].color}
             >
-              {campaignStatusTitle[status]}
+              {campaignStatusTitle[campaign?.status || 'BLOCK']}
             </Typography>
           </Grid>
 
@@ -75,7 +71,7 @@ const TransactionCard = ({ data: {
           <Grid item xs={12}>
             <Typography variant='caption' fontWeight={300}>
               Phương thức: <span style={{ color: theme.palette.text.primary, fontWeight: 400 }}>
-                {transactionTypeTitle[transactionType]}
+                {transactionTypeTitle[transactionType || 'momo_wallet']}
               </span>
             </Typography>
           </Grid>

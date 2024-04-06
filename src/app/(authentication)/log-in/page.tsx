@@ -12,6 +12,7 @@ import api from '@/service/api'
 import { setCookie } from 'cookies-next'
 import { toast } from 'react-toastify'
 import { fetchUser } from '@/lib/features/auth/authSlice'
+import { closeBackdrop, openBackdrop } from '@/lib/features/modals/backdrop/backdropSlice'
 
 interface formData {
   email: string
@@ -41,6 +42,7 @@ const LogInPage = () => {
 
   const onSubmit = useCallback(async (data: formData) => {
     try {
+      dispatch(openBackdrop())
       const response = await api.post('/auth/authenticate', data)
 
       setCookie('access_token', response.data.access_token)
@@ -49,6 +51,8 @@ const LogInPage = () => {
       localStorage.setItem('isChosenFavorite', response.data.isChosenFavorite)
 
       dispatch(fetchUser())
+      dispatch(closeBackdrop())
+
       router.replace('/home')
     }
     catch (error: any) {

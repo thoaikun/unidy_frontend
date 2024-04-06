@@ -1,6 +1,5 @@
 import { friendsData } from '@/fakeData'
 import api from '@/service/api'
-import { CampaignType } from '@/type/campaign'
 import { UserNodeType } from '@/type/user'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
@@ -14,12 +13,16 @@ export interface FriendsState {
 const initialState: FriendsState = {
   friends: [],
   status: 'idle',
-  error: null
+  error: null,
 }
 
 export const fetchFriends = createAsyncThunk(
   'friends/fetchFriends',
   async () => {
+    // await new Promise(
+    //   resolve => setTimeout(resolve, 1000));
+    // return friendsData
+
     const response = await api.get('/users/get-list-friend', {
       params: {
         skip: 0,
@@ -27,10 +30,6 @@ export const fetchFriends = createAsyncThunk(
       }
     })
     return response.data
-
-    // await new Promise(
-    //   resolve => setTimeout(resolve, 1000));
-    // return friendsData
   },
 )
 

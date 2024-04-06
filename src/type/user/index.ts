@@ -33,29 +33,10 @@ type UserNodeType = {
   role: UserRoleType | null
 }
 
-enum FriendRequestStatus {
-  decline = -1,
-  accept = 1
-}
-
-type FriendRequestType = {
-  userRequest: UserNodeType
-  requestAt: string
-  status?: FriendRequestStatus
-}
-
-type RecommendationFriendType = {
-  fiendSuggest: UserNodeType
-  numOfMutualFriend: number
-  mutualFriends: UserNodeType[]
-  isSent?: boolean
-}
-
-type UserTransactionType = {
+type UserShortenedType = {
   userId: number
-  fullName: string
-  linkImage: string
+  fullName: string | null
+  linkImage: string | null
 }
 
-export { FriendRequestStatus }
-export type { UserRoleType, UserType, OrganizationType, UserNodeType, FriendRequestType, RecommendationFriendType, UserTransactionType }
+export type { UserRoleType, UserType, OrganizationType, UserNodeType, UserShortenedType }

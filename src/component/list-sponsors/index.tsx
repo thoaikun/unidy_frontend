@@ -10,7 +10,7 @@ enum ListMode {
   top,
 }
 
-const ListSponsor = () => {
+const ListSponsors = () => {
   const [mode, setMode] = useState<ListMode>(ListMode.recent)
   const handleChangeMode = useCallback((newMode: ListMode) => () => {
     setMode(newMode)
@@ -71,4 +71,4 @@ const ListSponsor = () => {
   )
 }
 
-export default ListSponsor
+export default ListSponsors

@@ -1,5 +1,5 @@
 import { theme } from "@/component/theme"
-import { UserNodeType, UserTransactionType } from "../user"
+import { UserNodeType, UserShortenedType } from "../user"
 
 type CampaignStatusType = 'IN_PROGRESS' | 'COMPLETE' | 'BLOCK'
 
@@ -86,15 +86,15 @@ type CampaignTransactionType = {
 
 type TransactionType = {
   transactionId: number
-  transactionType: string
+  transactionType: string | null
   transactionTime: string | null
   transactionAmount: number
-  transactionCode: string
-  signature: string
+  transactionCode: string | null
+  signature: string | null
   organizationUserId: number
   campaignId: number
-  campaign: CampaignTransactionType
-  user: UserTransactionType
+  campaign: CampaignTransactionType | null
+  user: UserShortenedType
 }
 
 type CampaignHistoryType = {

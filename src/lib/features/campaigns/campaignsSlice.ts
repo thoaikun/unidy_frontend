@@ -13,12 +13,16 @@ export interface CampaignsState {
 const initialState: CampaignsState = {
   campaigns: [],
   status: 'idle',
-  error: null
+  error: null,
 }
 
 export const fetchCampaigns = createAsyncThunk(
   'campaigns/fetchCampaigns',
   async () => {
+    // await new Promise(
+    //   resolve => setTimeout(resolve, 1000));
+    // return campaignsData
+
     const response = await api.get('/campaign/recommendation', {
       params: {
         skip: 0,
@@ -26,10 +30,6 @@ export const fetchCampaigns = createAsyncThunk(
       }
     })
     return response.data.campaigns
-
-    // await new Promise(
-    //   resolve => setTimeout(resolve, 1000));
-    // return campaignsData
   },
 )
 

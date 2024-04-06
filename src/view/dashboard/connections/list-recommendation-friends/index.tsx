@@ -3,7 +3,7 @@
 import FriendCard from "@/component/friend-card"
 import LoadingFriendCard from "@/component/friend-card/loading"
 import api from "@/service/api"
-import { RecommendationFriendType } from "@/type/user"
+import { RecommendationFriendType } from "@/type/friend"
 import { NavigateNext } from "@mui/icons-material"
 import { Avatar, Button, Grid, Typography } from "@mui/material"
 import Image from "next/image"

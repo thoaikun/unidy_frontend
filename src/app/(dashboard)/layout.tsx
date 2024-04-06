@@ -2,13 +2,13 @@
 
 import { ReactNode, useEffect } from 'react'
 import { Grid } from '@mui/material'
-import CustomAppBar from '@/component/app-bar'
-import SideBar from '../../component/side-bar'
+import CustomAppBar from '@/view/dashboard/app-bar'
+import SideBar from '@/view/dashboard/side-bar'
 import { useAppDispatch, useAppSelector } from '@/lib/hook'
 import { useRouter } from 'next/navigation'
 import { fetchUser } from '@/lib/features/auth/authSlice'
 import { deleteCookie } from 'cookies-next'
-import CustomBottomNavigation from '@/component/bottom-navigation'
+import CustomBottomNavigation from '@/view/dashboard/bottom-navigation'
 import { fetchFriends } from '@/lib/features/friends/friendsSlice'
 
 interface Props {

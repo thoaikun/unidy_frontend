@@ -25,6 +25,7 @@ declare module '@mui/material/styles' {
   }
 
   interface TypeText {
+    main: string;
     contrast: string;
     light: string;
   }
@@ -122,6 +123,7 @@ export const theme = createTheme({
       '900': '#224458',
     },
     text: {
+      main: '#26292c',
       primary: '#26292c',
       secondary: '#6c757d',
       disabled: '#d1d4d7',

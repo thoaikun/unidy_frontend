@@ -1,6 +1,8 @@
-import { FriendRequestType, RecommendationFriendType, UserNodeType, UserType } from '@/type/user'
+import { UserNodeType, UserType } from '@/type/user'
 import { PostType } from '@/type/post'
 import { CampaignHistoryType, CampaignType } from '@/type/campaign'
+import { FriendRequestType, RecommendationFriendType } from '@/type/friend'
+import { NotificationType } from '@/type/notification'
 
 export const userData: UserType = {
   address: 'Thủ Đức',
@@ -541,5 +543,93 @@ export const recommendationFriendsData: RecommendationFriendType[] = [
         role: null
       }
     ]
+  }
+]
+
+export const notificationsData: NotificationType[] = [
+  {
+    "notificationId": 21,
+    "title": "Lời mời kết bạn",
+    "description": "Nguyễn Văn A đã gửi lời mời kết bạn",
+    "createdTime": "2024-04-05T08:24:34.000+00:00",
+    "seenTime": "2024-04-05T09:54:38.000+00:00",
+    "type": "FRIEND_REQUEST",
+    "extra": {
+      "id": "8"
+    },
+    "receiver": 4,
+    "owner": {
+      "userId": 8,
+      "fullName": "Nguyễn Văn A",
+      "linkImage": null
+    }
+  },
+  {
+    "notificationId": 20,
+    "title": "Sự kiện Xuân tình nguyện đã kết thúc.",
+    "description": "Organization 1 gửi tới bạn chứng nhận tham gia chiến dịch",
+    "createdTime": "2024-04-05T06:40:48.000+00:00",
+    "seenTime": "2024-04-05T08:55:36.000+00:00",
+    "type": "CAMPAIGN_END",
+    "extra": {
+      "id": "5"
+    },
+    "receiver": 4,
+    "owner": {
+      "userId": 13,
+      "fullName": null,
+      "linkImage": "https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/13/786a7539-932a-4844-9fa4-d09456015db9.png"
+    }
+  },
+  {
+    "notificationId": 18,
+    "title": "Sự kiện Xuân tình nguyện đã kết thúc.",
+    "description": "Organization 1 gửi tới bạn chứng nhận tham gia chiến dịch",
+    "createdTime": "2024-04-05T06:38:16.000+00:00",
+    "seenTime": "2024-04-05T08:20:10.000+00:00",
+    "type": "CAMPAIGN_END",
+    "extra": {
+      "id": "5"
+    },
+    "receiver": 4,
+    "owner": {
+      "userId": 13,
+      "fullName": null,
+      "linkImage": "https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/13/786a7539-932a-4844-9fa4-d09456015db9.png"
+    }
+  },
+  {
+    "notificationId": 16,
+    "title": "Sự kiện Xuân tình nguyện đã kết thúc.",
+    "description": "Organization 1 gửi tới bạn chứng nhận tham gia chiến dịch",
+    "createdTime": "2024-04-05T06:37:15.000+00:00",
+    "seenTime": "2024-04-05T08:20:10.000+00:00",
+    "type": "CAMPAIGN_END",
+    "extra": {
+      "id": "5"
+    },
+    "receiver": 4,
+    "owner": {
+      "userId": 13,
+      "fullName": null,
+      "linkImage": "https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/13/786a7539-932a-4844-9fa4-d09456015db9.png"
+    }
+  },
+  {
+    "notificationId": 14,
+    "title": "Sự kiện Xuân tình nguyện đã kết thúc.",
+    "description": "Organization 1 gửi tới bạn chứng nhận tham gia chiến dịch",
+    "createdTime": "2024-04-05T06:35:50.000+00:00",
+    "seenTime": "2024-04-05T08:20:10.000+00:00",
+    "type": "CAMPAIGN_END",
+    "extra": {
+      "id": "5"
+    },
+    "receiver": 4,
+    "owner": {
+      "userId": 13,
+      "fullName": null,
+      "linkImage": "https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/13/786a7539-932a-4844-9fa4-d09456015db9.png"
+    }
   }
 ]
