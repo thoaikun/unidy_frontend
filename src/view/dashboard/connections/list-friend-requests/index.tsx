@@ -3,7 +3,7 @@
 import FriendCard from "@/component/friend-card"
 import LoadingFriendCard from "@/component/friend-card/loading"
 import api from "@/service/api"
-import { FriendRequestStatus, FriendRequestType } from "@/type/user"
+import { FriendRequestStatus, FriendRequestType } from "@/type/friend"
 import { calculateDifferenceTime } from "@/utils/diff-time"
 import { NavigateNext } from "@mui/icons-material"
 import { Button, Grid, Typography } from "@mui/material"

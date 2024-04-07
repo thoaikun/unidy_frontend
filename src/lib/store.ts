@@ -6,6 +6,7 @@ import backdropSlice from './features/modals/backdrop/backdropSlice'
 import postDetailModalSlice from './features/modals/postDetailModal/postDetailModalSlice'
 import donateModalSlice from './features/modals/donateModal/donateModalSlice'
 import friendsSlice from './features/friends/friendsSlice'
+import notificationsSlice from './features/notifications/notificationsSlide'
 
 export const makeStore = () => {
   return configureStore({
@@ -17,6 +18,7 @@ export const makeStore = () => {
       posts: postsSlice,
       campaigns: campaignsSlice,
       friends: friendsSlice,
+      notifications: notificationsSlice,
     },
   })
 }

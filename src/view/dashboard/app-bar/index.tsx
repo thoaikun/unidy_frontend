@@ -4,20 +4,15 @@ import Image from 'next/image'
 import { MouseEvent, useCallback, useState } from 'react'
 import {
   Grid,
-  Card,
-  Badge,
   AppBar,
   Avatar,
   Button,
   Toolbar,
-  Popover,
   Divider,
   InputBase,
   Typography,
   IconButton,
   CardHeader,
-  CardActions,
-  CardContent,
   Menu,
   MenuItem,
   useTheme,
@@ -29,7 +24,6 @@ import {
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useAppDispatch, useAppSelector } from '@/lib/hook'
-import { notificationData } from '@/fakeData/notifications'
 import { deleteCookie, getCookie } from 'cookies-next'
 import { toast } from 'react-toastify'
 import api from '@/service/api'
@@ -37,32 +31,21 @@ import { resetUser } from '@/lib/features/auth/authSlice'
 import { resetFriends } from '@/lib/features/friends/friendsSlice'
 import { resetPosts } from '@/lib/features/posts/postsSlice'
 import { resetCampaigns } from '@/lib/features/campaigns/campaignsSlice'
+import ListNotifications from './list-notifications'
 
 const CustomAppBar = () => {
   const { user, status } = useAppSelector((state) => state.auth)
   const role = getCookie('role')
   const isOrganization = role === 'ORGANIZATION'
   const isLoading = status !== 'succeeded'
-  const notifications = notificationData
   const router = useRouter()
   const theme = useTheme()
   const dispatch = useAppDispatch()
 
   const [openModal, setOpenModal] = useState<boolean>(false)
 
-  const [notificationAnchorEl, setNotificationAnchorEl] = useState<null | HTMLElement>(null)
-  const openNotification = Boolean(notificationAnchorEl)
-
   const [moreAnchorEl, setMoreAnchorEl] = useState<null | HTMLElement>(null)
   const openMore = Boolean(moreAnchorEl)
-
-  const handleClickNotification = useCallback((event: MouseEvent<HTMLButtonElement>) => {
-    setNotificationAnchorEl(event.currentTarget)
-  }, [])
-
-  const handleCloseNotification = useCallback(() => {
-    setNotificationAnchorEl(null)
-  }, [])
 
   const handleClickMore = useCallback((event: MouseEvent<HTMLButtonElement>) => {
     setMoreAnchorEl(event.currentTarget)
@@ -139,13 +122,14 @@ const CustomAppBar = () => {
             </Grid>
 
             <Grid item xs='auto'>
-              <IconButton onClick={handleClickNotification}>
+              <ListNotifications />
+              {/* <IconButton onClick={handleClickNotification}>
                 <Badge color='error' overlap='circular' variant='dot'>
                   <Image src={`/images/dashboard/app-bar/notification${openNotification ? '-selected' : ''}.svg`} alt='notification' width={20} height={20} />
                 </Badge>
-              </IconButton>
+              </IconButton> */}
 
-              <Popover
+              {/* <Popover
                 open={openNotification}
                 anchorEl={notificationAnchorEl}
                 onClose={handleCloseNotification}
@@ -209,7 +193,7 @@ const CustomAppBar = () => {
                     </Button>
                   </CardActions>
                 </Card>
-              </Popover>
+              </Popover> */}
             </Grid>
 
             <Grid item xs='auto' display={{ xs: 'block', md: 'none' }}>

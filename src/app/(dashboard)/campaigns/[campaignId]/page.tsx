@@ -1,11 +1,10 @@
 'use client'
 
 import { useAppSelector } from "@/lib/hook"
-import CampaignDetailOrganization from "@/view/campaign/campaign-detail-organization"
-import CampaignDetailVolunteer from "@/view/campaign/campaign-detail-volunteer"
+import CampaignDetailOrganization from "@/view/dashboard/campaigns/campaign-detail-organization"
+import CampaignDetailVolunteer from "@/view/dashboard/campaigns/campaign-detail-volunteer"
 import CampaignInformation from "@/view/dashboard/campaigns/campaign-information"
-import { Avatar, Box, Button, Card, CardActions, CardContent, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Tab, Table, TableBody, TableCell, TableHead, TableRow, Tabs, TextField, Typography, useTheme } from "@mui/material"
-import Image from "next/image"
+import { Grid } from "@mui/material"
 import { useCallback, useState } from "react"
 
 // const sponsorList = [
@@ -41,7 +40,6 @@ const CampaignDetail = ({ params: { campaignId } }: Props) => {
   const user = useAppSelector(state => state.auth.user)
   const isOrganization = user?.role === 'ORGANIZATION'
   const [open, setOpen] = useState<boolean>(false)
-  const theme = useTheme()
 
   const handleOpenEndCampaign = useCallback(() => {
     setOpen(true)

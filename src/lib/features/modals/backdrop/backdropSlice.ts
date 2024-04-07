@@ -5,7 +5,7 @@ export interface BackdropState {
 }
 
 const initialState: BackdropState = {
-  open: false
+  open: false,
 }
 
 export const backdropSlice = createSlice({

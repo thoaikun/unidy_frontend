@@ -13,12 +13,16 @@ export interface PostsState {
 const initialState: PostsState = {
   posts: [],
   status: 'idle',
-  error: null
+  error: null,
 }
 
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
   async () => {
+    // await new Promise(
+    //   resolve => setTimeout(resolve, 1000));
+    // return postsData
+    
     const response = await api.get('/posts', {
       params: {
         skip: 0,
@@ -26,10 +30,6 @@ export const fetchPosts = createAsyncThunk(
       }
     })
     return response.data
-
-    // await new Promise(
-    //   resolve => setTimeout(resolve, 1000));
-    // return postsData
   },
 )
 

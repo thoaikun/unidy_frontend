@@ -12,7 +12,7 @@ export function middleware(request: NextRequest) {
     }
     else {
       const userData = request.cookies.get('user_data')
-      if (pathname.includes('/users/')) {
+      if (pathname.includes('/volunteers/')) {
         const userId = pathname.substring(7)
         if (userData && JSON.parse(userData.value).userId === parseInt(userId)) {
           return NextResponse.redirect(new URL('/profile', request.url))

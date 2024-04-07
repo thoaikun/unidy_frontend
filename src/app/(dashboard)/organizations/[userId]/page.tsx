@@ -30,7 +30,7 @@ const OrganizationProfile = ({ params: { userId } }: Props) => {
   useEffect(() => {
     (async () => {
       try {
-        let response = await api.get(`/organization/profile/${userId}`)
+        let response = await api.get(`/users/profile/organizations/${userId}`)
         setOrganizationData(response.data)
         setIsLoadingOrganization(false)
         response = await api.get(`/campaign/organization/${userId}`, {
