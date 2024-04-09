@@ -1,6 +1,6 @@
 import Notification from "@/component/notification"
 import NotificationLoading from "@/component/notification/loading"
-import { fetchNotifications, markReadAll } from "@/lib/features/notifications/notificationsSlide"
+import { fetchNotifications, fetchUnseenCount, markReadAll } from "@/lib/features/notifications/notificationsSlide"
 import { useAppDispatch, useAppSelector } from "@/lib/hook"
 import api from "@/service/api"
 import { Notifications } from "@mui/icons-material"
@@ -10,8 +10,7 @@ import { MouseEvent, useCallback, useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
 const ListNotifications = () => {
-  const [unseenCount, setUnseenCount] = useState<number>(0)
-  const { notifications, status } = useAppSelector((state) => state.notifications)
+  const { unseenCount, notifications, status } = useAppSelector((state) => state.notifications)
   const dispatch = useAppDispatch()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
@@ -25,16 +24,8 @@ const ListNotifications = () => {
   }, [])
 
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await api.get('/users/notifications/unseen/count')
-        setUnseenCount(response.data.unseenCount)
-      }
-      catch (error: any) {
-        toast.error(error.data.error)
-      }
-    })()
-  }, [])
+    dispatch(fetchUnseenCount())
+  }, [dispatch])
 
   useEffect(() => {
     if (open && status === 'idle') {

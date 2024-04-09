@@ -43,6 +43,11 @@ export const campaignsSlice = createSlice({
         campaignDetail.campaign.campaignId !== action.payload.campaignId ? campaignDetail : { ...campaignDetail, isLiked: action.payload.isLiked }
       )
     },
+    joinCampaign: (state, action: PayloadAction<string>) => {
+      state.campaigns = state.campaigns.map((campaignDetail) =>
+        campaignDetail.campaign.campaignId !== action.payload ? campaignDetail : { ...campaignDetail, isJoined: true }
+      )
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCampaigns.pending, (state) => {
@@ -62,6 +67,6 @@ export const campaignsSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { resetCampaigns, reactCampaign } = campaignsSlice.actions
+export const { resetCampaigns, reactCampaign, joinCampaign } = campaignsSlice.actions
 
 export default campaignsSlice.reducer

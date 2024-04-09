@@ -1,5 +1,5 @@
 import { closeBackdrop, openBackdrop } from "@/lib/features/modals/backdrop/backdropSlice"
-import { closeDonateModal } from "@/lib/features/modals/donateModal/donateModalSlice"
+import { closeDonateModal } from "@/lib/features/modals/donate-modal/donateModalSlice"
 import { useAppDispatch, useAppSelector } from "@/lib/hook"
 import api from "@/service/api"
 import { numberWithDots } from "@/utils/number-with-dots"

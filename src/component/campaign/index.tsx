@@ -7,9 +7,10 @@ import { useAppDispatch } from '@/lib/hook'
 import { toast } from 'react-toastify'
 import Link from 'next/link'
 import { CampaignType } from '@/type/campaign'
-import { openDonateModal } from '@/lib/features/modals/donateModal/donateModalSlice'
+import { openDonateModal } from '@/lib/features/modals/donate-modal/donateModalSlice'
 import api from '@/service/api'
-import { reactCampaign } from '@/lib/features/campaigns/campaignsSlice'
+import { joinCampaign, reactCampaign } from '@/lib/features/campaigns/campaignsSlice'
+import { openCampaignDetail } from '@/lib/features/modals/campaign-detail-modal/campaignDetailModalSlice'
 
 interface Props {
   data: CampaignType
@@ -38,21 +39,19 @@ const Campaign = ({ data }: Props) => {
   const imageRef = useRef<HTMLImageElement | null>(null)
   const [imageRatio, setImageRatio] = useState<number>(1)
 
-  const handleClickLike = useCallback(async () => {
+  const handleClickLove = useCallback(async () => {
     try {
-      const response = await api.patch(`/campaign/${isLiked ? 'cancel-like' : 'like'}?campaignId=${campaignId}`)
-      if (response.status === 200) {
-        dispatch(reactCampaign({ campaignId, isLiked: !isLiked }))
-      }
+      await api.patch(`/campaign/${isLiked ? 'cancel-like' : 'like'}?campaignId=${campaignId}`)
+      dispatch(reactCampaign({ campaignId, isLiked: !isLiked }))
     }
     catch (error: any) {
       toast.error(error.data.error)
     }
   }, [dispatch, campaignId, isLiked])
 
-  const handleOpenPostDetail = useCallback(() => {
-    toast.info('Tính năng đang được phát triển')
-  }, [])
+  const handleOpenCampaignDetail = useCallback(() => {
+    dispatch(openCampaignDetail(campaignId))
+  }, [campaignId, dispatch])
 
   const handleOpenDonateModal = useCallback(() => {
     dispatch(openDonateModal({
@@ -61,9 +60,15 @@ const Campaign = ({ data }: Props) => {
     }))
   }, [dispatch, campaignId, userId])
 
-  const handleJoinCampaign = useCallback(() => {
-    toast.info('Tính năng đang được phát triển')
-  }, [])
+  const handleJoinCampaign = useCallback(async () => {
+    try {
+      await api.patch(`/campaign/register?campaignId=${campaignId}`)
+      dispatch(joinCampaign(campaignId))
+    }
+    catch (error: any) {
+      toast.error(error.data.error)
+    }
+  }, [campaignId, dispatch])
 
   return (
     <Card sx={{ borderRadius: 2, py: 1 }}>
@@ -74,17 +79,9 @@ const Campaign = ({ data }: Props) => {
           </Link>
         }
         title={
-          <Grid container spacing={2}>
-            <Grid item>
-              <Link href={`/organizations/${userId}`}>
-                <Typography fontWeight={500}>{fullName}</Typography>
-              </Link>
-            </Grid>
-
-            <Grid item xs container alignItems='center'>
-              <Typography variant='body2' fontWeight={300}>• 10m</Typography>
-            </Grid>
-          </Grid>
+          <Link href={`/organizations/${userId}`}>
+            <Typography fontWeight={500}>{fullName}</Typography>
+          </Link>
         }
         subheader={<Typography color={theme.palette.text.secondary}>{title}</Typography>}
       />
@@ -112,7 +109,7 @@ const Campaign = ({ data }: Props) => {
             fill
             sizes='300px'
             style={{ borderRadius: 8, cursor: 'pointer', objectFit: 'cover' }}
-            onClick={handleOpenPostDetail}
+            onClick={handleOpenCampaignDetail}
             onLoad={({ target }: { target: any }) => setImageRatio(target.naturalHeight / target.naturalWidth)}
           />
         </Grid>
@@ -121,7 +118,7 @@ const Campaign = ({ data }: Props) => {
       <CardActions>
         <Grid container spacing={2}>
           <Grid item xs='auto' container alignItems='center'>
-            <IconButton onClick={handleClickLike}>
+            <IconButton onClick={handleClickLove}>
               <Image src={`/images/dashboard/post-card/${isLiked ? '' : 'dis'}loved.svg`} alt='loved' width={23} height={20} />
             </IconButton>
             <Typography>{likeCount} lượt thích</Typography>
@@ -131,7 +128,7 @@ const Campaign = ({ data }: Props) => {
             <IconButton>
               <Image src='/images/dashboard/post-card/comment.svg' alt='comment' width={23} height={20} />
             </IconButton>
-            <Typography>69 bình luận</Typography>
+            <Typography>0 bình luận</Typography>
           </Grid>
 
           <Grid item xs='auto' container alignItems='center'>

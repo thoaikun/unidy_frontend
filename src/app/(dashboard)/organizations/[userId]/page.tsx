@@ -29,21 +29,23 @@ const OrganizationProfile = ({ params: { userId } }: Props) => {
 
   useEffect(() => {
     (async () => {
-      try {
-        let response = await api.get(`/users/profile/organizations/${userId}`)
-        setOrganizationData(response.data)
-        setIsLoadingOrganization(false)
-        response = await api.get(`/campaign/organization/${userId}`, {
-          params: {
-            skip: 0,
-            limit: 5,
-          }
-        })
-        setCampaigns(response.data.campaigns)
-        setIsLoadingPost(false)
-      }
-      catch (error: any) {
-        toast.error(error.data.error)
+      if (userId) {
+        try {
+          let response = await api.get(`/users/profile/organizations/${userId}`)
+          setOrganizationData(response.data)
+          setIsLoadingOrganization(false)
+          response = await api.get(`/campaign/organization/${userId}`, {
+            params: {
+              skip: 0,
+              limit: 5,
+            }
+          })
+          setCampaigns(response.data.campaigns)
+          setIsLoadingPost(false)
+        }
+        catch (error: any) {
+          toast.error(error.data.error)
+        }
       }
     })()
   }, [userId])
@@ -54,7 +56,7 @@ const OrganizationProfile = ({ params: { userId } }: Props) => {
         {isLoadingOrganization ? (
           <ProfileCardLoading />
         ) : (
-          <ProfileCard isOrganization organizationData={organizationData} />
+          <ProfileCard isOrganization organizationData={organizationData} setOrganizationData={setOrganizationData} />
         )}
       </Grid>
 

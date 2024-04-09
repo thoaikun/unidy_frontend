@@ -22,7 +22,7 @@ export const fetchPosts = createAsyncThunk(
     // await new Promise(
     //   resolve => setTimeout(resolve, 1000));
     // return postsData
-    
+
     const response = await api.get('/posts', {
       params: {
         skip: 0,
@@ -38,9 +38,13 @@ export const postsSlice = createSlice({
   initialState,
   reducers: {
     resetPosts: () => initialState,
-    reactPost: (state, action: PayloadAction<{ postId: string, isLiked: boolean }>) => {
+    reactPost: (state, action: PayloadAction<string>) => {
       state.posts = state.posts.map((post) =>
-        post.postId !== action.payload.postId ? post : { ...post, isLiked: action.payload.isLiked }
+        post.postId !== action.payload ? post : {
+          ...post,
+          isLiked: !post.isLiked,
+          likeCount: post.likeCount + (post.isLiked ? -1 : 1)
+        }
       )
     },
   },
