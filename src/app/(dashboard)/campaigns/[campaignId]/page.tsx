@@ -7,29 +7,6 @@ import CampaignInformation from "@/view/dashboard/campaigns/campaign-information
 import { Grid } from "@mui/material"
 import { useCallback, useState } from "react"
 
-// const sponsorList = [
-//   {
-//     avatar: '/examples/avatar-7.svg',
-//     name: 'Thoại Lê Nè',
-//   },
-//   {
-//     avatar: '/examples/avatar-7.svg',
-//     name: 'Trương Văn Vở',
-//   },
-//   {
-//     avatar: '/examples/avatar-2.svg',
-//     name: 'Phương Anh Nguyễn',
-//   },
-//   {
-//     avatar: '/examples/avatar-7.svg',
-//     name: 'Phương Anh Nguyễn',
-//   },
-//   {
-//     avatar: '/examples/avatar-7.svg',
-//     name: 'Phương Anh Nguyễn',
-//   },
-// ]
-
 interface Props {
   params: {
     campaignId: string
@@ -39,15 +16,15 @@ interface Props {
 const CampaignDetail = ({ params: { campaignId } }: Props) => {
   const user = useAppSelector(state => state.auth.user)
   const isOrganization = user?.role === 'ORGANIZATION'
-  const [open, setOpen] = useState<boolean>(false)
+  // const [open, setOpen] = useState<boolean>(false)
 
-  const handleOpenEndCampaign = useCallback(() => {
-    setOpen(true)
-  }, [])
+  // const handleOpenEndCampaign = useCallback(() => {
+  //   setOpen(true)
+  // }, [])
 
-  const handleCloseEndCampaign = useCallback(() => {
-    setOpen(false)
-  }, [])
+  // const handleCloseEndCampaign = useCallback(() => {
+  //   setOpen(false)
+  // }, [])
 
   return (
     <Grid container spacing={6.5}>

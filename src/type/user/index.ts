@@ -13,6 +13,12 @@ type UserType = {
   image: string
 }
 
+type VolunteerType = UserType & {
+  isFriend: boolean
+  isRequested: boolean
+  isRequesting: boolean
+}
+
 type OrganizationType = {
   userId: number
   organizationName: string
@@ -39,4 +45,4 @@ type UserShortenedType = {
   linkImage: string | null
 }
 
-export type { UserRoleType, UserType, OrganizationType, UserNodeType, UserShortenedType }
+export type { UserRoleType, UserType, VolunteerType, OrganizationType, UserNodeType, UserShortenedType }

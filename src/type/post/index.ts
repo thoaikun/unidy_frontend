@@ -12,9 +12,6 @@ type PostType = {
   userNode: UserNodeType
   isLiked: boolean
   likeCount: number
-  // comments?: string[]
-  comments?: any[]
-  userLikes?: UserNodeType[]
 }
 
 export type { PostType }

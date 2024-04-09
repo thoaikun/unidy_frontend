@@ -16,19 +16,21 @@ const ListSponsors = ({ campaignId }: Props) => {
 
   useEffect(() => {
     (async () => {
-      try {
-        const response = await api.get(`/campaign/${campaignId}/transactions`, {
-          params: {
-            pageNumber: 0,
-            pageSize: 5,
-          }
-        })
+      if (campaignId) {
+        try {
+          const response = await api.get(`/campaign/${campaignId}/transactions`, {
+            params: {
+              pageNumber: 0,
+              pageSize: 5,
+            }
+          })
 
-        setData(response.data)
-        setIsLoading(false)
-      }
-      catch (error: any) {
-        toast.error(error.data.error)
+          setData(response.data)
+          setIsLoading(false)
+        }
+        catch (error: any) {
+          toast.error(error.data.error)
+        }
       }
     })()
   }, [campaignId])

@@ -5,28 +5,34 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface NotificationsState {
+  unseenCount: number
   notifications: NotificationType[]
   status: 'idle' | 'loading' | 'succeeded' | 'failed',
   error: string | null
 }
 
 const initialState: NotificationsState = {
+  unseenCount: 0,
   notifications: [],
   status: 'idle',
   error: null,
 }
 
+export const fetchUnseenCount = createAsyncThunk(
+  'notifications/fetchUnseenCount',
+  async () => {
+    const response = await api.get('/users/notifications/unseen/count')
+    return response.data.unseenCount
+  },
+)
+
 export const fetchNotifications = createAsyncThunk(
   'notifications/fetchNotifications',
   async () => {
-    // await new Promise(
-    //   resolve => setTimeout(resolve, 1000));
-    // return notificationsData
-
     const response = await api.get('/users/notifications', {
       params: {
-        skip: 0,
-        limit: 5,
+        pageNumber: 0,
+        pageSize: 5,
       }
     })
     return response.data
@@ -44,6 +50,7 @@ export const notificationsSlice = createSlice({
           notification :
           { ...notification, seenTime: new Date().toString() }
       )
+      state.unseenCount = 0
     },
     markReadById: (state, action: PayloadAction<number>) => {
       state.notifications = state.notifications.map((notification) =>
@@ -51,9 +58,20 @@ export const notificationsSlice = createSlice({
           notification :
           { ...notification, seenTime: new Date().toString() }
       )
+      state.unseenCount -= 1
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchUnseenCount.pending, (state) => {
+      state.status = 'loading'
+    })
+    builder.addCase(fetchUnseenCount.fulfilled, (state, action: PayloadAction<number>) => {
+      state.unseenCount = action.payload
+      state.status = 'idle'
+    })
+    builder.addCase(fetchUnseenCount.rejected, (state) => {
+      state.status = 'failed'
+    })
     builder.addCase(fetchNotifications.pending, (state) => {
       state.status = 'loading'
     })

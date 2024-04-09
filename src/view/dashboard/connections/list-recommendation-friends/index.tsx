@@ -4,7 +4,7 @@ import FriendCard from "@/component/friend-card"
 import LoadingFriendCard from "@/component/friend-card/loading"
 import api from "@/service/api"
 import { RecommendationFriendType } from "@/type/friend"
-import { NavigateNext } from "@mui/icons-material"
+import { ControlPoint, NavigateNext } from "@mui/icons-material"
 import { Avatar, Button, Grid, Typography } from "@mui/material"
 import Image from "next/image"
 import { useCallback, useEffect, useState } from "react"
@@ -32,9 +32,9 @@ const ListRecommendationFriends = () => {
     }
   }, [])
 
-  const handleSendInviteFriendRequest = useCallback((friendId: number) => async () => {
+  const handleSendInviteFriendRequest = useCallback(async (friendId: number) => {
     try {
-      const response = await api.patch(`/users/add-friend?friendId=${friendId}`)
+      await api.patch(`/users/add-friend?friendId=${friendId}`)
       setData((state) => state.map((friend) => friend.fiendSuggest.userId !== friendId ? friend : { ...friend, isSent: true }))
     }
     catch (error: any) {
@@ -42,8 +42,14 @@ const ListRecommendationFriends = () => {
     }
   }, [])
 
-  const handleCancelnviteFriendRequest = useCallback((friendId: number) => async () => {
-
+  const handleCancelInviteFriendRequest = useCallback(async (friendId: number) => {
+    try {
+      await api.delete(`/users/delete-invite?friendId=${friendId}`)
+      setData((state) => state.map((friend) => friend.fiendSuggest.userId !== friendId ? friend : { ...friend, isSent: false }))
+    }
+    catch (error: any) {
+      toast.error(error.data.error)
+    }
   }, [])
 
   useEffect(() => {
@@ -90,8 +96,17 @@ const ListRecommendationFriends = () => {
                   action={
                     <Grid container alignItems='flex-end' height={45}>
                       <Button
-                        startIcon={<Image src='/images/dashboard/connections/add-friend.svg' alt='add-friend' width={20} height={20} />}
-                        onClick={handleSendInviteFriendRequest(userId)}
+                        startIcon={
+                          <Image src={`/images/dashboard/connections/add-friend${isSent ? '-primary' : ''}.svg`} alt='add-friend' width={20} height={20} />
+                        }
+                        onClick={() => {
+                          if (isSent) {
+                            handleCancelInviteFriendRequest(userId)
+                          }
+                          else {
+                            handleSendInviteFriendRequest(userId)
+                          }
+                        }}
                       >
                         <Typography variant='body2' color={isSent ? 'primary' : 'text.secondary'} fontWeight={300}>
                           {isSent ? 'Đã gửi' : 'Kết bạn'}

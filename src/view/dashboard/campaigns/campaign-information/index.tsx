@@ -18,14 +18,16 @@ const CampaignInformation = ({ campaignId }: Props) => {
 
   useEffect(() => {
     (async () => {
-      try {
-        const response = await api.get(`/campaign/${campaignId}`)
+      if (campaignId) {
+        try {
+          const response = await api.get(`/campaign/${campaignId}`)
 
-        setData(response.data)
-        setIsLoading(false)
-      }
-      catch (error: any) {
-        toast.error(error.data.error)
+          setData(response.data)
+          setIsLoading(false)
+        }
+        catch (error: any) {
+          toast.error(error.data.error)
+        }
       }
     })()
   }, [campaignId])

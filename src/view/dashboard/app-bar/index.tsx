@@ -12,13 +12,9 @@ import {
   InputBase,
   Typography,
   IconButton,
-  CardHeader,
   Menu,
   MenuItem,
   useTheme,
-  Dialog,
-  DialogContent,
-  TextField,
   Skeleton,
 } from '@mui/material'
 import { useRouter } from 'next/navigation'
@@ -32,6 +28,7 @@ import { resetFriends } from '@/lib/features/friends/friendsSlice'
 import { resetPosts } from '@/lib/features/posts/postsSlice'
 import { resetCampaigns } from '@/lib/features/campaigns/campaignsSlice'
 import ListNotifications from './list-notifications'
+import { openNewPost } from '@/lib/features/modals/new-post-modal/newPostModalSlice'
 
 const CustomAppBar = () => {
   const { user, status } = useAppSelector((state) => state.auth)
@@ -42,7 +39,9 @@ const CustomAppBar = () => {
   const theme = useTheme()
   const dispatch = useAppDispatch()
 
-  const [openModal, setOpenModal] = useState<boolean>(false)
+  const handleOpenNewPost = useCallback(() => {
+    dispatch(openNewPost())
+  }, [dispatch])
 
   const [moreAnchorEl, setMoreAnchorEl] = useState<null | HTMLElement>(null)
   const openMore = Boolean(moreAnchorEl)
@@ -101,11 +100,11 @@ const CustomAppBar = () => {
 
             <Grid item xs='auto' display={{ xs: 'none', md: 'block' }}>
               {isOrganization ? (
-                <Button variant='contained' sx={{ px: 2, py: 1 }} disableElevation onClick={() => setOpenModal(true)}>
-                  <Typography color={theme.palette.text.contrast} fontWeight={500}>Tạo kỉ niệm mới</Typography>
+                <Button variant='contained' sx={{ px: 2, py: 1 }} disableElevation onClick={handleOpenNewPost}>
+                  <Typography color={theme.palette.text.contrast} fontWeight={500}>Tạo hoạt động</Typography>
                 </Button>
               ) : (
-                <Button variant='contained' sx={{ px: 2, py: 1 }} disableElevation onClick={() => setOpenModal(true)}>
+                <Button variant='contained' sx={{ px: 2, py: 1 }} disableElevation onClick={handleOpenNewPost}>
                   <Typography color={theme.palette.text.contrast} fontWeight={500}>Tạo kỉ niệm mới</Typography>
                 </Button>
               )}
@@ -123,77 +122,6 @@ const CustomAppBar = () => {
 
             <Grid item xs='auto'>
               <ListNotifications />
-              {/* <IconButton onClick={handleClickNotification}>
-                <Badge color='error' overlap='circular' variant='dot'>
-                  <Image src={`/images/dashboard/app-bar/notification${openNotification ? '-selected' : ''}.svg`} alt='notification' width={20} height={20} />
-                </Badge>
-              </IconButton> */}
-
-              {/* <Popover
-                open={openNotification}
-                anchorEl={notificationAnchorEl}
-                onClose={handleCloseNotification}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                slotProps={{ paper: { sx: { backgroundColor: 'transparent', boxShadow: 'none' } } }}
-              >
-                <Grid container justifyContent='flex-end' pr={1}>
-                  <Image src='/images/dashboard/app-bar/popover.svg' alt='popover' width={25} height={17} />
-                </Grid>
-
-                <Card
-                  sx={{
-                    width: 350,
-                    m: '2px',
-                    boxShadow: '1px 1px 2px 0px rgba(0, 0, 0, 0.10), -1px 1px 2px 0px rgba(0, 0, 0, 0.10)'
-                  }}
-                >
-                  <CardHeader
-                    title={<Typography fontWeight={500}>Thông báo</Typography>}
-                    action={
-                      <Button startIcon={<Image src='/images/dashboard/app-bar/read.svg' alt='read' width={14} height={7} />}>
-                        <Typography variant='caption' color='primary'>Đánh dấu đã đọc</Typography>
-                      </Button>
-                    }
-                  />
-
-                  <CardContent>
-                    <Grid container spacing={1} maxHeight={450} overflow='auto'>
-                      {notifications.map((item, index) => (
-                        <div key={index}>
-                          <Grid item xs={12}>
-                            <Button startIcon={<Avatar src={item.media} />}>
-                              <Grid container color='#000000'>
-                                <Grid item>
-                                  <Typography color={item.status ? 'primary' : 'default'} fontWeight={300} textAlign='start'>{item.content}</Typography>
-                                </Grid>
-                                <Grid item>
-                                  <Typography variant='caption' fontWeight={300}>{item.createdAt.toLocaleString()}</Typography>
-                                </Grid>
-                              </Grid>
-                            </Button>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Divider />
-                          </Grid>
-                        </div>
-                      ))}
-                    </Grid>
-                  </CardContent>
-
-                  <CardActions>
-                    <Button>
-                      <Typography variant='body2' color='primary'>Xem tất cả thông báo</Typography>
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Popover> */}
             </Grid>
 
             <Grid item xs='auto' display={{ xs: 'block', md: 'none' }}>
@@ -250,7 +178,7 @@ const CustomAppBar = () => {
         </Toolbar>
       </AppBar >
 
-      <Dialog open={openModal} PaperProps={{ sx: { maxWidth: 1072, height: 591 } }} fullWidth>
+      {/* <Dialog open={openModal} PaperProps={{ sx: { maxWidth: 1072, height: 591 } }} fullWidth>
         <DialogContent>
           <Grid container>
             <Grid item width={565}>
@@ -288,7 +216,7 @@ const CustomAppBar = () => {
             </Grid>
           </Grid>
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
     </>
   )
 }

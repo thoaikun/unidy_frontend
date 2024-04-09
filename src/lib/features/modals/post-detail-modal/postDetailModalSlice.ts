@@ -27,6 +27,6 @@ export const postDetailModalSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { openPostDetail, closePostDetail, } = postDetailModalSlice.actions
+export const { openPostDetail, closePostDetail } = postDetailModalSlice.actions
 
 export default postDetailModalSlice.reducer

@@ -57,6 +57,7 @@ const LogInPage = () => {
     }
     catch (error: any) {
       toast.error(error.data.error)
+      dispatch(closeBackdrop())
     }
   }, [dispatch, router])
 

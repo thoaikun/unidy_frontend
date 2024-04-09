@@ -12,17 +12,20 @@ interface Props {
 const CertificatePreview = ({ campaignId }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [data, setData] = useState<CertificateType>()
+  console.log(isLoading, data)
 
   useEffect(() => {
     (async () => {
-      try {
-        const response = await api.get(`/campaign/${campaignId}/certificates`)
+      if (campaignId) {
+        try {
+          const response = await api.get(`/campaign/${campaignId}/certificates`)
 
-        setData(response.data[0])
-        setIsLoading(false)
-      }
-      catch (error: any) {
-        toast.error(error.data.error)
+          setData(response.data[0])
+          setIsLoading(false)
+        }
+        catch (error: any) {
+          toast.error(error.data.error)
+        }
       }
     })()
   }, [campaignId])
@@ -74,7 +77,7 @@ const CertificatePreview = ({ campaignId }: Props) => {
     )
   }
   else {
-    <Typography>Không tìm thấy thông tin giấy chứng nhận.</Typography>
+    return <Typography>Không tìm thấy thông tin giấy chứng nhận.</Typography>
   }
 }
 

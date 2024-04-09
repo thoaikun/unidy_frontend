@@ -8,7 +8,7 @@ import Post from "@/component/post"
 import PostLoading from "@/component/post/loading"
 import api from "@/service/api"
 import { PostType } from "@/type/post"
-import { UserType } from "@/type/user"
+import { VolunteerType } from "@/type/user"
 import ProfileCard from "@/view/dashboard/profile/profile-card"
 import ProfileCardLoading from "@/view/dashboard/profile/profile-card/loading"
 import { Grid, Typography } from "@mui/material"
@@ -22,28 +22,30 @@ interface Props {
 }
 
 const VolunteerProfile = ({ params: { userId } }: Props) => {
-  const [userData, setUserData] = useState<UserType | null>(null)
+  const [volunteerData, setVolunteerData] = useState<VolunteerType | null>(null)
   const [isLoadingUser, setIsLoadingUser] = useState<boolean>(true)
   const [posts, setPosts] = useState<PostType[]>([])
   const [isLoadingPost, setIsLoadingPost] = useState<boolean>(true)
 
   useEffect(() => {
     (async () => {
-      try {
-        let response = await api.get(`/users/profile/volunteers/${userId}`)
-        setUserData(response.data)
-        setIsLoadingUser(false)
-        response = await api.get(`/posts/users/${userId}`, {
-          params: {
-            skip: 0,
-            limit: 5,
-          }
-        })
-        setPosts(response.data)
-        setIsLoadingPost(false)
-      }
-      catch (error: any) {
-        toast.error(error.data.error)
+      if (userId) {
+        try {
+          let response = await api.get(`/users/profile/volunteers/${userId}`)
+          setVolunteerData(response.data)
+          setIsLoadingUser(false)
+          response = await api.get(`/posts/users/${userId}`, {
+            params: {
+              skip: 0,
+              limit: 5,
+            }
+          })
+          setPosts(response.data)
+          setIsLoadingPost(false)
+        }
+        catch (error: any) {
+          toast.error(error.data.error)
+        }
       }
     })()
   }, [userId])
@@ -54,7 +56,7 @@ const VolunteerProfile = ({ params: { userId } }: Props) => {
         {isLoadingUser ? (
           <ProfileCardLoading />
         ) : (
-          <ProfileCard userData={userData} />
+          <ProfileCard isVolunteer volunteerData={volunteerData} setVolunteerData={setVolunteerData} />
         )}
       </Grid>
 
@@ -73,7 +75,7 @@ const VolunteerProfile = ({ params: { userId } }: Props) => {
               {isLoadingUser ? (
                 <PersonalInformationLoading />
               ) : (
-                <PersonalInformation userData={userData} />
+                <PersonalInformation isVolunteer volunteerData={volunteerData} />
               )}
             </Grid>
           </Grid>

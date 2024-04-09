@@ -5,11 +5,12 @@ import { useCallback, useRef, useState } from 'react'
 import { Avatar, Card, CardActions, CardContent, CardHeader, Grid, IconButton, Typography, useTheme } from '@mui/material'
 import { PostType } from '@/type/post'
 import { useAppDispatch } from '@/lib/hook'
-import { openPostDetail } from '@/lib/features/modals/postDetailModal/postDetailModalSlice'
+import { openPostDetail } from '@/lib/features/modals/post-detail-modal/postDetailModalSlice'
 import { toast } from 'react-toastify'
 import api from '@/service/api'
 import { reactPost } from '@/lib/features/posts/postsSlice'
 import Link from 'next/link'
+import { calculateDifferenceTime } from '@/utils/diff-time'
 
 interface Props {
   data: PostType
@@ -20,23 +21,21 @@ const Post = ({ data }: Props) => {
     postId,
     content,
     status,
+    createDate,
     linkImage,
     userNode,
     isLiked,
     likeCount,
-    comments,
   } = data
   const theme = useTheme()
   const dispatch = useAppDispatch()
   const imageRef = useRef<HTMLImageElement | null>(null)
   const [imageRatio, setImageRatio] = useState<number>(1)
 
-  const handleaClickLike = useCallback(async () => {
+  const handleaClickLove = useCallback(async () => {
     try {
-      const response = await api.patch(`/posts/${isLiked ? 'unlike' : 'like'}?postId=${postId}`)
-      if (response.status === 200) {
-        dispatch(reactPost({ postId, isLiked: !isLiked }))
-      }
+      await api.patch(`/posts/${isLiked ? 'unlike' : 'like'}?postId=${postId}`)
+      dispatch(reactPost(postId))
     }
     catch (error: any) {
       toast.error(error.data.error)
@@ -58,14 +57,14 @@ const Post = ({ data }: Props) => {
           }
           title={
             <Grid container spacing={2}>
-              <Grid item>
+              <Grid item xs='auto'>
                 <Link href={`/volunteers/${userNode.userId}`}>
                   <Typography fontWeight={500}>{userNode.fullName}</Typography>
                 </Link>
               </Grid>
 
               <Grid item xs container alignItems='center'>
-                <Typography variant='body2' fontWeight={300}>• 10m</Typography>
+                <Typography variant='body2' fontWeight={300}>• {calculateDifferenceTime(createDate)}</Typography>
               </Grid>
             </Grid>
           }
@@ -73,7 +72,19 @@ const Post = ({ data }: Props) => {
         />
 
         <CardContent sx={{ py: 0 }}>
-          <Typography whiteSpace='pre-line' mb={2}>{content}</Typography>
+          <Typography
+            whiteSpace='pre-line'
+            mb={2}
+          // overflow='hidden'
+          // textOverflow='ellipsis'
+          // display='-webkit-box'
+          // sx={{
+          //   WebkitLineClamp: 3,
+          //   WebkitBoxOrient: 'vertical'
+          // }}
+          >
+            {content}
+          </Typography>
 
           <Grid item xs={12} height={(imageRef.current?.width || 300) * imageRatio} maxHeight={600} position='relative'>
             <Image
@@ -93,7 +104,7 @@ const Post = ({ data }: Props) => {
         <CardActions>
           <Grid container spacing={2}>
             <Grid item xs='auto' container alignItems='center'>
-              <IconButton onClick={handleaClickLike}>
+              <IconButton onClick={handleaClickLove}>
                 <Image src={`/images/dashboard/post-card/${isLiked ? '' : 'dis'}loved.svg`} alt='loved' width={23} height={20} />
               </IconButton>
               <Typography>{likeCount} lượt thích</Typography>
@@ -103,7 +114,7 @@ const Post = ({ data }: Props) => {
               <IconButton>
                 <Image src='/images/dashboard/post-card/comment.svg' alt='comment' width={23} height={20} />
               </IconButton>
-              <Typography>{comments?.length || 69} bình luận</Typography>
+              <Typography>0 bình luận</Typography>
             </Grid>
 
             <Grid item xs='auto' container alignItems='center'>
