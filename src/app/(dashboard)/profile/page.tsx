@@ -39,7 +39,7 @@ const ProfilePage = () => {
           // setTimeout(() => setIsLoadingPost(false), 2000)
         }
         catch (error: any) {
-          toast.error(error.data.error)
+          toast.error(error?.data?.error)
         }
       })()
     }

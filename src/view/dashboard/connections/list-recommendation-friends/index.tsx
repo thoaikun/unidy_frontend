@@ -28,7 +28,7 @@ const ListRecommendationFriends = () => {
       setIsLoading(false)
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [])
 
@@ -38,7 +38,7 @@ const ListRecommendationFriends = () => {
       setData((state) => state.map((friend) => friend.fiendSuggest.userId !== friendId ? friend : { ...friend, isSent: true }))
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [])
 
@@ -48,7 +48,7 @@ const ListRecommendationFriends = () => {
       setData((state) => state.map((friend) => friend.fiendSuggest.userId !== friendId ? friend : { ...friend, isSent: false }))
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [])
 

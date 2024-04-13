@@ -46,7 +46,7 @@ const Notification = ({
       }
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [dispatch, notificationId, id, router, seenTime, type])
 

@@ -35,6 +35,8 @@ type UserNodeType = {
   userId: number
   fullName: string
   isBlock: boolean
+  isFriend?: boolean | null
+  isFollow?: boolean | null
   profileImageLink: string | null
   role: UserRoleType | null
 }

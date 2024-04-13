@@ -27,7 +27,7 @@ const ListFriendRequests = () => {
       setIsLoading(false)
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [])
 
@@ -37,7 +37,7 @@ const ListFriendRequests = () => {
       setData((state) => state.map((request) => request.userRequest.userId !== friendId ? request : { ...request, status: FriendRequestStatus.accept }))
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [])
 
@@ -47,7 +47,7 @@ const ListFriendRequests = () => {
       setData((state) => state.map((request) => request.userRequest.userId !== friendId ? request : { ...request, status: FriendRequestStatus.decline }))
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [])
 

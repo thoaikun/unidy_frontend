@@ -26,6 +26,7 @@ export const fetchUser = createAsyncThunk(
     // return userData
 
     const response = await api.get('/users/profile')
+    setCookie('user_data', response.data)
     return response.data
   },
 )

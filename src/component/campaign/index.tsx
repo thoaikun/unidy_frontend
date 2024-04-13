@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useCallback, useRef, useState } from 'react'
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Grid, IconButton, Typography, useTheme } from '@mui/material'
+import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Grid, IconButton, Typography, useTheme } from '@mui/material'
 import { useAppDispatch } from '@/lib/hook'
 import { toast } from 'react-toastify'
 import Link from 'next/link'
@@ -11,6 +11,7 @@ import { openDonateModal } from '@/lib/features/modals/donate-modal/donateModalS
 import api from '@/service/api'
 import { joinCampaign, reactCampaign } from '@/lib/features/campaigns/campaignsSlice'
 import { openCampaignDetail } from '@/lib/features/modals/campaign-detail-modal/campaignDetailModalSlice'
+import EllipsisText from '../ellipsis-text'
 
 interface Props {
   data: CampaignType
@@ -45,7 +46,7 @@ const Campaign = ({ data }: Props) => {
       dispatch(reactCampaign({ campaignId, isLiked: !isLiked }))
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [dispatch, campaignId, isLiked])
 
@@ -66,7 +67,7 @@ const Campaign = ({ data }: Props) => {
       dispatch(joinCampaign(campaignId))
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [campaignId, dispatch])
 
@@ -87,21 +88,9 @@ const Campaign = ({ data }: Props) => {
       />
 
       <CardContent sx={{ py: 0 }}>
-        <Grid container spacing={1} mb={2}>
-          <Grid item xs={12}>
-            <Typography whiteSpace='pre-line'>{content}</Typography>
-          </Grid>
+        <EllipsisText text={content} whiteSpace='pre-line' mb={2} />
 
-          <Grid item xs={12} container columnGap={1}>
-            {hashTag?.map((item, index) => (
-              <Typography fontWeight={500} color={theme.palette.text.disabled} key={index}>
-                #{item}
-              </Typography>
-            ))}
-          </Grid>
-        </Grid>
-
-        <Grid item xs={12} height={(imageRef.current?.width || 300) * imageRatio} maxHeight={600} position='relative'>
+        <Box height={(imageRef.current?.width || 300) * imageRatio} maxHeight={600} position='relative'>
           <Image
             ref={imageRef}
             src={linkImage ? JSON.parse(linkImage)[0] : '/examples/campaign-media.svg'}
@@ -112,7 +101,7 @@ const Campaign = ({ data }: Props) => {
             onClick={handleOpenCampaignDetail}
             onLoad={({ target }: { target: any }) => setImageRatio(target.naturalHeight / target.naturalWidth)}
           />
-        </Grid>
+        </Box>
       </CardContent>
 
       <CardActions>

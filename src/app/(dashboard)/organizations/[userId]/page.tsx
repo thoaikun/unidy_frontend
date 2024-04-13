@@ -44,7 +44,7 @@ const OrganizationProfile = ({ params: { userId } }: Props) => {
           setIsLoadingPost(false)
         }
         catch (error: any) {
-          toast.error(error.data.error)
+          toast.error(error?.data?.error)
         }
       }
     })()

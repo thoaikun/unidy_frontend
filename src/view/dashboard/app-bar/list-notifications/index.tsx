@@ -40,7 +40,7 @@ const ListNotifications = () => {
       toast.success(response.data.success)
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [dispatch])
 

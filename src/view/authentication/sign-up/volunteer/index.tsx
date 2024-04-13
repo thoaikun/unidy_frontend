@@ -83,7 +83,7 @@ const SignUpVolunteer = ({ role, step, handleNext, handleBack }: IProps) => {
       handleNext()
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [role, handleNext])
 
