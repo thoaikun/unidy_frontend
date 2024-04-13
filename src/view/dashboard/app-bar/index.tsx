@@ -76,7 +76,7 @@ const CustomAppBar = () => {
       router.push('/log-in')
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [dispatch, router])
 

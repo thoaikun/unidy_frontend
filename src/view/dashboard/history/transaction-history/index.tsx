@@ -24,7 +24,7 @@ const TransactionHistory = () => {
         setIsLoading(false)
       }
       catch (error: any) {
-        toast.error(error.data.error)
+        toast.error(error?.data?.error)
       }
     })()
   }, [])

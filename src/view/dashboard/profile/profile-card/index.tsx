@@ -59,7 +59,7 @@ const ProfileCard = ({
       }
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [volunteerData?.userId, setVolunteerData])
 
@@ -71,7 +71,7 @@ const ProfileCard = ({
       }
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [volunteerData?.userId, setVolunteerData])
 
@@ -83,7 +83,7 @@ const ProfileCard = ({
       }
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [volunteerData?.userId, setVolunteerData])
 
@@ -95,7 +95,7 @@ const ProfileCard = ({
       }
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [volunteerData?.userId, setVolunteerData])
 
@@ -107,7 +107,7 @@ const ProfileCard = ({
       }
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [volunteerData?.userId, setVolunteerData])
 
@@ -119,7 +119,7 @@ const ProfileCard = ({
       }
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [organizationData?.userId, setOrganizationData])
 

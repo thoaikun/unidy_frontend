@@ -56,7 +56,7 @@ const LogInPage = () => {
       router.replace('/home')
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
       dispatch(closeBackdrop())
     }
   }, [dispatch, router])

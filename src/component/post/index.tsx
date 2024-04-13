@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useCallback, useRef, useState } from 'react'
-import { Avatar, Card, CardActions, CardContent, CardHeader, Grid, IconButton, Typography, useTheme } from '@mui/material'
+import { Avatar, Box, Card, CardActions, CardContent, CardHeader, Grid, IconButton, Typography, useTheme } from '@mui/material'
 import { PostType } from '@/type/post'
 import { useAppDispatch } from '@/lib/hook'
 import { openPostDetail } from '@/lib/features/modals/post-detail-modal/postDetailModalSlice'
@@ -11,6 +11,7 @@ import api from '@/service/api'
 import { reactPost } from '@/lib/features/posts/postsSlice'
 import Link from 'next/link'
 import { calculateDifferenceTime } from '@/utils/diff-time'
+import EllipsisText from '../ellipsis-text'
 
 interface Props {
   data: PostType
@@ -38,7 +39,7 @@ const Post = ({ data }: Props) => {
       dispatch(reactPost(postId))
     }
     catch (error: any) {
-      toast.error(error.data.error)
+      toast.error(error?.data?.error)
     }
   }, [dispatch, postId, isLiked])
 
@@ -72,21 +73,9 @@ const Post = ({ data }: Props) => {
         />
 
         <CardContent sx={{ py: 0 }}>
-          <Typography
-            whiteSpace='pre-line'
-            mb={2}
-          // overflow='hidden'
-          // textOverflow='ellipsis'
-          // display='-webkit-box'
-          // sx={{
-          //   WebkitLineClamp: 3,
-          //   WebkitBoxOrient: 'vertical'
-          // }}
-          >
-            {content}
-          </Typography>
+          <EllipsisText text={content} whiteSpace='pre-line' mb={2} />
 
-          <Grid item xs={12} height={(imageRef.current?.width || 300) * imageRatio} maxHeight={600} position='relative'>
+          <Box height={(imageRef.current?.width || 300) * imageRatio} maxHeight={600} position='relative'>
             <Image
               ref={imageRef}
               src={JSON.parse(linkImage)[0]}
@@ -98,7 +87,7 @@ const Post = ({ data }: Props) => {
               onLoad={({ target }: { target: any }) => setImageRatio(target.naturalHeight / target.naturalWidth)}
               priority
             />
-          </Grid>
+          </Box>
         </CardContent>
 
         <CardActions>
