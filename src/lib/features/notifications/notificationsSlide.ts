@@ -21,7 +21,7 @@ const initialState: NotificationsState = {
 export const fetchUnseenCount = createAsyncThunk(
   'notifications/fetchUnseenCount',
   async () => {
-    // return 69
+    return 69
     
     const response = await api.get('/users/notifications/unseen/count')
     return response.data.unseenCount

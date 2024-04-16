@@ -150,7 +150,7 @@ const CampaignInformation = ({ campaignId }: Props) => {
                 <Typography fontWeight={300}>{data.content}</Typography>
                 {data.hashTag && (
                   <Typography color={theme.palette.primary.main}>
-                    {data.hashTag.join(' ')}
+                    {data.hashTag}
                   </Typography>
                 )}
               </Grid>

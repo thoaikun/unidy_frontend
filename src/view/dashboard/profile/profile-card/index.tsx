@@ -124,8 +124,16 @@ const ProfileCard = ({
   }, [organizationData?.userId, setOrganizationData])
 
   const handleUnfollowOrganization = useCallback(async () => {
-    toast.info('Tính năng đang được phát triền')
-  }, [])
+    try {
+      await api.patch(`/users/unfollow-organization?organizationId=${organizationData?.userId}`)
+      if (setOrganizationData) {
+        setOrganizationData((state) => state ? { ...state, isFollow: false } : state)
+      }
+    }
+    catch (error: any) {
+      toast.error(error?.data?.error)
+    }
+  }, [organizationData?.userId, setOrganizationData])
 
   return (
     <Card sx={{ borderRadius: 3, position: 'relative' }}>

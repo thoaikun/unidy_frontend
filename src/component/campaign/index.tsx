@@ -133,7 +133,7 @@ const Campaign = ({ data }: Props) => {
           <Typography variant='body2' color={theme.palette.text.primary}>Ủng hộ</Typography>
         </Button>
 
-        <Button fullWidth variant='contained' sx={{ height: 40 }} disabled={isJoined} onClick={handleJoinCampaign}>
+        <Button fullWidth variant='contained' sx={{ height: 40 }} disabled={Boolean(isJoined)} onClick={handleJoinCampaign}>
           <Typography variant='body2' color='inherit'>{isJoined ? 'Đã tham gia' : 'Tham gia ngay'}</Typography>
         </Button>
       </CardActions>

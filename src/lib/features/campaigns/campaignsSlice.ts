@@ -19,9 +19,9 @@ const initialState: CampaignsState = {
 export const fetchCampaigns = createAsyncThunk(
   'campaigns/fetchCampaigns',
   async () => {
-    // await new Promise(
-    //   resolve => setTimeout(resolve, 1000));
-    // return campaignsData
+    await new Promise(
+      resolve => setTimeout(resolve, 1000));
+    return campaignsData
 
     const response = await api.get('/campaign/recommendation', {
       params: {

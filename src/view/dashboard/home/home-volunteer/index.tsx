@@ -11,7 +11,7 @@ import { PostType } from "@/type/post"
 import { CampaignType } from "@/type/campaign"
 import Campaign from "@/component/campaign"
 import PostLoading from "@/component/post/loading"
-import LoadingListFriends from "@/component/list-friends/loading"
+import ListFriendsLoading from "@/component/list-friends/loading"
 
 const HomeVolunteer = () => {
   const { posts, ...postsState } = useAppSelector((state) => state.posts)
@@ -64,7 +64,7 @@ const HomeVolunteer = () => {
 
       <Grid item flexShrink={3} maxWidth={480} display={{ xs: 'none', lg: 'block' }}>
         {status !== 'succeeded' ? (
-          <LoadingListFriends />
+          <ListFriendsLoading />
         ) : (
           <ListFriends friends={friends} />
         )}

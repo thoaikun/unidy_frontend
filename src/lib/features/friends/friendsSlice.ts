@@ -19,9 +19,9 @@ const initialState: FriendsState = {
 export const fetchFriends = createAsyncThunk(
   'friends/fetchFriends',
   async () => {
-    // await new Promise(
-    //   resolve => setTimeout(resolve, 1000));
-    // return friendsData
+    await new Promise(
+      resolve => setTimeout(resolve, 1000));
+    return friendsData
 
     const response = await api.get('/users/get-list-friend', {
       params: {

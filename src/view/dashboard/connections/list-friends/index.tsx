@@ -1,7 +1,7 @@
 'use client'
 
 import FriendCard from '@/component/friend-card'
-import LoadingFriendCard from '@/component/friend-card/loading'
+import FriendCardLoading from '@/component/friend-card/loading'
 import { fetchFriends } from '@/lib/features/friends/friendsSlice'
 import { useAppDispatch, useAppSelector } from '@/lib/hook'
 import { NavigateNext } from '@mui/icons-material'
@@ -29,7 +29,7 @@ const ListFriends = () => {
         if (status !== 'succeeded') {
           return (
             <Grid item xs={12}>
-              <LoadingFriendCard />
+              <FriendCardLoading />
             </Grid>
           )
         }
