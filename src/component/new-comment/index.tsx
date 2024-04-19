@@ -60,7 +60,8 @@ const NewComment = ({ postId, campaignId, setComments }: Props) => {
                 postNode: null,
                 campaignNode: null,
                 replyComment: null,
-                userComment: null
+                userComment: null,
+                createDate: new Date().toUTCString(),
               },
               haveReply: false
             },
@@ -87,7 +88,8 @@ const NewComment = ({ postId, campaignId, setComments }: Props) => {
                 postNode: null,
                 campaignNode: null,
                 replyComment: null,
-                userComment: null
+                userComment: null,
+                createDate: new Date().toUTCString(),
               },
               haveReply: false
             },

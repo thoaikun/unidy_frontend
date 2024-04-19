@@ -42,7 +42,7 @@ const ListFriends = ({ friends }: Props) => {
           <Grid item xs={12} container spacing={1}>
             {friends?.map((item, index) => (
               <Grid item xs={12} key={item.userId}>
-                <Link href={`/profile/${item.userId}`}>
+                <Link href={`/volunteers/${item.userId}`}>
                   <Button
                     fullWidth
                     startIcon={<Avatar src={item.profileImageLink || ''} sx={{ width: 32, height: 32 }} />}

@@ -20,10 +20,10 @@ const initialState: AuthState = {
 export const fetchUser = createAsyncThunk(
   'auth/fetchUser',
   async () => {
-    await new Promise(
-      resolve => setTimeout(resolve, 1000));
-    setCookie('user_data', userData)
-    return userData
+    // await new Promise(
+    //   resolve => setTimeout(resolve, 1000));
+    // setCookie('user_data', userData)
+    // return userData
 
     const response = await api.get('/users/profile')
     setCookie('user_data', response.data)

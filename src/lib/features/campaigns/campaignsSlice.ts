@@ -19,9 +19,9 @@ const initialState: CampaignsState = {
 export const fetchCampaigns = createAsyncThunk(
   'campaigns/fetchCampaigns',
   async () => {
-    await new Promise(
-      resolve => setTimeout(resolve, 1000));
-    return campaignsData
+    // await new Promise(
+    //   resolve => setTimeout(resolve, 1000));
+    // return campaignsData
 
     const response = await api.get('/campaign/recommendation', {
       params: {
@@ -38,9 +38,13 @@ export const campaignsSlice = createSlice({
   initialState,
   reducers: {
     resetCampaigns: () => initialState,
-    reactCampaign: (state, action: PayloadAction<{ campaignId: string, isLiked: boolean }>) => {
+    reactCampaign: (state, action: PayloadAction<{ campaignId: string, totalLike: number }>) => {
       state.campaigns = state.campaigns.map((campaignDetail) =>
-        campaignDetail.campaign.campaignId !== action.payload.campaignId ? campaignDetail : { ...campaignDetail, isLiked: action.payload.isLiked }
+        campaignDetail.campaign.campaignId !== action.payload.campaignId ? campaignDetail : {
+          ...campaignDetail,
+          isLiked: !campaignDetail.isLiked,
+          likeCount: action.payload.totalLike
+        }
       )
     },
     joinCampaign: (state, action: PayloadAction<string>) => {

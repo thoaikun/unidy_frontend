@@ -32,6 +32,7 @@ type CampaignType = {
   likeCount: number
   isLiked: boolean
   isJoined: boolean | null
+  numberComments: number
 }
 
 type CampaignStatusColorType = {

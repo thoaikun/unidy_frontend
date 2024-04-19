@@ -1,9 +1,12 @@
 import api from "@/service/api"
 import { CommentType } from "@/type/comment"
-import { Avatar, Grid, Typography } from "@mui/material"
+import { Grid, Typography } from "@mui/material"
 import { useCallback, useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import CommentLoading from "./loading"
+import UserAvatar from "../user-avatar"
+import UserName from "../user-name"
+import { calculateDifferenceTime } from "@/utils/diff-time"
 
 interface Props {
   data: CommentType
@@ -13,14 +16,11 @@ interface Props {
 
 const Comment = ({
   data: {
-    user:
-    {
-      profileImageLink,
-      fullName,
-    },
+    user,
     comment: {
       commentId,
       body,
+      createDate,
     },
     haveReply,
   },
@@ -69,25 +69,35 @@ const Comment = ({
   return (
     <Grid container spacing={2}>
       <Grid item xs='auto'>
-        <Avatar src={profileImageLink || ''} sx={{ width: 35, height: 35 }} />
+        <UserAvatar data={user} avatarProps={{ sx: { width: 35, height: 35 } }} />
       </Grid>
       <Grid item xs>
-        <Typography variant='h6'>{fullName}</Typography>
+        <UserName data={user} typographyProps={{ variant: 'h6' }} />
         <Typography variant='body1'>{body}</Typography>
-        {(postId || campaignId) && (
-          <Typography
-            variant='caption'
-            sx={{
-              cursor: 'pointer',
-              ':hover': {
-                textDecoration: 'underline'
-              }
-            }}
-            onClick={handleReply}
-          >
-            Trả lời
-          </Typography>
-        )}
+
+        <Grid container spacing={2}>
+          <Grid item xs='auto'>
+            <Typography variant='caption'>{calculateDifferenceTime(createDate)}</Typography>
+          </Grid>
+
+          <Grid item xs>
+            {(postId || campaignId) && (
+              <Typography
+                variant='caption'
+                fontWeight={700}
+                sx={{
+                  cursor: 'pointer',
+                  ':hover': {
+                    textDecoration: 'underline'
+                  }
+                }}
+                onClick={handleReply}
+              >
+                Trả lời
+              </Typography>
+            )}
+          </Grid>
+        </Grid>
 
         {haveReply && (
           isLoading ? (

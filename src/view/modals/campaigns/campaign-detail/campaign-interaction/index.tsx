@@ -3,24 +3,35 @@ import CommentLoading from "@/component/comment/loading"
 import EllipsisText from "@/component/ellipsis-text"
 import NewComment from "@/component/new-comment"
 import { theme } from "@/component/theme"
+import UserAvatar from "@/component/user-avatar"
+import UserName from "@/component/user-name"
 import { joinCampaign, reactCampaign } from "@/lib/features/campaigns/campaignsSlice"
+import { closeCampaignDetail } from "@/lib/features/modals/campaign-detail-modal/campaignDetailModalSlice"
 import { openDonateModal } from "@/lib/features/modals/donate-modal/donateModalSlice"
 import { useAppDispatch, useAppSelector } from "@/lib/hook"
 import api from "@/service/api"
-import { CampaignDetailType } from "@/type/campaign"
+import { CampaignType } from "@/type/campaign"
 import { CommentType } from "@/type/comment"
-import { Avatar, Box, Button, DialogActions, DialogContent, DialogTitle, Divider, Grid, IconButton, Typography } from "@mui/material"
+import { Box, Button, DialogActions, DialogContent, DialogTitle, Divider, Grid, IconButton, Typography } from "@mui/material"
 import Image from "next/image"
-import Link from "next/link"
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
 interface Props {
-  data: CampaignDetailType
-  setData: Dispatch<SetStateAction<CampaignDetailType | undefined>>
+  data: CampaignType
+  setData: Dispatch<SetStateAction<CampaignType | undefined>>
 }
 
-const CampaignInteraction = ({ data: { campaignId, userNode, title, content, userLikes, } }: Props) => {
+const CampaignInteraction = ({
+  data: {
+    campaign: { campaignId, title, content },
+    organizationNode,
+    isLiked,
+    likeCount,
+    numberComments
+  },
+  setData,
+}: Props) => {
   const user = useAppSelector((state) => state.auth.user)
   const dispatch = useAppDispatch()
   const [comments, setComments] = useState<CommentType[]>([])
@@ -45,23 +56,32 @@ const CampaignInteraction = ({ data: { campaignId, userNode, title, content, use
     })()
   }, [campaignId])
 
-  const isLiked = userLikes?.find((item) => item.userId === user?.userId)
-  const handleaClickLove = useCallback(async () => {
+  const handleClose = useCallback(() => {
+    dispatch(closeCampaignDetail())
+  }, [dispatch])
+
+  const handleClickLove = useCallback(async () => {
     try {
-      await api.patch(`/campaigns/${isLiked ? 'unlike' : 'like'}?campaignId=${campaignId}`)
-      dispatch(reactCampaign({ campaignId, isLiked: !isLiked }))
+      const response = await api.patch(`/campaign/${campaignId}/${isLiked ? 'unlike' : 'like'}`)
+      const totalLike = response.data.totalLike
+      setData((state) => state && ({
+        ...state,
+        isLiked: !state.isLiked,
+        likeCount: totalLike
+      }))
+      dispatch(reactCampaign({ campaignId, totalLike }))
     }
     catch (error: any) {
       toast.error(error?.data?.error)
     }
-  }, [dispatch, campaignId, isLiked])
+  }, [dispatch, campaignId, isLiked, setData])
 
   const handleOpenDonateModal = useCallback(() => {
     dispatch(openDonateModal({
       campaignId,
-      organizationUserId: userNode?.userId || 0,
+      organizationUserId: user?.userId || 0,
     }))
-  }, [dispatch, campaignId, userNode?.userId])
+  }, [dispatch, campaignId, user?.userId])
 
   const handleJoinCampaign = useCallback(async () => {
     try {
@@ -79,16 +99,12 @@ const CampaignInteraction = ({ data: { campaignId, userNode, title, content, use
         <DialogTitle mt={2}>
           <Grid container spacing={2} alignItems='center'>
             <Grid item xs='auto'>
-              <Link href={`/volunteers/${userNode?.userId}`}>
-                <Avatar src={userNode?.profileImageLink || ''} />
-              </Link>
+              <UserAvatar data={organizationNode} onClick={handleClose} />
             </Grid>
 
             <Grid item xs container>
               <Grid item xs={12}>
-                <Link href={`/volunteers/${userNode?.userId}`}>
-                  <Typography fontWeight={500}>{userNode?.fullName}</Typography>
-                </Link>
+                <UserName data={organizationNode} typographyProps={{ fontWeight: 500 }} onClick={handleClose} />
               </Grid>
 
               <Grid item xs={12}>
@@ -105,17 +121,17 @@ const CampaignInteraction = ({ data: { campaignId, userNode, title, content, use
         <DialogActions sx={{ pt: 0, px: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs='auto' container alignItems='center'>
-              <IconButton onClick={handleaClickLove}>
+              <IconButton onClick={handleClickLove}>
                 <Image src={`/images/dashboard/post-card/${isLiked ? '' : 'dis'}loved.svg`} alt='loved' width={23} height={20} />
               </IconButton>
-              <Typography>{userLikes.length || 0} lượt thích</Typography>
+              <Typography>{likeCount} lượt thích</Typography>
             </Grid>
 
             <Grid item xs='auto' container alignItems='center'>
               <IconButton>
                 <Image src='/images/dashboard/post-card/comment.svg' alt='loved' width={23} height={20} />
               </IconButton>
-              <Typography>0 bình luận</Typography>
+              <Typography>{numberComments} bình luận</Typography>
             </Grid>
 
             <Grid item xs='auto' container alignItems='center'>

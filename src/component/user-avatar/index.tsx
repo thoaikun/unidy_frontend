@@ -4,13 +4,14 @@ import Link from "next/link"
 
 interface Props {
   data: UserNodeType
-  sx?: AvatarProps
+  avatarProps?: AvatarProps
+  onClick?: () => void
 }
 
-const UserAvatar = ({ data: { userId, profileImageLink, role }, sx }: Props) => {
+const UserAvatar = ({ data: { userId, profileImageLink, role }, avatarProps, onClick }: Props) => {
   return (
-    <Link href={`/${role !== 'ORGANIZATION' ? 'volunteers' : 'organizations'}/${userId}`}>
-      <Avatar src={profileImageLink || ''} sx={{ width: 45, height: 45 }} {...sx} />
+    <Link href={`/${role !== 'ORGANIZATION' ? 'volunteers' : 'organizations'}/${userId}`} onClick={onClick}>
+      <Avatar src={profileImageLink || ''}  {...avatarProps} />
     </Link>
   )
 }

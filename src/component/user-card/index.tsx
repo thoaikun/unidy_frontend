@@ -103,7 +103,7 @@ const UserCard = ({ data, setData }: Props) => {
   return (
     <Card sx={{ p: 0.5 }}>
       <CardHeader
-        avatar={<UserAvatar data={data} />}
+        avatar={<UserAvatar data={data} avatarProps={{ sx: { width: 45, height: 45 } }} />}
         title={<UserName data={data} />}
         action={
           <Grid container alignItems='flex-end' height={45}>

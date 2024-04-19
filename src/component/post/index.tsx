@@ -2,23 +2,25 @@
 
 import Image from 'next/image'
 import { useCallback, useRef, useState } from 'react'
-import { Avatar, Box, Card, CardActions, CardContent, CardHeader, Grid, IconButton, Typography, useTheme } from '@mui/material'
+import { Box, Card, CardActions, CardContent, CardHeader, Grid, IconButton, Typography, useTheme } from '@mui/material'
 import { PostType } from '@/type/post'
 import { useAppDispatch } from '@/lib/hook'
 import { openPostDetail } from '@/lib/features/modals/post-detail-modal/postDetailModalSlice'
 import { toast } from 'react-toastify'
 import api from '@/service/api'
 import { reactPost } from '@/lib/features/posts/postsSlice'
-import Link from 'next/link'
 import { calculateDifferenceTime } from '@/utils/diff-time'
 import EllipsisText from '../ellipsis-text'
+import UserName from '../user-name'
+import UserAvatar from '../user-avatar'
 
 interface Props {
   data: PostType
+  onClickLove?: (totalLike: number) => void
 }
 
-const Post = ({ data }: Props) => {
-  const {
+const Post = ({
+  data: {
     postId,
     content,
     status,
@@ -27,21 +29,26 @@ const Post = ({ data }: Props) => {
     userNode,
     isLiked,
     likeCount,
-  } = data
+    numberComments,
+  },
+  onClickLove,
+}: Props) => {
   const theme = useTheme()
   const dispatch = useAppDispatch()
   const imageRef = useRef<HTMLImageElement | null>(null)
   const [imageRatio, setImageRatio] = useState<number>(1)
 
-  const handleaClickLove = useCallback(async () => {
+  const handleClickLove = useCallback(async () => {
     try {
-      await api.patch(`/posts/${isLiked ? 'unlike' : 'like'}?postId=${postId}`)
-      dispatch(reactPost(postId))
+      const response = await api.patch(`/posts/${isLiked ? 'unlike' : 'like'}?postId=${postId}`)
+      const totalLike = response.data.totalLike
+      onClickLove?.(totalLike)
+      dispatch(reactPost({ postId, totalLike }))
     }
     catch (error: any) {
       toast.error(error?.data?.error)
     }
-  }, [dispatch, postId, isLiked])
+  }, [dispatch, postId, isLiked, onClickLove])
 
   const handleOpenPostDetail = useCallback(() => {
     dispatch(openPostDetail(postId))
@@ -51,17 +58,11 @@ const Post = ({ data }: Props) => {
     <>
       <Card sx={{ borderRadius: 2, py: 1 }}>
         <CardHeader
-          avatar={
-            <Link href={`/volunteers/${userNode.userId}`}>
-              <Avatar src={userNode.profileImageLink || ''} />
-            </Link>
-          }
+          avatar={<UserAvatar data={userNode} />}
           title={
             <Grid container spacing={2}>
               <Grid item xs='auto'>
-                <Link href={`/volunteers/${userNode.userId}`}>
-                  <Typography fontWeight={500}>{userNode.fullName}</Typography>
-                </Link>
+                <UserName data={userNode} typographyProps={{ fontWeight: 500 }} />
               </Grid>
 
               <Grid item xs container alignItems='center'>
@@ -93,7 +94,7 @@ const Post = ({ data }: Props) => {
         <CardActions>
           <Grid container spacing={2}>
             <Grid item xs='auto' container alignItems='center'>
-              <IconButton onClick={handleaClickLove}>
+              <IconButton onClick={handleClickLove}>
                 <Image src={`/images/dashboard/post-card/${isLiked ? '' : 'dis'}loved.svg`} alt='loved' width={23} height={20} />
               </IconButton>
               <Typography>{likeCount} lượt thích</Typography>
@@ -103,7 +104,7 @@ const Post = ({ data }: Props) => {
               <IconButton>
                 <Image src='/images/dashboard/post-card/comment.svg' alt='comment' width={23} height={20} />
               </IconButton>
-              <Typography>0 bình luận</Typography>
+              <Typography>{numberComments} bình luận</Typography>
             </Grid>
 
             <Grid item xs='auto' container alignItems='center'>

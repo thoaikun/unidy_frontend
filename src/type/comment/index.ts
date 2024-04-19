@@ -9,6 +9,7 @@ type CommentType = {
     campaignNode: null
     replyComment: null
     userComment: null
+    createDate: string
   }
   haveReply: boolean
 }

@@ -12,7 +12,7 @@ import { OrganizationType } from "@/type/user"
 import ProfileCard from "@/view/dashboard/profile/profile-card"
 import ProfileCardLoading from "@/view/dashboard/profile/profile-card/loading"
 import { Grid, Typography } from "@mui/material"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
 interface Props {
@@ -49,6 +49,11 @@ const OrganizationProfile = ({ params: { userId } }: Props) => {
       }
     })()
   }, [userId])
+
+  const onReactCampaign = useCallback((campaignId: string) => (totalLike: number) => {
+    setCampaigns((state) => state.map((campaign) =>
+      campaign.campaign.campaignId !== campaignId ? campaign : { ...campaign, isLiked: !campaign.isLiked, likeCount: totalLike }))
+  }, [])
 
   return (
     <Grid container pt={5} spacing={6}>
@@ -96,7 +101,7 @@ const OrganizationProfile = ({ params: { userId } }: Props) => {
             ) : (
               campaigns.map((item, index) => (
                 <Grid item xs={12} key={index}>
-                  <Campaign data={item} />
+                  <Campaign data={item} onClickLove={onReactCampaign(item.campaign.campaignId)} />
                 </Grid>
               ))
             )}

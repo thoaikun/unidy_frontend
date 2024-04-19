@@ -15,13 +15,13 @@ const FriendCard = ({ userId, avatar, name, information, action }: Props) => {
     <Card sx={{ p: 0.5 }}>
       <CardHeader
         avatar={
-          <Link href={`/profile/${userId}`}>
+          <Link href={`/volunteers/${userId}`}>
             <Avatar src={avatar || ''} sx={{ width: 45, height: 45 }} />
           </Link>
         }
         title={
           <Typography sx={{ ':hover': { textDecoration: 'underline' } }}>
-            <Link href={`/profile/${userId}`}>{name}</Link>
+            <Link href={`/volunteers/${userId}`}>{name}</Link>
           </Typography>
         }
         subheader={information}

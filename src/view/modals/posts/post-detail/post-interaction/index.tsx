@@ -3,15 +3,17 @@ import CommentLoading from "@/component/comment/loading"
 import EllipsisText from "@/component/ellipsis-text"
 import NewComment from "@/component/new-comment"
 import { theme } from "@/component/theme"
+import UserAvatar from "@/component/user-avatar"
+import UserName from "@/component/user-name"
+import { closePostDetail } from "@/lib/features/modals/post-detail-modal/postDetailModalSlice"
 import { reactPost } from "@/lib/features/posts/postsSlice"
 import { useAppDispatch } from "@/lib/hook"
 import api from "@/service/api"
 import { CommentType } from "@/type/comment"
 import { PostType } from "@/type/post"
 import { calculateDifferenceTime } from "@/utils/diff-time"
-import { Avatar, Box, DialogActions, DialogContent, DialogTitle, Divider, Grid, IconButton, Typography } from "@mui/material"
+import { Box, DialogActions, DialogContent, DialogTitle, Divider, Grid, IconButton, Typography } from "@mui/material"
 import Image from "next/image"
-import Link from "next/link"
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
@@ -20,7 +22,7 @@ interface Props {
   setData: Dispatch<SetStateAction<PostType | undefined>>
 }
 
-const PostInteraction = ({ data: { postId, userNode, createDate, status, content, isLiked, likeCount }, setData }: Props) => {
+const PostInteraction = ({ data: { postId, userNode, createDate, status, content, isLiked, likeCount, numberComments }, setData }: Props) => {
   const dispatch = useAppDispatch()
   const [comments, setComments] = useState<CommentType[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -44,15 +46,20 @@ const PostInteraction = ({ data: { postId, userNode, createDate, status, content
     })()
   }, [postId])
 
-  const handleaClickLove = useCallback(async () => {
+  const handleClose = useCallback(() => {
+    dispatch(closePostDetail())
+  }, [dispatch])
+
+  const handleClickLove = useCallback(async () => {
     try {
-      await api.patch(`/posts/${isLiked ? 'unlike' : 'like'}?postId=${postId}`)
+      const response = await api.patch(`/posts/${isLiked ? 'unlike' : 'like'}?postId=${postId}`)
+      const totalLike = response.data.totalLike
       setData((state) => state && ({
         ...state,
         isLiked: !state.isLiked,
-        likeCount: state.likeCount + (state.isLiked ? -1 : 1)
+        likeCount: totalLike
       }))
-      dispatch(reactPost(postId))
+      dispatch(reactPost({ postId, totalLike }))
     }
     catch (error: any) {
       toast.error(error?.data?.error)
@@ -65,17 +72,13 @@ const PostInteraction = ({ data: { postId, userNode, createDate, status, content
         <DialogTitle mt={2}>
           <Grid container spacing={2} alignItems='center'>
             <Grid item xs='auto'>
-              <Link href={`/volunteers/${userNode.userId}`}>
-                <Avatar src={userNode.profileImageLink || ''} />
-              </Link>
+              <UserAvatar data={userNode} onClick={handleClose} />
             </Grid>
 
             <Grid item xs container>
               <Grid item xs={12} container spacing={2}>
                 <Grid item xs='auto'>
-                  <Link href={`/volunteers/${userNode.userId}`}>
-                    <Typography fontWeight={500}>{userNode.fullName}</Typography>
-                  </Link>
+                  <UserName data={userNode} typographyProps={{ fontWeight: 500 }} onClick={handleClose} />
                 </Grid>
 
                 <Grid item xs container alignItems='center'>
@@ -97,7 +100,7 @@ const PostInteraction = ({ data: { postId, userNode, createDate, status, content
         <DialogActions sx={{ pt: 0, px: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs='auto' container alignItems='center'>
-              <IconButton onClick={handleaClickLove}>
+              <IconButton onClick={handleClickLove}>
                 <Image src={`/images/dashboard/post-card/${isLiked ? '' : 'dis'}loved.svg`} alt='loved' width={23} height={20} />
               </IconButton>
               <Typography>{likeCount} lượt thích</Typography>
@@ -107,7 +110,7 @@ const PostInteraction = ({ data: { postId, userNode, createDate, status, content
               <IconButton>
                 <Image src='/images/dashboard/post-card/comment.svg' alt='loved' width={23} height={20} />
               </IconButton>
-              <Typography>0 bình luận</Typography>
+              <Typography>{numberComments} bình luận</Typography>
             </Grid>
 
             <Grid item xs='auto' container alignItems='center'>

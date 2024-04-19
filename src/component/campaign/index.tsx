@@ -2,39 +2,41 @@
 
 import Image from 'next/image'
 import { useCallback, useRef, useState } from 'react'
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Grid, IconButton, Typography, useTheme } from '@mui/material'
+import { Box, Button, Card, CardActions, CardContent, CardHeader, Grid, IconButton, Typography, useTheme } from '@mui/material'
 import { useAppDispatch } from '@/lib/hook'
 import { toast } from 'react-toastify'
-import Link from 'next/link'
 import { CampaignType } from '@/type/campaign'
 import { openDonateModal } from '@/lib/features/modals/donate-modal/donateModalSlice'
 import api from '@/service/api'
 import { joinCampaign, reactCampaign } from '@/lib/features/campaigns/campaignsSlice'
 import { openCampaignDetail } from '@/lib/features/modals/campaign-detail-modal/campaignDetailModalSlice'
 import EllipsisText from '../ellipsis-text'
+import UserAvatar from '../user-avatar'
+import UserName from '../user-name'
 
 interface Props {
   data: CampaignType
+  onClickLove?: (totalLike: number) => void
 }
 
-const Campaign = ({ data }: Props) => {
-  const {
+const Campaign = ({
+  data: {
     campaign: {
       campaignId,
       title,
-      hashTag,
+      // hashTag,
       content,
       linkImage,
     },
-    organizationNode: {
-      userId,
-      fullName,
-      profileImageLink,
-    },
+    organizationNode,
     likeCount,
     isLiked,
-    isJoined
-  } = data
+    isJoined,
+    numberComments,
+  },
+  onClickLove,
+}: Props) => {
+  const { userId } = organizationNode
   const theme = useTheme()
   const dispatch = useAppDispatch()
   const imageRef = useRef<HTMLImageElement | null>(null)
@@ -42,13 +44,15 @@ const Campaign = ({ data }: Props) => {
 
   const handleClickLove = useCallback(async () => {
     try {
-      await api.patch(`/campaign/${isLiked ? 'cancel-like' : 'like'}?campaignId=${campaignId}`)
-      dispatch(reactCampaign({ campaignId, isLiked: !isLiked }))
+      const response = await api.patch(`/campaign/${campaignId}/${isLiked ? 'unlike' : 'like'}`)
+      const totalLike = response.data.totalLike
+      onClickLove?.(totalLike)
+      dispatch(reactCampaign({ campaignId, totalLike }))
     }
     catch (error: any) {
       toast.error(error?.data?.error)
     }
-  }, [dispatch, campaignId, isLiked])
+  }, [dispatch, campaignId, isLiked, onClickLove])
 
   const handleOpenCampaignDetail = useCallback(() => {
     dispatch(openCampaignDetail(campaignId))
@@ -74,16 +78,8 @@ const Campaign = ({ data }: Props) => {
   return (
     <Card sx={{ borderRadius: 2, py: 1 }}>
       <CardHeader
-        avatar={
-          <Link href={`/organizations/${userId}`}>
-            <Avatar src={profileImageLink || ''} />
-          </Link>
-        }
-        title={
-          <Link href={`/organizations/${userId}`}>
-            <Typography fontWeight={500}>{fullName}</Typography>
-          </Link>
-        }
+        avatar={<UserAvatar data={organizationNode} />}
+        title={<UserName data={organizationNode} typographyProps={{ fontWeight: 500 }} />}
         subheader={<Typography color={theme.palette.text.secondary}>{title}</Typography>}
       />
 
@@ -117,7 +113,7 @@ const Campaign = ({ data }: Props) => {
             <IconButton>
               <Image src='/images/dashboard/post-card/comment.svg' alt='comment' width={23} height={20} />
             </IconButton>
-            <Typography>0 bình luận</Typography>
+            <Typography>{numberComments} bình luận</Typography>
           </Grid>
 
           <Grid item xs='auto' container alignItems='center'>

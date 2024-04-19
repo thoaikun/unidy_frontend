@@ -22,9 +22,11 @@ const HomeVolunteer = () => {
   const [contents, setContents] = useState<(PostType | CampaignType)[]>([])
 
   useEffect(() => {
-    dispatch(fetchPosts())
-    dispatch(fetchCampaigns())
-  }, [dispatch])
+    if (postsState.status === 'idle' && campaignsState.status === 'idle') {
+      dispatch(fetchPosts())
+      dispatch(fetchCampaigns())
+    }
+  }, [postsState.status, campaignsState.status, dispatch])
 
   useEffect(() => {
     if (!isLoadingContents) {

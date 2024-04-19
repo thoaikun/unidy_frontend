@@ -4,13 +4,14 @@ import Link from "next/link"
 
 interface Props {
   data: UserNodeType
-  sx?: TypographyProps
+  typographyProps?: TypographyProps
+  onClick?: () => void
 }
 
-const UserName = ({ data: { userId, fullName, role }, sx }: Props) => {
+const UserName = ({ data: { userId, fullName, role }, typographyProps, onClick }: Props) => {
   return (
-    <Link href={`/${role !== 'ORGANIZATION' ? 'volunteers' : 'organizations'}/${userId}`}>
-      <Typography sx={{ ':hover': { textDecoration: 'underline' } }} {...sx}>
+    <Link href={`/${role !== 'ORGANIZATION' ? 'volunteers' : 'organizations'}/${userId}`} onClick={onClick}>
+      <Typography sx={{ ':hover': { textDecoration: 'underline' } }} {...typographyProps}>
         {fullName}
       </Typography>
     </Link>
