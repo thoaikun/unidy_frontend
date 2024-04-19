@@ -2,9 +2,9 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { Box, Button, Grid, TextField, Typography, useTheme } from '@mui/material'
-import { useAppDispatch, useAppSelector } from '@/lib/hook'
+import { useAppDispatch } from '@/lib/hook'
 import { object, string } from 'yup'
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -25,8 +25,8 @@ const defaultValues: formData = {
 }
 
 const schema = object({
-  email: string().email().required(),
-  password: string().required(),
+  email: string().email('Email không hợp lệ').required('Email không được bỏ trống'),
+  password: string().required('Mật khẩu không được bỏ trống'),
 })
 
 const LogInPage = () => {
@@ -34,9 +34,9 @@ const LogInPage = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
 
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { control, handleSubmit, formState: { errors }, setValue, setError } = useForm({
     defaultValues,
-    mode: 'onChange',
+    mode: 'onSubmit',
     resolver: yupResolver(schema)
   })
 
@@ -57,9 +57,19 @@ const LogInPage = () => {
     }
     catch (error: any) {
       toast.error(error?.data?.error)
+      setValue('password', '')
       dispatch(closeBackdrop())
     }
-  }, [dispatch, router])
+  }, [dispatch, router, setValue])
+
+  useEffect(() => {
+    if (errors.email) {
+      toast.error(errors.email.message)
+    }
+    else if (errors.password) {
+      toast.error(errors.password.message)
+    }
+  }, [errors])
 
   return (
     <Grid container spacing={3} maxWidth={567} flexDirection='column'>
@@ -112,6 +122,12 @@ const LogInPage = () => {
               InputLabelProps={{ sx: { fontSize: '1rem' } }}
               inputProps={{ style: { fontSize: '1rem' } }}
               error={Boolean(errors.password)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  handleSubmit(onSubmit)()
+                  event.preventDefault()
+                }
+              }}
             />
           )}
         />

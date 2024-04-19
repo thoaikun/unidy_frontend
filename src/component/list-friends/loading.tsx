@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { Card, CardContent, Divider, Grid, Skeleton, Typography } from '@mui/material'
 
-const LoadingListFriends = () => {
+const ListFriendsLoading = () => {
   return (
     <Card sx={{ width: 480, position: 'sticky', top: 96 }}>
       <CardContent>
@@ -50,4 +50,4 @@ const LoadingListFriends = () => {
   )
 }
 
-export default LoadingListFriends
+export default ListFriendsLoading

@@ -47,7 +47,8 @@ export const postsData: PostType[] = [
       role: null
     },
     isLiked: false,
-    likeCount: 0
+    likeCount: 0,
+    numberComments: 24,
   },
   {
     postId: '2024-02-03T10:34:29.777128600_5',
@@ -65,7 +66,8 @@ export const postsData: PostType[] = [
       role: null
     },
     isLiked: false,
-    likeCount: 0
+    likeCount: 0,
+    numberComments: 24,
   },
   {
     postId: '2024-02-03T10:30:24.874187600_10',
@@ -83,7 +85,8 @@ export const postsData: PostType[] = [
       role: null
     },
     isLiked: false,
-    likeCount: 0
+    likeCount: 0,
+    numberComments: 24,
   }
 ]
 
@@ -150,7 +153,8 @@ export const campaignsData: CampaignType[] = [
     },
     likeCount: 0,
     isLiked: false,
-    isJoined: false
+    isJoined: false,
+    numberComments: 24,
   },
   {
     campaign: {
@@ -184,7 +188,8 @@ export const campaignsData: CampaignType[] = [
     },
     likeCount: 0,
     isLiked: false,
-    isJoined: false
+    isJoined: false,
+    numberComments: 24,
   },
   {
     campaign: {
@@ -218,7 +223,8 @@ export const campaignsData: CampaignType[] = [
     },
     likeCount: 0,
     isLiked: false,
-    isJoined: false
+    isJoined: false,
+    numberComments: 24,
   },
   {
     campaign: {
@@ -252,7 +258,8 @@ export const campaignsData: CampaignType[] = [
     },
     likeCount: 0,
     isLiked: false,
-    isJoined: false
+    isJoined: false,
+    numberComments: 24,
   },
   {
     campaign: {
@@ -286,7 +293,8 @@ export const campaignsData: CampaignType[] = [
     },
     likeCount: 0,
     isLiked: false,
-    isJoined: true
+    isJoined: true,
+    numberComments: 24,
   },
   {
     campaign: {
@@ -320,7 +328,8 @@ export const campaignsData: CampaignType[] = [
     },
     likeCount: 0,
     isLiked: false,
-    isJoined: false
+    isJoined: false,
+    numberComments: 24,
   },
   {
     campaign: {
@@ -354,7 +363,8 @@ export const campaignsData: CampaignType[] = [
     },
     likeCount: 0,
     isLiked: false,
-    isJoined: false
+    isJoined: false,
+    numberComments: 24,
   },
   {
     campaign: {
@@ -388,7 +398,8 @@ export const campaignsData: CampaignType[] = [
     },
     likeCount: 0,
     isLiked: false,
-    isJoined: false
+    isJoined: false,
+    numberComments: 24,
   },
   {
     campaign: {
@@ -422,7 +433,8 @@ export const campaignsData: CampaignType[] = [
     },
     likeCount: 0,
     isLiked: false,
-    isJoined: false
+    isJoined: false,
+    numberComments: 24,
   },
   {
     campaign: {
@@ -456,7 +468,8 @@ export const campaignsData: CampaignType[] = [
     },
     likeCount: 0,
     isLiked: false,
-    isJoined: false
+    isJoined: false,
+    numberComments: 24,
   }
 ]
 

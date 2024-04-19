@@ -1,7 +1,7 @@
 import { Card, CardHeader, Grid, Skeleton, Typography } from "@mui/material"
 
 
-const LoadingFriendCard = () => {
+const FriendCardLoading = () => {
   return (
     <Card sx={{ p: 0.5 }}>
       <CardHeader
@@ -17,4 +17,4 @@ const LoadingFriendCard = () => {
   )
 }
 
-export default LoadingFriendCard
+export default FriendCardLoading

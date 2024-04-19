@@ -12,7 +12,7 @@ import { VolunteerType } from "@/type/user"
 import ProfileCard from "@/view/dashboard/profile/profile-card"
 import ProfileCardLoading from "@/view/dashboard/profile/profile-card/loading"
 import { Grid, Typography } from "@mui/material"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
 interface Props {
@@ -49,6 +49,11 @@ const VolunteerProfile = ({ params: { userId } }: Props) => {
       }
     })()
   }, [userId])
+
+  const onReactPost = useCallback((postId: string) => (totalLike: number) => {
+    setPosts((state) => state.map((post) =>
+      post.postId !== postId ? post : { ...post, isLiked: !post.isLiked, likeCount: totalLike }))
+  }, [])
 
   return (
     <Grid container pt={5} spacing={6}>
@@ -93,7 +98,7 @@ const VolunteerProfile = ({ params: { userId } }: Props) => {
             ) : (
               posts.map((item, index) => (
                 <Grid item xs={12} key={index}>
-                  <Post data={item} />
+                  <Post data={item} onClickLove={onReactPost(item.postId)} />
                 </Grid>
               ))
             )}

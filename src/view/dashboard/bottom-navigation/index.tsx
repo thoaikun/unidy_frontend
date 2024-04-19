@@ -1,8 +1,9 @@
-import { useAppSelector } from "@/lib/hook"
+import { openNewPost } from "@/lib/features/modals/new-post-modal/newPostModalSlice"
+import { useAppDispatch, useAppSelector } from "@/lib/hook"
 import { Avatar, BottomNavigation, BottomNavigationAction, Skeleton } from "@mui/material"
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 const volunteerBottomNavigation = [
   {
@@ -19,7 +20,7 @@ const volunteerBottomNavigation = [
   },
   {
     label: 'Thêm bài đăng',
-    path: '/posts',
+    path: 'new-post',
     origin: '/images/dashboard/bottom-navigation/plus.svg',
     selected: '/images/dashboard/bottom-navigation/plus-selected.svg',
   },
@@ -39,14 +40,30 @@ const volunteerBottomNavigation = [
 
 const CustomBottomNavigation = () => {
   const { user, status } = useAppSelector((state) => state.auth)
+  const open = useAppSelector((state) => state.newPostModal.open)
+  const dispatch = useAppDispatch()
   const router = useRouter()
   const pathname = usePathname()
   const [value, setValue] = useState<string>(pathname)
 
   const handleChange = useCallback((_event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue)
-    router.push(newValue)
-  }, [router])
+    if (newValue !== 'new-post') {
+      router.push(newValue)
+    }
+    else {
+      dispatch(openNewPost())
+    }
+  }, [router, dispatch])
+
+  useEffect(() => {
+    if (open) {
+      setValue('new-post')
+    }
+    else {
+      setValue(pathname)
+    }
+  }, [open, pathname])
 
   return (
     <BottomNavigation
@@ -55,14 +72,14 @@ const CustomBottomNavigation = () => {
       value={value}
       onChange={handleChange}
     >
-      {volunteerBottomNavigation.map((item) => (
+      {volunteerBottomNavigation.map(({ path, label, origin, selected }) => (
         <BottomNavigationAction
-          key={item.path}
-          label={item.label}
-          value={item.path}
+          key={path}
+          label={label}
+          value={path}
           icon={(() => {
-            if (item.path !== '/profile') {
-              return <Image src={value !== item.path ? item.origin : item.selected} alt='dashboard' width={20} height={20} />
+            if (path !== '/profile') {
+              return <Image src={value !== path ? origin : selected} alt='dashboard' width={20} height={20} />
             }
             else {
               if (status !== 'succeeded') {

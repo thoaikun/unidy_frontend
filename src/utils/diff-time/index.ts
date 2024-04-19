@@ -16,8 +16,8 @@ export const calculateDifferenceTime = (target: Date | string | null) => {
     if (diffMonth > 0) {
       return `${diffMonth} tháng trước`
     }
-    const diffDay = today.getUTCDay() - temp.getDay()
-    if (diffMonth > 0) {
+    const diffDay = today.getUTCDate() - temp.getDate()
+    if (diffDay > 0) {
       return `${diffDay} ngày trước`
     }
     const diffHour = today.getUTCHours() - temp.getHours()

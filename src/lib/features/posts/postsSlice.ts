@@ -38,12 +38,12 @@ export const postsSlice = createSlice({
   initialState,
   reducers: {
     resetPosts: () => initialState,
-    reactPost: (state, action: PayloadAction<string>) => {
+    reactPost: (state, action: PayloadAction<{ postId: string, totalLike: number }>) => {
       state.posts = state.posts.map((post) =>
-        post.postId !== action.payload ? post : {
+        post.postId !== action.payload.postId ? post : {
           ...post,
           isLiked: !post.isLiked,
-          likeCount: post.likeCount + (post.isLiked ? -1 : 1)
+          likeCount: action.payload.totalLike,
         }
       )
     },

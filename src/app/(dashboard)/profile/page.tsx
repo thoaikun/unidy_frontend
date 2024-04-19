@@ -7,8 +7,8 @@ import PersonalInformation from '@/component/personal-information'
 import JoinedCard from '@/component/joined-card'
 import { PostType } from '@/type/post'
 import { useAppSelector } from '@/lib/hook'
-import { joinedCardData, postsData } from '@/fakeData'
-import { useEffect, useState } from 'react'
+import { joinedCardData } from '@/fakeData'
+import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import api from '@/service/api'
 import ProfileCardLoading from '@/view/dashboard/profile/profile-card/loading'
@@ -35,8 +35,6 @@ const ProfilePage = () => {
           })
           setPosts(response.data)
           setIsLoadingPost(false)
-          // setPosts(postsData)
-          // setTimeout(() => setIsLoadingPost(false), 2000)
         }
         catch (error: any) {
           toast.error(error?.data?.error)
@@ -44,6 +42,11 @@ const ProfilePage = () => {
       })()
     }
   }, [user?.userId])
+
+  const onReactPost = useCallback((postId: string) => (totalLike: number) => {
+    setPosts((state) => state.map((post) =>
+      post.postId !== postId ? post : { ...post, isLiked: !post.isLiked, likeCount: totalLike }))
+  }, [])
 
   return (
     <Grid container pt={5} spacing={6}>
@@ -102,7 +105,7 @@ const ProfilePage = () => {
               </Grid>
             ) : (posts.map((item, index) => (
               <Grid item xs={12} key={index}>
-                <Post data={item} />
+                <Post data={item} onClickLove={onReactPost(item.postId)} />
               </Grid>
             )))}
           </Grid>

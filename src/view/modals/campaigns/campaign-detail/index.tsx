@@ -1,7 +1,7 @@
 import { closeCampaignDetail } from "@/lib/features/modals/campaign-detail-modal/campaignDetailModalSlice"
 import { useAppDispatch, useAppSelector } from "@/lib/hook"
 import api from "@/service/api"
-import { CampaignDetailType } from "@/type/campaign"
+import { CampaignType } from "@/type/campaign"
 import { Close } from "@mui/icons-material"
 import { Dialog, Grid, IconButton, Skeleton } from "@mui/material"
 import Image from "next/image"
@@ -10,7 +10,7 @@ import { toast } from "react-toastify"
 import CampaignInteraction from "./campaign-interaction"
 
 const CampaignDetail = () => {
-  const [data, setData] = useState<CampaignDetailType>()
+  const [data, setData] = useState<CampaignType>()
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const { open, campaignId } = useAppSelector((state) => state.campaignDetailModal)
   const dispatch = useAppDispatch()
@@ -58,7 +58,7 @@ const CampaignDetail = () => {
             <Grid container spacing={2} overflow='hidden'>
               <Grid item xs='auto' height={716}>
                 <Image
-                  src={data.linkImage ? JSON.parse(data.linkImage)[0] : '/examples/campaign-media.svg'}
+                  src={data.campaign.linkImage ? JSON.parse(data.campaign.linkImage)[0] : '/examples/campaign-media.svg'}
                   alt='post-detail-image'
                   width={700}
                   height={700}

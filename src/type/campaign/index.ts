@@ -6,7 +6,7 @@ type CampaignStatusType = 'IN_PROGRESS' | 'COMPLETE' | 'BLOCK'
 type CampaignDetailType = {
   campaignId: string
   title: string
-  hashTag: string[] | null
+  hashTag: string | null
   content: string
   status: CampaignStatusType
   startDate: string
@@ -31,7 +31,8 @@ type CampaignType = {
   organizationNode: UserNodeType
   likeCount: number
   isLiked: boolean
-  isJoined: boolean
+  isJoined: boolean | null
+  numberComments: number
 }
 
 type CampaignStatusColorType = {
