@@ -1,4 +1,4 @@
-import { UserNodeType, UserType } from '@/type/user'
+import { OrganizationType, UserNodeType, UserType } from '@/type/user'
 import { PostType } from '@/type/post'
 import { CampaignHistoryType, CampaignType } from '@/type/campaign'
 import { FriendRequestType, RecommendationFriendType } from '@/type/friend'
@@ -17,17 +17,23 @@ export const userData: UserType = {
   workLocation: 'BKUE'
 }
 
-export const organizationData: UserType = {
-  userId: 2,
-  fullName: 'International Volunteer HQ',
-  address: '',
-  phone: '0987654321',
-  sex: 'MALE',
-  dayOfBirth: '2002-07-10T00:00:00.000+00:00',
-  job: 'charity organization',
-  workLocation: 'World',
-  role: 'ORGANIZATION',
-  image: '/examples/organization-avatar.png',
+export const organizationData: OrganizationType = {
+  "userId": 13,
+  "organizationName": "Organization 1",
+  "address": "TP HCM",
+  "phone": "0348273185",
+  "email": "organization1@gmail.com",
+  "country": "Viet Nam",
+  "image": "https://unidy.s3.ap-southeast-1.amazonaws.com/profile-images/13/786a7539-932a-4844-9fa4-d09456015db9.png",
+  "firebaseTopic": "organization1_13_topic",
+  "isFollow": false,
+  "isApproved": true,
+  "overallFigure": {
+    "totalCampaign": 13,
+    "totalVolunteer": 4,
+    "totalTransaction": 2862000,
+    "totalTransactionInDay": 0
+  }
 }
 
 export const postsData: PostType[] = [

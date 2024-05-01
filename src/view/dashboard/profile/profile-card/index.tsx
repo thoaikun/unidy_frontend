@@ -7,7 +7,7 @@ import { toast } from "react-toastify"
 interface Props {
   isVolunteer?: boolean
   isOrganization?: boolean
-  userData?: UserType | null
+  userData?: (UserType & OrganizationType) | null
   volunteerData?: VolunteerType | null
   setVolunteerData?: Dispatch<SetStateAction<VolunteerType | null>>
   organizationData?: OrganizationType | null
@@ -43,9 +43,16 @@ const ProfileCard = ({
       return organizationData?.organizationName || 'Không có thông tin'
     }
     else {
-      return userData?.fullName || 'Không có thông tin'
+      return userData?.fullName || userData?.organizationName || 'Không có thông tin'
     }
-  }, [isVolunteer, volunteerData?.fullName, isOrganization, organizationData?.organizationName, userData?.fullName])
+  }, [
+    isVolunteer,
+    volunteerData?.fullName,
+    isOrganization,
+    organizationData?.organizationName,
+    userData?.fullName,
+    userData?.organizationName,
+  ])
 
   const handleSendMessage = useCallback(() => {
     toast.info('Tính năng đang được phát triền')
@@ -150,7 +157,7 @@ const ProfileCard = ({
 
       <Box ml={33} mb={2}>
         <CardContent>
-          <Typography variant='h3'>{getName()}</Typography>
+          <Typography variant='h1'>{getName()}</Typography>
         </CardContent>
 
         <CardActions>

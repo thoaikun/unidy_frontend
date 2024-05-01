@@ -6,7 +6,7 @@ import { Button, Card, CardActions, CardContent, Divider, Grid, Typography, useT
 interface Props {
   isOrganization?: boolean
   isVolunteer?: boolean
-  userData?: UserType | null
+  userData?: (UserType & OrganizationType) | null
   volunteerData?: VolunteerType | null
   organizationData?: OrganizationType | null
 }
@@ -58,13 +58,28 @@ const PersonalInformation = ({ isVolunteer, isOrganization, userData, volunteerD
                 ))
               )
             }
-            else {
+            else if (userData?.role !== 'ORGANIZATION') {
               return (
                 [
                   { title: 'Ngày sinh', value: userData?.dayOfBirth && new Date(userData.dayOfBirth).toLocaleDateString() },
                   { title: 'Giới tính', value: userData?.sex ? (userData?.sex !== 'MALE' ? 'Nam' : 'Nữ') : 'Không có thông tin' },
                   { title: 'Công việc', value: userData?.job },
                   { title: 'Tại', value: userData?.workLocation },
+                ].map((item, index) => (
+                  <Grid item xs={12} key={index}>
+                    <Typography variant='body2' color={theme.palette.text.primary}>
+                      {item.title}: <span style={{ fontWeight: 300 }}>{item.value}</span>
+                    </Typography>
+                  </Grid>
+                ))
+              )
+            }
+            else {
+              return (
+                [
+                  { title: 'Ngày thành lập', value: 'Không có thông tin' },
+                  { title: 'Mô tả', value: 'Không có thông tin' },
+                  { title: 'Trụ sở chính', value: `${userData?.address}, ${userData?.country}` },
                 ].map((item, index) => (
                   <Grid item xs={12} key={index}>
                     <Typography variant='body2' color={theme.palette.text.primary}>

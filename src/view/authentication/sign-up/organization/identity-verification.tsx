@@ -16,7 +16,7 @@ const IdentityVerification = ({ control, errors, handleNext, handleBack }: Props
   return (
     <Grid container spacing={5} maxWidth={567}>
       <Grid item xs={12}>
-        <Typography variant='h2' fontWeight={600}>
+        <Typography variant='h1' fontWeight={600}>
           Vui lòng gửi thông tin xác nhận danh tính của bạn
         </Typography>
         <Typography variant='h4' color={theme.palette.text.secondary} mt={1}>

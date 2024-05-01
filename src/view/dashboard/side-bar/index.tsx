@@ -1,9 +1,9 @@
+'use client'
+
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
-import { Skeleton, Tab, Tabs } from '@mui/material'
-import { useAppSelector } from '@/lib/hook'
-import { getCookie } from 'cookies-next'
+import { Tab, Tabs } from '@mui/material'
 
 const volunteerSideBar = [
   {
@@ -57,22 +57,24 @@ const organizationTabIndex: {
   '/message': 2,
 }
 
-const SideBar = () => {
-  const role = getCookie('role')
-  const isOrganization = role === 'ORGANIZATION'
+interface Props {
+  isVolunteer: boolean
+}
+
+const SideBar = ({ isVolunteer }: Props) => {
   const router = useRouter()
   const pathname = usePathname()
-  const [value, setValue] = useState<number | false>(isOrganization ? organizationTabIndex[pathname] : volunteerTabIndex[pathname])
+  const [value, setValue] = useState<number | false>(isVolunteer ? volunteerTabIndex[pathname] : organizationTabIndex[pathname])
 
   useEffect(() => {
     if (pathname.includes('campaign')) {
-      setValue(isOrganization ? organizationTabIndex['/history'] : volunteerTabIndex['/history'])
+      setValue(isVolunteer ? volunteerTabIndex['/history'] : organizationTabIndex['/history'])
     }
     else {
-      const temp = isOrganization ? organizationTabIndex[pathname] : volunteerTabIndex[pathname]
+      const temp = isVolunteer ? volunteerTabIndex[pathname] : organizationTabIndex[pathname]
       setValue(temp >= 0 && temp)
     }
-  }, [pathname, isOrganization])
+  }, [pathname, isVolunteer])
 
   const handleChange = useCallback((_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
@@ -90,7 +92,7 @@ const SideBar = () => {
       sx={{ height: 'calc(100% - 64px)', backgroundColor: '#ffffff', position: 'absolute' }}
       TabIndicatorProps={{ sx: { left: 0 } }}
     >
-      {(isOrganization ? organizationSideBar : volunteerSideBar).map((item, index) => (
+      {(isVolunteer ? volunteerSideBar : organizationSideBar).map((item, index) => (
         <Tab
           key={index}
           icon={<Image src={index === value ? item.selected : item.origin} alt='dashboard' width={20} height={20} />}

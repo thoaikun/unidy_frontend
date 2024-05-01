@@ -1,6 +1,6 @@
 export const calculateDifferenceTime = (target: Date | string | null) => {
   if (target) {
-    let temp = null
+    let temp
     if (typeof target !== 'string') {
       temp = target
     }

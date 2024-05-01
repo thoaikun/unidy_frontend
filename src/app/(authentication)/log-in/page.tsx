@@ -51,15 +51,14 @@ const LogInPage = () => {
       localStorage.setItem('isChosenFavorite', response.data.isChosenFavorite)
 
       dispatch(fetchUser())
-      dispatch(closeBackdrop())
-
+      router.refresh()
       router.replace('/home')
     }
     catch (error: any) {
       toast.error(error?.data?.error)
       setValue('password', '')
-      dispatch(closeBackdrop())
     }
+    dispatch(closeBackdrop())
   }, [dispatch, router, setValue])
 
   useEffect(() => {
@@ -74,7 +73,7 @@ const LogInPage = () => {
   return (
     <Grid container spacing={3} maxWidth={567} flexDirection='column'>
       <Grid item mb={2}>
-        <Typography variant='h2'>
+        <Typography variant='h1'>
           Đăng nhập
         </Typography>
 

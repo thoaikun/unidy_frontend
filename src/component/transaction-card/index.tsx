@@ -24,7 +24,11 @@ const TransactionCard = ({ data: {
   return (
     <Link href={`/campaigns/${campaign?.campaignId}`}>
       <Card sx={{ boxShadow: 'none', borderRadius: 1, display: 'flex' }}>
-        <CardMedia component='img' image={campaign?.link_image || '/examples/post-media-2.webp'} sx={{ width: 150 }} />
+        <CardMedia
+          component='img'
+          image={(campaign?.link_image && JSON.parse(campaign.link_image)[0]) || '/examples/post-media-2.webp'}
+          sx={{ width: 150 }}
+        />
 
         <CardContent>
           <Grid container alignItems='center'>

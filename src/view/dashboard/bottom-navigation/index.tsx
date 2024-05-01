@@ -1,3 +1,5 @@
+'use client'
+
 import { openNewPost } from "@/lib/features/modals/new-post-modal/newPostModalSlice"
 import { useAppDispatch, useAppSelector } from "@/lib/hook"
 import { Avatar, BottomNavigation, BottomNavigationAction, Skeleton } from "@mui/material"

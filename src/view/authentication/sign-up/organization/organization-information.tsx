@@ -22,7 +22,7 @@ const OrganizationInformation = ({ control, errors, handleNext, handleBack }: Pr
   return (
     <Grid container spacing={3} maxWidth={567}>
       <Grid item xs={12} mb={2}>
-        <Typography variant='h2' fontWeight={600}>
+        <Typography variant='h1' fontWeight={600}>
           Thông tin tổ chức
         </Typography>
 

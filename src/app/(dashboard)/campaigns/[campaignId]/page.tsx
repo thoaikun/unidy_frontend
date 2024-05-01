@@ -1,11 +1,8 @@
-'use client'
-
-import { useAppSelector } from "@/lib/hook"
 import CampaignDetailOrganization from "@/view/dashboard/campaigns/campaign-detail-organization"
 import CampaignDetailVolunteer from "@/view/dashboard/campaigns/campaign-detail-volunteer"
 import CampaignInformation from "@/view/dashboard/campaigns/campaign-information"
 import { Grid } from "@mui/material"
-import { useCallback, useState } from "react"
+import { cookies } from "next/headers"
 
 interface Props {
   params: {
@@ -14,8 +11,8 @@ interface Props {
 }
 
 const CampaignDetail = ({ params: { campaignId } }: Props) => {
-  const user = useAppSelector(state => state.auth.user)
-  const isOrganization = user?.role === 'ORGANIZATION'
+  const cookieStore = cookies()
+  const isVolunteer = cookieStore.get('role')?.value !== 'ORGANIZATION'
   // const [open, setOpen] = useState<boolean>(false)
 
   // const handleOpenEndCampaign = useCallback(() => {
@@ -29,7 +26,7 @@ const CampaignDetail = ({ params: { campaignId } }: Props) => {
   return (
     <Grid container spacing={6.5}>
       <Grid item width={536}>
-        <CampaignInformation campaignId={campaignId} />
+        <CampaignInformation campaignId={campaignId} isVolunteer={isVolunteer} />
       </Grid>
 
       {/* <Dialog open={open} maxWidth='xs'>
@@ -69,7 +66,11 @@ const CampaignDetail = ({ params: { campaignId } }: Props) => {
       </Dialog> */}
 
       <Grid item xs>
-        {isOrganization ? <CampaignDetailOrganization /> : <CampaignDetailVolunteer campaignId={campaignId} />}
+        {isVolunteer ? (
+          <CampaignDetailVolunteer campaignId={campaignId} />
+        ) : (
+          <CampaignDetailOrganization campaignId={campaignId} />
+        )}
       </Grid>
     </Grid>
   )

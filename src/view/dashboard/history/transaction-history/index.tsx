@@ -1,3 +1,5 @@
+'use client'
+
 import TransactionCard from "@/component/transaction-card"
 import TransactionCardLoading from "@/component/transaction-card/loading"
 import api from "@/service/api"

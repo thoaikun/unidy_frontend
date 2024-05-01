@@ -1,9 +1,13 @@
-import { UserNodeType } from "@/type/user"
+import { UserRoleType } from "@/type/user"
 import { Avatar, AvatarProps } from "@mui/material"
 import Link from "next/link"
 
 interface Props {
-  data: UserNodeType
+  data: {
+    userId: number
+    profileImageLink: string | null
+    role: UserRoleType | null
+  }
   avatarProps?: AvatarProps
   onClick?: () => void
 }

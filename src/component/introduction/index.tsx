@@ -20,7 +20,7 @@ const Introduction = () => {
     <Grid container sx={{ backgroundColor: theme.palette.primary.main }} height={1} p={4}>
       <Grid item container maxWidth={350} alignItems='flex-end'>
         <Box>
-          <Typography variant='h2' color='#ffffff' mb={1}>
+          <Typography variant='h1' color='#ffffff' mb={1}>
             {title[pathname]}
           </Typography>
           {['Start where you are', 'Use what you have', 'Do what you can'].map((item, index) =>
