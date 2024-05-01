@@ -1,3 +1,5 @@
+'use client'
+
 import JoinedCard from "@/component/joined-card"
 import JoinedCardLoading from "@/component/joined-card/loading"
 import api from "@/service/api"

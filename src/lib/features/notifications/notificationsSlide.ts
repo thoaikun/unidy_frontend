@@ -1,4 +1,3 @@
-import { notificationsData } from '@/fakeData'
 import api from '@/service/api'
 import { NotificationType } from '@/type/notification'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
@@ -22,7 +21,7 @@ export const fetchUnseenCount = createAsyncThunk(
   'notifications/fetchUnseenCount',
   async () => {
     // return 69
-    
+
     const response = await api.get('/users/notifications/unseen/count')
     return response.data.unseenCount
   },

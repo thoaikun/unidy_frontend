@@ -1,29 +1,31 @@
-import CampaignCard from "@/component/campaign-card"
+'use client'
+
 import ListSponsors from "@/component/list-sponsors"
-import { Card, CardContent, Grid, Typography } from "@mui/material"
+import { Box, Card, CardContent, Grid, Typography } from "@mui/material"
 import Image from "next/image"
+import RecentActivities from "./recent-activities"
 
 const tempData = [
   {
-    image: '/images/dollar-1.svg',
+    image: '/images/authentication/sign-up/dollar.svg',
     alt: 'dollar-icon',
     title: '500 triệu đồng',
     subTitle: 'Số tiền nhận được',
   },
   {
-    image: '/icons/friend-primary.svg',
+    image: '/images/dashboard/home/organization/volunteer.svg',
     alt: 'friend-icon',
     title: '500 triệu đồng',
     subTitle: 'Số tiền nhận được',
   },
   {
-    image: '/icons/today.svg',
+    image: '/images/dashboard/home/organization/today.svg',
     alt: 'today-icon',
     title: '500 triệu đồng',
     subTitle: 'Số tiền nhận được',
   },
   {
-    image: '/images/dollar-1.svg',
+    image: '/images/authentication/sign-up/dollar.svg',
     alt: 'dollar-icon',
     title: '500 triệu đồng',
     subTitle: 'Số tiền nhận được',
@@ -33,26 +35,20 @@ const tempData = [
 const HomeOrganization = () => {
   return (
     <Grid container spacing={8}>
-      <Grid item xs container spacing={4}>
+      <Grid item sx={{ width: 'calc(100vw - 566px)' }} container spacing={4}>
         <Grid item xs={12}>
-          <Typography variant='h5'>Hoạt động gần đây</Typography>
-        </Grid>
-
-        <Grid item xs={12} container spacing={4} wrap='nowrap'>
-          {new Array(3).fill('').map((value, index) => (
-            <Grid item key={index}>
-              <CampaignCard />
-            </Grid>
-          ))}
+          <RecentActivities />
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container spacing={2} m={0} sx={{ backgroundColor: '#ffffff' }} >
+          <Grid container spacing={2} m={0} borderRadius={2} sx={{ backgroundColor: '#ffffff' }}>
             <Grid item xs={12}>
               <Typography variant='h5'>Thông số</Typography>
             </Grid>
-            <Grid item xs={12}>
-              <Image src='/examples/campaign-detail-chart.svg' alt='media' width={700} height={292} />
+            <Grid item xs={12} p={4}>
+              <Box position='relative' height={350}>
+                <Image src='/examples/campaign-detail-chart.svg' alt='media' fill />
+              </Box>
             </Grid>
           </Grid>
         </Grid>

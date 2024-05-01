@@ -1,5 +1,5 @@
 import { theme } from "@/component/theme"
-import { UserNodeType, UserShortenedType } from "../user"
+import { OrganizationNodeType, UserNodeType, UserShortenedType } from "../user"
 
 type CampaignStatusType = 'IN_PROGRESS' | 'COMPLETE' | 'BLOCK'
 
@@ -115,5 +115,53 @@ type CertificateType = {
   certificateLink: string
 }
 
+// Organization
+type OrganizationCampaignTypeType = {
+  typeId: number
+  campaignId: number
+  communityType: number
+  education: number
+  research: number
+  helpOther: number
+  environment: number
+  healthy: number
+  emergencyPreparedness: number
+}
+
+type OrganizationCampaignType = {
+  campaignId: number
+  title: string
+  description: string
+  numberVolunteer: number
+  numberVolunteerRegistered: number
+  donationBudget: number
+  donationBudgetReceived: number | null
+  startDate: string
+  endDate: string
+  timeTakePlace: string | null
+  location: string
+  status: string
+  createDate: string
+  updateDate: string | null
+  updateBy: number | null
+  owner: number
+  hashTag: string | null
+  link_image: string | null
+  campaignType: OrganizationCampaignTypeType
+  organization: OrganizationNodeType
+}
+
+type JoinRequestType = {
+  userId: number
+  fullName: string
+  age: number
+  job: string
+  workLocation: string
+  timeJoin: string
+  status: string
+  campaignId: number
+  linkImage: string | null
+}
+
 export { campaignStatusColor, campaignStatusTitle }
-export type { CampaignDetailType, CampaignType, TransactionType, CampaignHistoryType, CertificateType }
+export type { CampaignDetailType, CampaignType, TransactionType, CampaignHistoryType, CertificateType, OrganizationCampaignType, JoinRequestType }

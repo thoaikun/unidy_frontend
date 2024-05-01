@@ -25,7 +25,7 @@ const PersonalInformation = ({ control, errors, handleNext, handleBack }: Props)
   return (
     <Grid container spacing={3} maxWidth={567}>
       <Grid item xs={12} mb={2}>
-        <Typography variant='h2' fontWeight={600}>
+        <Typography variant='h1' fontWeight={600}>
           Thông tin cá nhân
         </Typography>
 

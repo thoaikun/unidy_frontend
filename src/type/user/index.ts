@@ -19,6 +19,13 @@ type VolunteerType = UserType & {
   isRequesting: boolean
 }
 
+type UserProfileImageType = {
+  imageId: number
+  linkImage: string
+  updateDate: string
+  userId: number
+}
+
 type OrganizationType = {
   userId: number
   organizationName: string
@@ -29,6 +36,27 @@ type OrganizationType = {
   image: string
   firebaseTopic: string
   isFollow: boolean
+  isApproved: boolean
+  overallFigure: {
+    totalCampaign: number,
+    totalVolunteer: number,
+    totalTransaction: number,
+    totalTransactionInDay: number,
+  }
+}
+
+type OrganizationNodeType = {
+  organizationId: number
+  organizationName: string
+  address: string
+  phone: string
+  email: string
+  status: string
+  country: string
+  userId: number
+  firebaseTopic: string
+  isApproved: boolean
+  userProfileImage: UserProfileImageType
 }
 
 type UserNodeType = {
@@ -47,4 +75,4 @@ type UserShortenedType = {
   linkImage: string | null
 }
 
-export type { UserRoleType, UserType, VolunteerType, OrganizationType, UserNodeType, UserShortenedType }
+export type { UserRoleType, UserType, VolunteerType, OrganizationType, UserNodeType, OrganizationNodeType, UserShortenedType }

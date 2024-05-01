@@ -12,7 +12,7 @@ const Success = () => {
 
   return (
     <>
-      <Typography variant='h2' fontWeight={600}>
+      <Typography variant='h1' fontWeight={600}>
         Đăng ký thành công
       </Typography>
       <Typography variant='h4' color={theme.palette.text.secondary} mt={1}>

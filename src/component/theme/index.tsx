@@ -136,15 +136,19 @@ export const theme = createTheme({
   },
   typography: {
     fontFamily: readexPro.style.fontFamily,
-    h2: {
-      fontSize: '2.375rem',
+    h1: {
+      fontSize: '2.375rem', // 38px
       fontWeight: 700,
       [`@media (max-width:${breakpoints.lg}px)`]: {
         fontSize: '1.5rem',
       },
     },
-    h3: {
+    h2: {
       fontSize: '2rem', // 32px
+      fontWeight: 500,
+    },
+    h3: {
+      fontSize: '1.5rem', // 24px
       fontWeight: 500,
     },
     h4: {

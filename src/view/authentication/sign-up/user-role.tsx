@@ -65,7 +65,7 @@ const UserRole = ({ role, handleSelectRole, handleSubmit }: IProps) => {
         <Box display={{ xs: 'block', lg: 'none' }}><Image src='images/logo-small.svg' alt='logo' width={73} height={76} /></Box>
 
         <Box maxWidth={567} mt={10}>
-          <Typography variant='h2' fontWeight={600}>
+          <Typography variant='h1' fontWeight={600}>
             Bạn là ...
           </Typography>
 

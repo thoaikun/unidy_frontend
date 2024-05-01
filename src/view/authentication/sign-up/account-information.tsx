@@ -15,7 +15,7 @@ const AccountInformation = ({ control, errors, handleNext, handleBack }: IProps)
   return (
     <Grid container spacing={3} maxWidth={567} flexDirection='column'>
       <Grid item mb={2}>
-        <Typography variant='h2' fontWeight={600}>
+        <Typography variant='h1' fontWeight={600}>
           Đăng ký tài khoản
         </Typography>
 

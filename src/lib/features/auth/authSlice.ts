@@ -1,12 +1,12 @@
-import { userData } from '@/fakeData'
+import { organizationData, userData } from '@/fakeData'
 import api from '@/service/api'
-import { UserType } from '@/type/user'
+import { OrganizationType, UserType } from '@/type/user'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { setCookie } from 'cookies-next'
+import { getCookie, setCookie } from 'cookies-next'
 
 export interface AuthState {
-  user: UserType | null
+  user: (UserType & OrganizationType) | null
   status: 'idle' | 'loading' | 'succeeded' | 'failed',
   error: string | null
 }
@@ -25,9 +25,15 @@ export const fetchUser = createAsyncThunk(
     // setCookie('user_data', userData)
     // return userData
 
-    const response = await api.get('/users/profile')
-    setCookie('user_data', response.data)
-    return response.data
+    // await new Promise(
+    //   resolve => setTimeout(resolve, 1000));
+    // setCookie('user_data', { ...organizationData, role: 'ORGANIZATION' })
+    // return { ...organizationData, role: 'ORGANIZATION' }
+
+    const role = getCookie('role')
+    const response = await api.get(`/${role !== 'ORGANIZATION' ? 'users' : 'organization'}/profile`)
+    setCookie('user_data', { ...response.data, role: response.data.role || 'ORGANIZATION' })
+    return { ...response.data, role: response.data.role || 'ORGANIZATION' }
   },
 )
 
@@ -41,7 +47,7 @@ export const authSlice = createSlice({
     builder.addCase(fetchUser.pending, (state) => {
       state.status = 'loading'
     })
-    builder.addCase(fetchUser.fulfilled, (state, action: PayloadAction<UserType>) => {
+    builder.addCase(fetchUser.fulfilled, (state, action: PayloadAction<UserType & OrganizationType>) => {
       state.user = action.payload
       state.status = 'succeeded'
     })

@@ -1,9 +1,13 @@
-import { UserNodeType } from "@/type/user"
+import { UserRoleType } from "@/type/user"
 import { Typography, TypographyProps } from "@mui/material"
 import Link from "next/link"
 
 interface Props {
-  data: UserNodeType
+  data: {
+    userId: number
+    fullName: string | null
+    role: UserRoleType | null
+  }
   typographyProps?: TypographyProps
   onClick?: () => void
 }

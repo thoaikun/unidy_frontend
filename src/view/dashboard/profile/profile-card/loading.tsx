@@ -8,7 +8,7 @@ const ProfileCardLoading = () => {
 
       <Box ml={33} mb={2}>
         <CardContent>
-          <Typography variant='h3'><Skeleton width='50%' animation='wave' /></Typography>
+          <Typography variant='h1'><Skeleton width='50%' animation='wave' /></Typography>
         </CardContent>
 
         <CardActions>

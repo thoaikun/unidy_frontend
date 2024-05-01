@@ -1,3 +1,5 @@
+'use client'
+
 import CustomTable from "@/component/table"
 import { spentAmount } from "@/fakeData/campaigns"
 import CertificatePreview from "@/view/dashboard/campaigns/campaign-detail-volunteer/certificate-preview"

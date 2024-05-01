@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { MouseEvent, useCallback, useState } from 'react'
+import { MouseEvent, useCallback, useEffect, useState } from 'react'
 import {
   Grid,
   AppBar,
@@ -16,28 +16,50 @@ import {
   useTheme,
   Skeleton,
 } from '@mui/material'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useAppDispatch, useAppSelector } from '@/lib/hook'
-import { deleteCookie, getCookie } from 'cookies-next'
+import { deleteCookie } from 'cookies-next'
 import { toast } from 'react-toastify'
 import api from '@/service/api'
-import { resetUser } from '@/lib/features/auth/authSlice'
-import { resetFriends } from '@/lib/features/friends/friendsSlice'
+import { fetchUser, resetUser } from '@/lib/features/auth/authSlice'
+import { fetchFriends, resetFriends } from '@/lib/features/friends/friendsSlice'
 import { resetPosts } from '@/lib/features/posts/postsSlice'
 import { resetCampaigns } from '@/lib/features/campaigns/campaignsSlice'
 import ListNotifications from './list-notifications'
 import { openNewPost } from '@/lib/features/modals/new-post-modal/newPostModalSlice'
 import SearchBar from './search-bar'
 
-const CustomAppBar = () => {
+interface Props {
+  isVolunteer: boolean
+}
+
+const CustomAppBar = ({ isVolunteer }: Props) => {
   const { user, status } = useAppSelector((state) => state.auth)
-  const role = getCookie('role')
-  const isOrganization = role === 'ORGANIZATION'
   const isLoading = status !== 'succeeded'
   const router = useRouter()
+  const pathname = usePathname()
   const theme = useTheme()
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchUser())
+    }
+    else if (status === 'succeeded') {
+      if (user?.role !== 'ORGANIZATION') {
+        dispatch(fetchFriends())
+      }
+    }
+    else if (status === 'failed') {
+      deleteCookie('access_token')
+      deleteCookie('refresh_token')
+      deleteCookie('role')
+      deleteCookie('user_data')
+
+      router.replace('/log-in')
+    }
+  }, [status, user?.role, dispatch, router])
 
   const handleOpenNewPost = useCallback(() => {
     dispatch(openNewPost())
@@ -95,14 +117,22 @@ const CustomAppBar = () => {
           </Grid>
 
           <Grid item xs='auto' display={{ xs: 'none', md: 'block' }}>
-            {isOrganization ? (
-              <Button variant='contained' sx={{ px: 2, py: 1 }} disableElevation onClick={handleOpenNewPost}>
-                <Typography color={theme.palette.text.contrast} fontWeight={500}>Tạo hoạt động</Typography>
-              </Button>
-            ) : (
-              <Button variant='contained' sx={{ px: 2, py: 1 }} disableElevation onClick={handleOpenNewPost}>
+            {isVolunteer ? (
+              <Button
+                variant='contained'
+                sx={{ px: 2, py: 1 }}
+                disableElevation
+                onClick={handleOpenNewPost}
+                disabled={isLoading}
+              >
                 <Typography color={theme.palette.text.contrast} fontWeight={500}>Tạo kỉ niệm mới</Typography>
               </Button>
+            ) : (
+              <Link href={`/new-campaign?returnUrl=${pathname}`}>
+                <Button variant='contained' sx={{ px: 2, py: 1 }} disableElevation disabled={isLoading}>
+                  <Typography color={theme.palette.text.contrast} fontWeight={500}>Tạo hoạt động</Typography>
+                </Button>
+              </Link>
             )}
           </Grid>
 

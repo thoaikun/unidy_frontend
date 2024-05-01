@@ -1,14 +1,12 @@
-'use client'
-
-import { useAppSelector } from "@/lib/hook"
 import JoinedCampaigns from "@/view/dashboard/history/joined-campaigns"
 import TransactionHistory from "@/view/dashboard/history/transaction-history"
-import HistoryOrganization from "@/view/history/history-organization"
+import HistoryOrganization from "@/view/dashboard/history/organization"
 import { Grid } from "@mui/material"
+import { cookies } from "next/headers"
 
 const HistoryPage = () => {
-  const user = useAppSelector(state => state.auth.user)
-  const isVolunteer = user?.role !== 'ORGANIZATION'
+  const cookieStore = cookies()
+  const isVolunteer = cookieStore.get('role')?.value !== 'ORGANIZATION'
 
   if (isVolunteer) {
     return (

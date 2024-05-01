@@ -12,7 +12,6 @@ interface Props {
 const CertificatePreview = ({ campaignId }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [data, setData] = useState<CertificateType>()
-  console.log(isLoading, data)
 
   useEffect(() => {
     (async () => {
