@@ -1,4 +1,3 @@
-import { friendsData } from '@/fakeData'
 import api from '@/service/api'
 import { UserNodeType } from '@/type/user'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
@@ -19,10 +18,6 @@ const initialState: FriendsState = {
 export const fetchFriends = createAsyncThunk(
   'friends/fetchFriends',
   async () => {
-    // await new Promise(
-    //   resolve => setTimeout(resolve, 1000));
-    // return friendsData
-
     const response = await api.get('/users/get-list-friend', {
       params: {
         skip: 0,

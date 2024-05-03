@@ -1,27 +1,86 @@
 import UserAvatar from "@/component/user-avatar"
 import UserName from "@/component/user-name"
 import useApi from "@/hooks/use-api"
+import { closeBackdrop, openBackdrop } from "@/lib/features/modals/backdrop/backdropSlice"
+import { useAppDispatch } from "@/lib/hook"
+import api from "@/service/api"
 import { JoinRequestType } from "@/type/campaign"
 import { calculateDifferenceTime } from "@/utils/diff-time"
 import { Button, Checkbox, Divider, Grid, Skeleton, Typography } from "@mui/material"
+import { ChangeEvent, useCallback, useState } from "react"
+import { toast } from "react-toastify"
 
 interface Props {
   campaignId: string
 }
 
 const JoinRequests = ({ campaignId }: Props) => {
-  const { data, isLoading } = useApi<JoinRequestType>(`/organization/campaigns/${campaignId}/not-approved-volunteers`, {
+  const { data, isLoading, getData } = useApi<JoinRequestType>(`/organization/campaigns/${campaignId}/not-approved-volunteers`, {
     params: {
       pageNumber: 0,
       pageSize: 5,
     }
   })
+  const dispatch = useAppDispatch()
+
+  const [volunteerIds, setVolunteerIds] = useState<number[]>([])
+
+  const handleSelect = useCallback((userId: number) => (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.checked) {
+      setVolunteerIds((state) => [...state, userId])
+    }
+    else {
+      setVolunteerIds((state) => state.filter((volunteerId) => volunteerId !== userId))
+    }
+  }, [])
+
+  const approveVolunteers = useCallback(async () => {
+    try {
+      dispatch(openBackdrop())
+      await api.patch(`/organization/campaigns/${campaignId}/approve-volunteer`, { volunteerIds })
+      setVolunteerIds([])
+      await getData()
+      toast.success('Phê duyệt yêu cầu thành công')
+    }
+    catch (error: any) {
+      toast.error(error?.data?.error)
+    }
+    dispatch(closeBackdrop())
+  }, [campaignId, dispatch, getData, volunteerIds])
+
+  const rejectVolunteers = useCallback(async () => {
+    try {
+      dispatch(openBackdrop())
+      await api.patch(`/organization/campaigns/${campaignId}/reject-volunteer`, { volunteerIds })
+      setVolunteerIds([])
+      await getData()
+      toast.success('Xóa yêu cầu thành công')
+    }
+    catch (error: any) {
+      toast.error(error?.data?.error)
+    }
+    dispatch(closeBackdrop())
+  }, [campaignId, dispatch, getData, volunteerIds])
 
   return (
     <Grid container mt={2}>
       <Grid item container justifyContent='flex-end'>
-        <Button variant='outlined' sx={{ mr: 2 }} color='inherit' disabled={isLoading || data.length === 0}>Xóa</Button>
-        <Button variant='outlined' disabled={isLoading || data.length === 0}>Phê duyệt</Button>
+        <Button
+          variant='outlined'
+          sx={{ mr: 2 }}
+          color='inherit'
+          disabled={volunteerIds.length === 0}
+          onClick={rejectVolunteers}
+        >
+          Xóa
+        </Button>
+        <Button
+          variant='outlined'
+          disabled={volunteerIds.length === 0}
+          onClick={approveVolunteers}
+        >
+          Phê duyệt
+        </Button>
       </Grid>
 
       {(() => {
@@ -63,7 +122,7 @@ const JoinRequests = ({ campaignId }: Props) => {
             data.map((joinRequest) => (
               <Grid item container p={2} alignItems='center' spacing={2} key={joinRequest.userId}>
                 <Grid item>
-                  <Checkbox />
+                  <Checkbox onChange={handleSelect(joinRequest.userId)} checked={volunteerIds.includes(joinRequest.userId)} />
                 </Grid>
 
                 <Grid item>

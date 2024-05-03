@@ -1,4 +1,3 @@
-import { organizationData, userData } from '@/fakeData'
 import api from '@/service/api'
 import { OrganizationType, UserType } from '@/type/user'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
@@ -20,16 +19,6 @@ const initialState: AuthState = {
 export const fetchUser = createAsyncThunk(
   'auth/fetchUser',
   async () => {
-    // await new Promise(
-    //   resolve => setTimeout(resolve, 1000));
-    // setCookie('user_data', userData)
-    // return userData
-
-    // await new Promise(
-    //   resolve => setTimeout(resolve, 1000));
-    // setCookie('user_data', { ...organizationData, role: 'ORGANIZATION' })
-    // return { ...organizationData, role: 'ORGANIZATION' }
-
     const role = getCookie('role')
     const response = await api.get(`/${role !== 'ORGANIZATION' ? 'users' : 'organization'}/profile`)
     setCookie('user_data', { ...response.data, role: response.data.role || 'ORGANIZATION' })

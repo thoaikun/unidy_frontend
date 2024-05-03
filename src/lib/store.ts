@@ -9,6 +9,7 @@ import friendsSlice from './features/friends/friendsSlice'
 import notificationsSlice from './features/notifications/notificationsSlide'
 import newPostModalSlice from './features/modals/new-post-modal/newPostModalSlice'
 import campaignDetailModalSlice from './features/modals/campaign-detail-modal/campaignDetailModalSlice'
+import joinCampaignModalSlice from './features/modals/join-campaign/joinCampaignModalSlice'
 
 export const makeStore = () => {
   return configureStore({
@@ -16,6 +17,7 @@ export const makeStore = () => {
       backdrop: backdropSlice,
       newPostModal: newPostModalSlice,
       postDetailModal: postDetailModalSlice,
+      joinCampaignModal: joinCampaignModalSlice,
       campaignDetailModal: campaignDetailModalSlice,
       donateModal: donateModalSlice,
       auth: authSlice,

@@ -32,6 +32,7 @@ type CampaignType = {
   likeCount: number
   isLiked: boolean
   isJoined: boolean | null
+  joinedStatus: null | 'APPROVE' | 'NOT_APPROVE_YET' | 'REJECT'
   numberComments: number
 }
 

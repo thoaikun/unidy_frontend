@@ -66,6 +66,10 @@ const PostInteraction = ({ data: { postId, userNode, createDate, status, content
     }
   }, [dispatch, postId, isLiked, setData])
 
+  const handleSharePost = useCallback(() => {
+    toast.info('Tính năng đang được phát triển')
+  }, [])
+
   return (
     <Grid container height={1} flexDirection='column'>
       <Box flex={1} sx={{ overflow: 'auto' }}>
@@ -107,14 +111,14 @@ const PostInteraction = ({ data: { postId, userNode, createDate, status, content
             </Grid>
 
             <Grid item xs='auto' container alignItems='center'>
-              <IconButton>
+              <IconButton disabled>
                 <Image src='/images/dashboard/post-card/comment.svg' alt='loved' width={23} height={20} />
               </IconButton>
               <Typography>{numberComments} bình luận</Typography>
             </Grid>
 
             <Grid item xs='auto' container alignItems='center'>
-              <IconButton>
+              <IconButton onClick={handleSharePost}>
                 <Image src='/images/dashboard/post-card/share.svg' alt='loved' width={23} height={20} />
               </IconButton>
               <Typography>Chia sẻ</Typography>

@@ -1,4 +1,3 @@
-import { postsData } from '@/fakeData'
 import api from '@/service/api'
 import { PostType } from '@/type/post'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
@@ -19,10 +18,6 @@ const initialState: PostsState = {
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
   async () => {
-    // await new Promise(
-    //   resolve => setTimeout(resolve, 1000));
-    // return postsData
-
     const response = await api.get('/posts', {
       params: {
         skip: 0,

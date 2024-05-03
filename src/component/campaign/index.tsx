@@ -13,6 +13,7 @@ import { openCampaignDetail } from '@/lib/features/modals/campaign-detail-modal/
 import EllipsisText from '../ellipsis-text'
 import UserAvatar from '../user-avatar'
 import UserName from '../user-name'
+import { openJoinCampaignModal } from '@/lib/features/modals/join-campaign/joinCampaignModalSlice'
 
 interface Props {
   data: CampaignType
@@ -32,6 +33,7 @@ const Campaign = ({
     likeCount,
     isLiked,
     isJoined,
+    joinedStatus,
     numberComments,
   },
   onClickLove,
@@ -65,14 +67,16 @@ const Campaign = ({
     }))
   }, [dispatch, campaignId, userId])
 
+  const handleCommentCampaign = useCallback(() => {
+    handleOpenCampaignDetail()
+  }, [handleOpenCampaignDetail])
+
+  const handleShareCampaign = useCallback(() => {
+    toast.info('Tính năng đang được phát triển')
+  }, [])
+
   const handleJoinCampaign = useCallback(async () => {
-    try {
-      await api.patch(`/campaign/register?campaignId=${campaignId}`)
-      dispatch(joinCampaign(campaignId))
-    }
-    catch (error: any) {
-      toast.error(error?.data?.error)
-    }
+    dispatch(openJoinCampaignModal(campaignId))
   }, [campaignId, dispatch])
 
   return (
@@ -110,14 +114,14 @@ const Campaign = ({
           </Grid>
 
           <Grid item xs='auto' container alignItems='center'>
-            <IconButton>
+            <IconButton onClick={handleCommentCampaign}>
               <Image src='/images/dashboard/post-card/comment.svg' alt='comment' width={23} height={20} />
             </IconButton>
             <Typography>{numberComments} bình luận</Typography>
           </Grid>
 
           <Grid item xs='auto' container alignItems='center'>
-            <IconButton>
+            <IconButton onClick={handleShareCampaign}>
               <Image src='/images/dashboard/post-card/share.svg' alt='share' width={23} height={20} />
             </IconButton>
             <Typography>Chia sẻ</Typography>
@@ -129,8 +133,18 @@ const Campaign = ({
           <Typography variant='body2' color={theme.palette.text.primary}>Ủng hộ</Typography>
         </Button>
 
-        <Button fullWidth variant='contained' sx={{ height: 40 }} disabled={Boolean(isJoined)} onClick={handleJoinCampaign}>
-          <Typography variant='body2' color='inherit'>{isJoined ? 'Đã tham gia' : 'Tham gia ngay'}</Typography>
+        <Button fullWidth variant='contained' sx={{ height: 40 }} disabled={Boolean(joinedStatus)} onClick={handleJoinCampaign}>
+          <Typography variant='body2' color='inherit'>
+            {(() => {
+              switch (joinedStatus) {
+                case null: return 'Tham gia ngay'
+                case 'APPROVE': return 'Đã tham gia'
+                case 'NOT_APPROVE_YET': return 'Đang chờ duyệt'
+                case 'REJECT': return 'Bị từ chối'
+                default: return 'Tham gia ngay'
+              }
+            })()}
+          </Typography>
         </Button>
       </CardActions>
     </Card>

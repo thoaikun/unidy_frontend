@@ -1,5 +1,5 @@
 export const numberToVND = (input: number | null) => {
-  if (input) {
+  if (input !== null) {
     if (input > 1e6) {
       return `${Math.round(input / 1e6)} triệu đồng`
     }

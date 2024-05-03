@@ -1,4 +1,3 @@
-import { campaignsData } from '@/fakeData'
 import api from '@/service/api'
 import { CampaignType } from '@/type/campaign'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
@@ -19,10 +18,6 @@ const initialState: CampaignsState = {
 export const fetchCampaigns = createAsyncThunk(
   'campaigns/fetchCampaigns',
   async () => {
-    // await new Promise(
-    //   resolve => setTimeout(resolve, 1000));
-    // return campaignsData
-
     const response = await api.get('/campaign/recommendation', {
       params: {
         skip: 0,
@@ -49,7 +44,7 @@ export const campaignsSlice = createSlice({
     },
     joinCampaign: (state, action: PayloadAction<string>) => {
       state.campaigns = state.campaigns.map((campaignDetail) =>
-        campaignDetail.campaign.campaignId !== action.payload ? campaignDetail : { ...campaignDetail, isJoined: true }
+        campaignDetail.campaign.campaignId !== action.payload ? campaignDetail : { ...campaignDetail, isJoined: true, joinedStatus: 'NOT_APPROVE_YET' }
       )
     },
   },

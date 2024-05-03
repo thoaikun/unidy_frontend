@@ -54,6 +54,14 @@ const Post = ({
     dispatch(openPostDetail(postId))
   }, [dispatch, postId])
 
+  const handleCommentPost = useCallback(() => {
+    handleOpenPostDetail()
+  }, [handleOpenPostDetail])
+
+  const handleSharePost = useCallback(() => {
+    toast.info('Tính năng đang được phát triển')
+  }, [])
+
   return (
     <>
       <Card sx={{ borderRadius: 2, py: 1 }}>
@@ -101,14 +109,14 @@ const Post = ({
             </Grid>
 
             <Grid item xs='auto' container alignItems='center'>
-              <IconButton>
+              <IconButton onClick={handleCommentPost}>
                 <Image src='/images/dashboard/post-card/comment.svg' alt='comment' width={23} height={20} />
               </IconButton>
               <Typography>{numberComments} bình luận</Typography>
             </Grid>
 
             <Grid item xs='auto' container alignItems='center'>
-              <IconButton>
+              <IconButton onClick={handleSharePost}>
                 <Image src='/images/dashboard/post-card/share.svg' alt='share' width={23} height={20} />
               </IconButton>
               <Typography>Chia sẻ</Typography>
