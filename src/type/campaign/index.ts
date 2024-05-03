@@ -32,6 +32,7 @@ type CampaignType = {
   likeCount: number
   isLiked: boolean
   isJoined: boolean | null
+  joinedStatus: null | 'APPROVE' | 'NOT_APPROVE_YET' | 'REJECT'
   numberComments: number
 }
 
@@ -140,7 +141,7 @@ type OrganizationCampaignType = {
   endDate: string
   timeTakePlace: string | null
   location: string
-  status: string
+  status: CampaignStatusType
   createDate: string
   updateDate: string | null
   updateBy: number | null

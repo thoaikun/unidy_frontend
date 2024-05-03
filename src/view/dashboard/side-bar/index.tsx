@@ -34,11 +34,6 @@ const organizationSideBar = [
     origin: '/images/dashboard/side-bar/campaign-list.svg',
     selected: '/images/dashboard/side-bar/campaign-list-selected.svg'
   },
-  {
-    path: '/message',
-    origin: '/images/dashboard/side-bar/message.svg',
-    selected: '/images/dashboard/side-bar/message.svg'
-  },
 ]
 
 const volunteerTabIndex: {
@@ -54,7 +49,6 @@ const organizationTabIndex: {
 } = {
   '/home': 0,
   '/history': 1,
-  '/message': 2,
 }
 
 interface Props {

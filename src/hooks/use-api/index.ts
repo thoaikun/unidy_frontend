@@ -46,7 +46,7 @@ const useApi = <T>(path: string, config: AxiosRequestConfig, autoload: boolean =
         available.current = true
       }
     })()
-  }, [params])
+  }, [params]) // eslint-disable-line
 
   return {
     isLoading,

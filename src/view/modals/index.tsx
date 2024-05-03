@@ -6,6 +6,7 @@ import DonateModal from "./campaigns/donate"
 import CustomBackdrop from "./backdrop"
 import NewPost from "./posts/new-post"
 import CampaignDetail from "./campaigns/campaign-detail"
+import JoinCampaignModal from "./campaigns/join-campaign"
 
 const ModalProvider = () => {
   const backdrop = useAppSelector((state) => state.backdrop)
@@ -13,6 +14,7 @@ const ModalProvider = () => {
   const postDetailModal = useAppSelector((state) => state.postDetailModal)
   const campaignDetailModal = useAppSelector((state) => state.campaignDetailModal)
   const donateModal = useAppSelector((state) => state.donateModal)
+  const joinCampaignModal = useAppSelector((state) => state.joinCampaignModal)
 
   return (
     <>
@@ -21,6 +23,7 @@ const ModalProvider = () => {
       {postDetailModal.open && <PostDetail />}
       {campaignDetailModal.open && <CampaignDetail />}
       {donateModal.open && <DonateModal />}
+      {joinCampaignModal.open && <JoinCampaignModal />}
     </>
   )
 }

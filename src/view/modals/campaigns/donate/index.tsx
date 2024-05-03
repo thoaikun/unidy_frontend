@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { Close } from "@mui/icons-material"
 import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, FormHelperText, Grid, IconButton, TextField, Typography } from "@mui/material"
 import Image from "next/image"
-import { ChangeEvent, useCallback, useState } from "react"
+import { ChangeEvent, useCallback } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import { boolean, object, string } from "yup"
@@ -75,12 +75,12 @@ const DonateModal = () => {
       a.target = '_blank'
       a.click()
 
-      dispatch(closeBackdrop())
       handleClose()
     }
     catch (error: any) {
       toast.error(error?.data?.error)
     }
+    dispatch(closeBackdrop())
   }, [dispatch, campaignId, organizationUserId, handleClose])
 
   return (
@@ -174,7 +174,7 @@ const DonateModal = () => {
         </Grid>
       </DialogContent>
 
-      <DialogActions>
+      <DialogActions sx={{ px: 3, pb: 3 }}>
         <Button fullWidth variant='contained' onClick={handleSubmit(onSubmit)}>Xác nhận</Button>
       </DialogActions>
     </Dialog>

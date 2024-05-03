@@ -27,11 +27,14 @@ const CampaignInteraction = ({
     campaign: { campaignId, title, content },
     organizationNode,
     isLiked,
+    joinedStatus,
     likeCount,
     numberComments
   },
   setData,
 }: Props) => {
+  const isJoined: boolean | null = Boolean(joinedStatus)
+
   const user = useAppSelector((state) => state.auth.user)
   const dispatch = useAppDispatch()
   const [comments, setComments] = useState<CommentType[]>([])
@@ -75,6 +78,10 @@ const CampaignInteraction = ({
       toast.error(error?.data?.error)
     }
   }, [dispatch, campaignId, isLiked, setData])
+
+  const handleShareCampaign = useCallback(() => {
+    toast.info('Tính năng đang được phát triển')
+  }, [])
 
   const handleOpenDonateModal = useCallback(() => {
     dispatch(openDonateModal({
@@ -128,14 +135,14 @@ const CampaignInteraction = ({
             </Grid>
 
             <Grid item xs='auto' container alignItems='center'>
-              <IconButton>
+              <IconButton disabled>
                 <Image src='/images/dashboard/post-card/comment.svg' alt='loved' width={23} height={20} />
               </IconButton>
               <Typography>{numberComments} bình luận</Typography>
             </Grid>
 
             <Grid item xs='auto' container alignItems='center'>
-              <IconButton>
+              <IconButton onClick={handleShareCampaign}>
                 <Image src='/images/dashboard/post-card/share.svg' alt='loved' width={23} height={20} />
               </IconButton>
               <Typography>Chia sẻ</Typography>
@@ -149,8 +156,18 @@ const CampaignInteraction = ({
               </Grid>
 
               <Grid item xs={6}>
-                <Button fullWidth variant='contained' sx={{ height: 40 }} disabled={true} onClick={handleJoinCampaign}>
-                  <Typography variant='body2' color='inherit'>Tính năng tham gia</Typography>
+                <Button fullWidth variant='contained' sx={{ height: 40 }} disabled={Boolean(isJoined)} onClick={handleJoinCampaign}>
+                  <Typography variant='body2' color='inherit'>
+                    {(() => {
+                      switch (joinedStatus) {
+                        case null: return 'Tham gia ngay'
+                        case 'APPROVE': return 'Đã tham gia'
+                        case 'NOT_APPROVE_YET': return 'Đang chờ duyệt'
+                        case 'REJECT': return 'Bị từ chối'
+                        default: return 'Tham gia ngay'
+                      }
+                    })()}
+                  </Typography>
                 </Button>
               </Grid>
             </Grid>

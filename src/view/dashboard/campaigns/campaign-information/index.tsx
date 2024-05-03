@@ -94,7 +94,7 @@ const CampaignInformation = ({ campaignId, isVolunteer }: Props) => {
 
   if (isLoading) {
     return (
-      <Grid container spacing={1.875} >
+      <Grid container spacing={1.875}>
         <Grid item xs={12}>
           <Skeleton variant='rounded' width='100%' height={300} animation='wave' />
         </Grid>
@@ -163,10 +163,15 @@ const CampaignInformation = ({ campaignId, isVolunteer }: Props) => {
   }
   else if (data) {
     return (
-      <Grid container spacing={1.875} >
+      <Grid container spacing={1.875}>
         <Grid item xs={12}>
           <Box position='relative' height={300}>
-            <Image src={data.campaign.linkImage || '/examples/campaign-detail-media.jpeg'} alt='media' fill style={{ objectFit: 'cover' }} />
+            <Image
+              src={(data.campaign.linkImage && JSON.parse(data.campaign.linkImage)[0]) || '/examples/campaign-detail-media.jpeg'}
+              alt='media'
+              fill
+              style={{ objectFit: 'cover' }}
+            />
           </Box>
         </Grid>
 
@@ -336,7 +341,9 @@ const CampaignInformation = ({ campaignId, isVolunteer }: Props) => {
   }
   else {
     return (
-      <Typography>Không tìm thấy thông tin chiến dịch.</Typography>
+      <Grid container spacing={1.875}>
+        <Typography>Không tìm thấy thông tin chiến dịch.</Typography>
+      </Grid>
     )
   }
 }

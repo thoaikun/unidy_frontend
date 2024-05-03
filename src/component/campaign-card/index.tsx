@@ -11,6 +11,7 @@ interface Props {
 
 const CampaignCard = ({
   data: {
+    campaignId,
     link_image,
     endDate,
     title,
@@ -83,7 +84,7 @@ const CampaignCard = ({
       </CardContent>
 
       <CardActions>
-        <Link href='/campaigns/1' style={{ width: '100%' }}>
+        <Link href={`/campaigns/${campaignId}`} style={{ width: '100%' }}>
           <Button fullWidth variant='outlined'>
             <Typography variant='body2' color='primary'>Cập nhật sự kiện</Typography>
           </Button>

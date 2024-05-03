@@ -8,17 +8,17 @@ const RecentActivities = () => {
   const { data, isLoading } = useApi<OrganizationCampaignType>('/organization/campaigns', {
     params: {
       pageNumber: 0,
-      pageSize: 5,
+      pageSize: 6,
     }
   })
 
   return (
-    <Grid container rowSpacing={4}>
+    <Grid container spacing={4}>
       <Grid item xs={12}>
         <Typography variant='h5'>Hoạt động gần đây</Typography>
       </Grid>
 
-      <Grid item xs={12} container columnGap={4} wrap='nowrap' overflow='auto'>
+      <Grid item xs={12} container spacing={4}>
         {(() => {
           if (isLoading) {
             return (

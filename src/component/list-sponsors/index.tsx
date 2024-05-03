@@ -27,7 +27,7 @@ const ListSponsors = () => {
   }, [setParams, params])
 
   return (
-    <Card sx={{ width: 400 }}>
+    <Card>
       <CardHeader
         title='Nhà hảo tâm'
         action={
