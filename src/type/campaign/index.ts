@@ -141,7 +141,7 @@ type OrganizationCampaignType = {
   endDate: string
   timeTakePlace: string | null
   location: string
-  status: string
+  status: CampaignStatusType
   createDate: string
   updateDate: string | null
   updateBy: number | null

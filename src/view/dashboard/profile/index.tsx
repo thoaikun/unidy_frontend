@@ -4,10 +4,8 @@ import { Grid, Typography } from '@mui/material'
 import Post from '@/component/post'
 import Certificate from '@/component/certificate'
 import PersonalInformation from '@/component/personal-information'
-import JoinedCard from '@/component/joined-card'
 import { PostType } from '@/type/post'
 import { useAppSelector } from '@/lib/hook'
-import { joinedCardData } from '@/fakeData'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import api from '@/service/api'
@@ -15,9 +13,9 @@ import ProfileCardLoading from '@/view/dashboard/profile/profile-card/loading'
 import ProfileCard from '@/view/dashboard/profile/profile-card'
 import PostLoading from '@/component/post/loading'
 import PersonalInformationLoading from '@/component/personal-information/loading'
-import CertificateLoading from '@/component/certificate/loading'
 import { CampaignType } from '@/type/campaign'
 import Campaign from '@/component/campaign'
+import RecentCampaigns from '@/component/recent-campaigns'
 
 interface Props {
   isVolunteer: boolean
@@ -75,15 +73,11 @@ const ProfileView = ({ isVolunteer }: Props) => {
       </Grid>
 
       <Grid item xs={12} container spacing={8}>
-        <Grid item maxWidth={424} >
+        <Grid item width={540}>
           <Grid container spacing={3} position='sticky' top={72}>
             {isVolunteer && (
               <Grid item xs={12}>
-                {status !== 'succeeded' ? (
-                  <CertificateLoading />
-                ) : (
-                  <Certificate />
-                )}
+                <Certificate />
               </Grid>
             )}
 
@@ -95,18 +89,11 @@ const ProfileView = ({ isVolunteer }: Props) => {
               )}
             </Grid>
 
-            {!isVolunteer &&
+            {!isVolunteer && (
               <Grid item xs={12}>
-                <Typography variant='h4' my={3}>Các chiến dịch gần dây</Typography>
-                <Grid container width={400} spacing={2.5}>
-                  {joinedCardData.map((item, index) => (
-                    <Grid item key={index}>
-                      <JoinedCard data={item} size='small' />
-                    </Grid>
-                  ))}
-                </Grid>
+                <RecentCampaigns />
               </Grid>
-            }
+            )}
           </Grid>
         </Grid>
 

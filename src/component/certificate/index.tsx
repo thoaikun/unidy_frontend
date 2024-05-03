@@ -1,38 +1,41 @@
 'use client'
 
 import Image from 'next/image'
-import { Card, CardContent, Divider, Grid, Theme, Typography, useTheme } from '@mui/material'
+import { Card, CardContent, Divider, Grid, Skeleton, Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { CampaignHistoryType } from '@/type/campaign'
+import api from '@/service/api'
+import { toast } from 'react-toastify'
 
-const getData = (theme: Theme) => ({
-  trophy: 'Ông hoàng từ thiện',
-  color: theme.palette.warning[400],
-  history: [
-    {
-      media: '/images/dashboard/certificate/green-rank.svg',
-      tilte: 'Hiến máu nhân đạo',
-      location: 'Đại học bách khoa',
-    },
-    {
-      media: '/images/dashboard/certificate/gray-rank.svg',
-      tilte: 'Phát cháo từ thiện',
-      location: 'Bệnh viện Truyền máu huyết học',
-    },
-    {
-      media: '/images/dashboard/certificate/blue-rank.svg',
-      tilte: 'Góp quỹ vắc xin Covid 19',
-      location: 'Nhà',
-    },
-    {
-      media: '/images/dashboard/certificate/gray-rank.svg',
-      tilte: 'Hỗ trợ quán cơm từ thiện',
-      location: 'Quán cơm từ thiện số 24',
-    },
-  ],
-})
+const ranks: string[] = [
+  '/images/dashboard/certificate/green-rank.svg',
+  '/images/dashboard/certificate/gray-rank.svg',
+  '/images/dashboard/certificate/blue-rank.svg',
+  '/images/dashboard/certificate/gray-rank.svg'
+]
 
 const Certificate = () => {
-  const theme = useTheme()
-  const data = getData(theme)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [data, setData] = useState<CampaignHistoryType[]>([])
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await api.get('/users/campaigns', {
+          params: {
+            pageNumber: 0,
+            pageSize: 4,
+          }
+        })
+
+        setData(response.data)
+        setIsLoading(false)
+      }
+      catch (error: any) {
+        toast.error(error?.data?.error)
+      }
+    })()
+  }, [])
 
   return (
     <Card sx={{ px: 2 }}>
@@ -48,7 +51,7 @@ const Certificate = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <Typography variant='h6' color={data.color}>{data.trophy}</Typography>
+              <Typography variant='h6' color={(theme) => theme.palette.warning[400]}>Ông hoàng từ thiện</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -62,23 +65,48 @@ const Certificate = () => {
             <Typography fontWeight={500}>Các hoạt động đã tham gia</Typography>
           </Grid>
 
-          {data.history.map((item, index) => (
-            <Grid item container spacing={2} key={index}>
-              <Grid item xs='auto'>
-                <Image src={item.media} alt='trophy' width={32} height={32} />
-              </Grid>
+          {(() => {
+            if (isLoading) {
+              return (
+                <Grid item container spacing={2}>
+                  <Grid item xs='auto'>
+                    <Skeleton variant='circular' width={32} height={32} animation='wave' />
+                  </Grid>
 
-              <Grid item xs container alignItems='center'>
-                <Grid item xs={12}>
-                  <Typography variant='body2' color={theme.palette.text.primary}>{item.tilte}</Typography>
-                </Grid>
+                  <Grid item xs container alignItems='center'>
+                    <Grid item xs={12}>
+                      <Typography variant='body2'><Skeleton width='50%' animation='wave' /></Typography>
+                    </Grid>
 
-                <Grid item xs={12}>
-                  <Typography variant='body2'>Tại: {item.location}</Typography>
+                    <Grid item xs={12}>
+                      <Typography variant='body2'><Skeleton width='50%' animation='wave' /></Typography>
+                    </Grid>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
-          ))}
+              )
+            }
+            else {
+              return (
+                data.map(({ campaign, campaignId }, index) => (
+                  <Grid item container spacing={2} key={campaignId}>
+                    <Grid item xs='auto'>
+                      <Image src={ranks[index]} alt='rank' width={32} height={32} />
+                    </Grid>
+
+                    <Grid item xs container alignItems='center'>
+                      <Grid item xs={12}>
+                        <Typography variant='body2' color={(theme) => theme.palette.text.primary}>{campaign.title}</Typography>
+                      </Grid>
+
+                      <Grid item xs={12}>
+                        <Typography variant='body2' color={(theme) => theme.palette.text.secondary}>Tại: {campaign.location}</Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                ))
+              )
+            }
+          })()}
         </Grid>
       </CardContent>
     </Card>
